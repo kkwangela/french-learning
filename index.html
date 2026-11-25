@@ -23,53 +23,53 @@
     <div id="sidebarBackdrop" class="sidebar-backdrop" aria-hidden="true"></div>
 
     <!-- Left Navigation Sidebar -->
-    <aside id="appSidebar" class="sidebar" aria-label="主导航">
+    <aside id="appSidebar" class="sidebar" aria-label="Main navigation">
       <div class="sidebar-header">
         <div class="brand">
-          <img src="assets/icon-192.png" alt="我要去巴黎 Logo" class="brand-logo">
-          <span class="brand-title">我要去巴黎</span>
+          <img src="assets/icon-192.png" alt="Logo" class="brand-logo">
+          <span class="brand-title" data-i18n="brand_title">我要去巴黎</span>
         </div>
-        <button id="sidebarCloseBtn" class="btn-icon sidebar-close-btn" title="关闭菜单" aria-label="关闭菜单">✕</button>
+        <button id="sidebarCloseBtn" class="btn-icon sidebar-close-btn" data-i18n-title="sidebar_close_title" title="关闭菜单" aria-label="Close menu">✕</button>
       </div>
 
       <!-- Vertical Navigation Tabs -->
       <nav class="nav-tabs" role="tablist" aria-label="Main navigation">
-        <div class="nav-section-label">核心练习</div>
+        <div class="nav-section-label" data-i18n="nav_sec_practice">核心练习</div>
         <button class="nav-tab-btn active" data-target="srs" role="tab" aria-selected="true">
-          <span class="nav-icon">🗂️</span><span class="nav-label">Flashcards (SRS)</span>
+          <span class="nav-icon">🗂️</span><span class="nav-label" data-i18n="nav_srs">闪卡复习</span>
         </button>
         <button class="nav-tab-btn" data-target="drill" role="tab" aria-selected="false">
-          <span class="nav-icon">⚡</span><span class="nav-label">Conjugation Drill</span>
+          <span class="nav-icon">⚡</span><span class="nav-label" data-i18n="nav_drill">变位速练</span>
         </button>
         <button class="nav-tab-btn" data-target="listening" role="tab" aria-selected="false">
-          <span class="nav-icon">🎧</span><span class="nav-label">Écoute &amp; Dictée</span>
+          <span class="nav-icon">🎧</span><span class="nav-label" data-i18n="nav_listening">听力听写</span>
         </button>
         <button class="nav-tab-btn" data-target="sentences" role="tab" aria-selected="false">
-          <span class="nav-icon">🧩</span><span class="nav-label">In Context</span>
+          <span class="nav-icon">🧩</span><span class="nav-label" data-i18n="nav_sentences">例句填空</span>
         </button>
 
-        <div class="nav-section-label">记忆本 &amp; 词库</div>
+        <div class="nav-section-label" data-i18n="nav_sec_notebooks">记忆本与词库</div>
         <button class="nav-tab-btn" data-target="mistakes" role="tab" aria-selected="false">
-          <span class="nav-icon">📕</span><span class="nav-label">错题本</span>
+          <span class="nav-icon">📕</span><span class="nav-label" data-i18n="nav_mistakes">错题本</span>
           <span id="mistakeBadgeCount" class="badge-count">0</span>
         </button>
         <button class="nav-tab-btn" data-target="uservocab" role="tab" aria-selected="false">
-          <span class="nav-icon">📒</span><span class="nav-label">单词本</span>
+          <span class="nav-icon">📒</span><span class="nav-label" data-i18n="nav_uservocab">单词本</span>
           <span id="userVocabBadgeCount" class="badge-count blue zero">0</span>
         </button>
         <button class="nav-tab-btn" data-target="verbs" role="tab" aria-selected="false">
-          <span class="nav-icon">📖</span><span class="nav-label">Verb Explorer</span>
+          <span class="nav-icon">📖</span><span class="nav-label" data-i18n="nav_verbs">动词变位表</span>
         </button>
         <button class="nav-tab-btn" data-target="vocab" role="tab" aria-selected="false">
-          <span class="nav-icon">📚</span><span class="nav-label">Vocabulary</span>
+          <span class="nav-icon">📚</span><span class="nav-label" data-i18n="nav_vocab">高频词库</span>
         </button>
         <button class="nav-tab-btn" data-target="tips" role="tab" aria-selected="false">
-          <span class="nav-icon">💡</span><span class="nav-label">Memory Rules</span>
+          <span class="nav-icon">💡</span><span class="nav-label" data-i18n="nav_tips">记忆规律</span>
         </button>
 
-        <div class="nav-section-label">进度与同步</div>
+        <div class="nav-section-label" data-i18n="nav_sec_progress">进度与同步</div>
         <button class="nav-tab-btn" data-target="stats" role="tab" aria-selected="false">
-          <span class="nav-icon">📊</span><span class="nav-label">Stats &amp; 备份</span>
+          <span class="nav-icon">📊</span><span class="nav-label" data-i18n="nav_stats">统计与备份</span>
         </button>
       </nav>
     </aside>
@@ -80,25 +80,29 @@
       <header class="topbar">
         <div class="header-container">
           <div class="topbar-left">
-            <button id="sidebarToggleBtn" class="btn-icon sidebar-toggle-btn" title="展开/收起侧边栏" aria-label="切换导航菜单">☰</button>
-            <span id="topbarPageTitle" class="topbar-page-title">🗂️ Flashcards (SRS)</span>
+            <button id="sidebarToggleBtn" class="btn-icon sidebar-toggle-btn" data-i18n-title="sidebar_toggle_title" title="展开/收起侧边栏" aria-label="Toggle sidebar">☰</button>
+            <span id="topbarPageTitle" class="topbar-page-title">🗂️ 闪卡复习</span>
           </div>
 
           <!-- Utility Actions -->
           <div class="header-actions">
+            <!-- UI Language Switcher (中文 / EN) -->
+            <button id="langToggleBtn" class="btn-lang-toggle" title="Switch UI to English" aria-label="Switch interface language">
+              <span>🌐</span> <span id="langToggleLabel">EN</span>
+            </button>
             <!-- French Voice Selector -->
-            <div class="voice-picker-wrap" title="Voix française active pour la prononciation">
+            <div class="voice-picker-wrap" data-i18n-title="voice_picker_title" title="选择法语朗读语音">
               <span aria-hidden="true">🗣️</span>
-              <select id="voiceSelectDropdown" class="voice-select" aria-label="Choisir la voix française">
-                <option value="">Voix française...</option>
+              <select id="voiceSelectDropdown" class="voice-select" aria-label="French voice">
+                <option value="" data-i18n="voice_default_opt">法语语音...</option>
               </select>
             </div>
             <!-- Quick Data Migration / Restore Button -->
-            <button id="headerBackupRestoreBtn" class="btn-backup-header" title="跨设备迁移学习记录与数据恢复">
-              <span>📦</span> <span class="hide-xs">备份/迁移</span>
+            <button id="headerBackupRestoreBtn" class="btn-backup-header" data-i18n-title="header_backup_title" title="跨设备迁移学习记录与数据恢复">
+              <span>📦</span> <span class="hide-xs" data-i18n="header_backup_btn">备份/迁移</span>
             </button>
-            <button id="audioToggleBtn" class="btn-icon" title="Toggle Sound Effects" aria-label="Toggle Sound Effects">🔊</button>
-            <button id="themeToggleBtn" class="btn-icon" title="Toggle Light/Dark Theme" aria-label="Toggle Theme">🌙</button>
+            <button id="audioToggleBtn" class="btn-icon" data-i18n-title="audio_toggle_title" title="开启/关闭音效" aria-label="Toggle sound effects">🔊</button>
+            <button id="themeToggleBtn" class="btn-icon" data-i18n-title="theme_toggle_title" title="切换浅色/深色主题" aria-label="Toggle theme">🌙</button>
           </div>
         </div>
       </header>
@@ -111,28 +115,28 @@
         <div class="stat-icon blue">🕒</div>
         <div class="stat-content">
           <span class="stat-value" id="statDueCount">0</span>
-          <span class="stat-label">Cards Due Today</span>
+          <span class="stat-label" data-i18n="stat_due">今日待复习</span>
         </div>
       </div>
       <div class="stat-pill">
         <div class="stat-icon emerald">🌱</div>
         <div class="stat-content">
           <span class="stat-value" id="statMasteredCount">0</span>
-          <span class="stat-label">Items In Memory</span>
+          <span class="stat-label" data-i18n="stat_memory">已学卡片</span>
         </div>
       </div>
       <div class="stat-pill">
         <div class="stat-icon amber">🔥</div>
         <div class="stat-content">
           <span class="stat-value" id="statStreak">0 🔥</span>
-          <span class="stat-label">Drill Streak</span>
+          <span class="stat-label" data-i18n="stat_streak">当前连对</span>
         </div>
       </div>
       <div class="stat-pill">
         <div class="stat-icon blue">🎯</div>
         <div class="stat-content">
           <span class="stat-value" id="statAccuracy">100%</span>
-          <span class="stat-label">Accuracy Rate</span>
+          <span class="stat-label" data-i18n="stat_accuracy">记忆准确率</span>
         </div>
       </div>
     </div>
@@ -141,12 +145,12 @@
     <section id="view-srs" class="view-section active">
       <div class="flashcard-arena">
         <div style="width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
-          <div style="font-weight: 700; font-size: 1.1rem;">Spaced Repetition Deck</div>
+          <div style="font-weight: 700; font-size: 1.1rem;" data-i18n="srs_deck_title">间隔重复闪卡</div>
           <select id="flashcardFilterSelect" class="filter-select" aria-label="Filter deck content">
-            <option value="all">Everything (Verbs + Vocab)</option>
-            <option value="verb">Verb Conjugations Only</option>
-            <option value="vocab">Vocabulary Words Only</option>
-            <option value="uservocab">📒 我的单词本 (My Vocab Notebook)</option>
+            <option value="all" data-i18n="srs_filter_all">全部内容（动词 + 词汇）</option>
+            <option value="verb" data-i18n="srs_filter_verb">仅动词变位</option>
+            <option value="vocab" data-i18n="srs_filter_vocab">仅核心词汇</option>
+            <option value="uservocab" data-i18n="srs_filter_uservocab">📒 我的单词本</option>
           </select>
         </div>
 
@@ -154,29 +158,29 @@
           <div id="flashcardProgressBar" class="flashcard-progress-bar"></div>
         </div>
         <div class="flashcard-meta-info">
-          <span id="flashcardProgressText">Loading cards...</span>
-          <span style="font-weight: normal; font-size: 0.8rem;">Click card or press <strong>Space</strong> to flip</span>
+          <span id="flashcardProgressText" data-i18n="srs_loading">正在加载卡片...</span>
+          <span style="font-weight: normal; font-size: 0.8rem;" data-i18n-html="srs_flip_hint_html">点击卡片或按 <strong>Space</strong> 翻面</span>
         </div>
 
         <!-- 3D Flipping Card -->
-        <div id="flashcardContainer" class="flashcard-container" tabindex="0" role="button" aria-label="Flashcard. Click or press space to flip.">
+        <div id="flashcardContainer" class="flashcard-container" tabindex="0" role="button" aria-label="Flashcard">
           <div class="flashcard-inner">
             <!-- Front Face -->
             <div class="flashcard-face flashcard-front">
               <span id="flashcardBadge" class="flashcard-badge">Vocabulaire</span>
-              <button id="flashcardAudioFront" class="flashcard-audio-btn" title="Listen pronunciation" aria-label="Pronounce">🔊</button>
+              <button id="flashcardAudioFront" class="flashcard-audio-btn" title="Listen" aria-label="Pronounce">🔊</button>
               
               <div id="flashcardWord" class="flashcard-word">Bonjour</div>
               <div id="flashcardPhonetic" class="flashcard-phonetic">[bɔ̃.ʒuʁ]</div>
               <div id="flashcardContext" class="flashcard-context">Essential French Word</div>
               
-              <div class="flashcard-prompt-hint">Click or press Space to reveal meaning & conjugation</div>
+              <div class="flashcard-prompt-hint" data-i18n="srs_front_hint">点击卡片或按空格键查看释义与变位</div>
             </div>
 
             <!-- Back Face -->
             <div class="flashcard-face flashcard-back">
-              <span class="flashcard-badge" style="background:var(--accent-blue-subtle); color:var(--accent-blue);">Meaning & Forms</span>
-              <button id="flashcardAudioBack" class="flashcard-audio-btn" title="Listen full sentence" aria-label="Pronounce sentence">🔊</button>
+              <span class="flashcard-badge" style="background:var(--accent-blue-subtle); color:var(--accent-blue);" data-i18n="srs_back_badge">释义与例句</span>
+              <button id="flashcardAudioBack" class="flashcard-audio-btn" title="Listen sentence" aria-label="Pronounce sentence">🔊</button>
 
               <div id="flashcardMeaning" class="flashcard-meaning">Hello / Good morning</div>
               <div id="flashcardConjugationTag" class="flashcard-conjugation-tag">Greetings</div>
@@ -191,21 +195,21 @@
 
         <!-- SRS Rating Bar -->
         <div id="srsRatingBar" class="srs-rating-bar">
-          <button class="btn-srs again" data-rating="1" title="Shortcut: Press 1">
-            <span>Again (1)</span>
-            <span class="sub">&lt; 10 min</span>
+          <button class="btn-srs again" data-rating="1" title="Shortcut: 1">
+            <span data-i18n="srs_rate_again">重来 (1)</span>
+            <span class="sub" data-i18n="srs_rate_again_sub">&lt; 10 分钟</span>
           </button>
-          <button class="btn-srs hard" data-rating="2" title="Shortcut: Press 2">
-            <span>Hard (2)</span>
-            <span class="sub">1-2 days</span>
+          <button class="btn-srs hard" data-rating="2" title="Shortcut: 2">
+            <span data-i18n="srs_rate_hard">较难 (2)</span>
+            <span class="sub" data-i18n="srs_rate_hard_sub">1-2 天</span>
           </button>
-          <button class="btn-srs good" data-rating="3" title="Shortcut: Press 3">
-            <span>Good (3)</span>
-            <span class="sub">3-4 days</span>
+          <button class="btn-srs good" data-rating="3" title="Shortcut: 3">
+            <span data-i18n="srs_rate_good">记住 (3)</span>
+            <span class="sub" data-i18n="srs_rate_good_sub">3-4 天</span>
           </button>
-          <button class="btn-srs easy" data-rating="4" title="Shortcut: Press 4">
-            <span>Easy (4)</span>
-            <span class="sub">7+ days</span>
+          <button class="btn-srs easy" data-rating="4" title="Shortcut: 4">
+            <span data-i18n="srs_rate_easy">简单 (4)</span>
+            <span class="sub" data-i18n="srs_rate_easy_sub">7+ 天</span>
           </button>
         </div>
       </div>
@@ -216,23 +220,23 @@
       <div class="drill-arena">
         <div class="panel-header">
           <div>
-            <h2 class="panel-title">⚡ Rapid Conjugation Drill</h2>
-            <p class="panel-subtitle">Train muscle memory for French verb endings and stem changes</p>
+            <h2 class="panel-title" data-i18n="drill_title">⚡ 动词变位速练</h2>
+            <p class="panel-subtitle" data-i18n="drill_subtitle">高频训练法语动词词尾与词干变化，形成肌肉记忆</p>
           </div>
           <div class="filter-bar">
             <select id="drillGroupFilter" class="filter-select" aria-label="Filter verb group">
-              <option value="all">All Verb Groups</option>
-              <option value="irregular">Irregular Verbs (Top Priority)</option>
-              <option value="er">Regular -er (Group 1)</option>
-              <option value="ir">Regular -ir (Group 2)</option>
-              <option value="re">Regular -re (Group 3)</option>
+              <option value="all" data-i18n="drill_group_all">全部动词组</option>
+              <option value="irregular" data-i18n="drill_group_irregular">不规则动词（高频重点）</option>
+              <option value="er" data-i18n="drill_group_er">第一组规则动词 (-er)</option>
+              <option value="ir" data-i18n="drill_group_ir">第二组规则动词 (-ir)</option>
+              <option value="re" data-i18n="drill_group_re">第三组规则动词 (-re)</option>
             </select>
             <select id="drillTenseFilter" class="filter-select" aria-label="Filter drill tense">
-              <option value="all">All Essential Tenses</option>
-              <option value="present">Présent</option>
-              <option value="passeCompose">Passé Composé</option>
-              <option value="imparfait">Imparfait</option>
-              <option value="futur">Futur Simple</option>
+              <option value="all" data-i18n="drill_tense_all">全部核心时态</option>
+              <option value="present" data-i18n="drill_tense_present">现在时 (Présent)</option>
+              <option value="passeCompose" data-i18n="drill_tense_passe">复合过去时 (Passé Composé)</option>
+              <option value="imparfait" data-i18n="drill_tense_imparfait">未完成过去时 (Imparfait)</option>
+              <option value="futur" data-i18n="drill_tense_futur">简单将来时 (Futur Simple)</option>
             </select>
           </div>
         </div>
@@ -243,7 +247,7 @@
             <span id="drillStreakBadge" style="font-weight:700; color:var(--accent-amber);">0 🔥</span>
           </div>
 
-          <div style="font-size:0.9rem; color:var(--text-muted); margin-bottom: 0.25rem;">Conjugate in <strong id="drillTenseTag" class="drill-tense-tag">Présent</strong>:</div>
+          <div style="font-size:0.9rem; color:var(--text-muted); margin-bottom: 0.25rem;"><span data-i18n="drill_conjugate_in">请写出以下时态的变位：</span><strong id="drillTenseTag" class="drill-tense-tag">Présent</strong></div>
           <div id="drillPromptTitle" class="drill-prompt-title">Nous + [prendre]</div>
           <div id="drillRuleTip" style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.25rem; font-style: italic;">
             Tip: Drop stem letter or watch for double consonants.
@@ -251,7 +255,7 @@
 
           <!-- Input Box -->
           <div class="drill-input-wrapper">
-            <input type="text" id="drillInput" class="drill-input" placeholder="Type conjugated form here..." autocomplete="off" spellcheck="false">
+            <input type="text" id="drillInput" class="drill-input" data-i18n-placeholder="drill_input_placeholder" placeholder="输入正确的变位形式..." autocomplete="off" spellcheck="false">
           </div>
 
           <!-- French Special Character Helper Toolbar -->
@@ -274,9 +278,9 @@
 
           <!-- Action Buttons -->
           <div class="drill-submit-row">
-            <button id="drillAudioBtn" class="btn-secondary" title="Pronounce infinitive">🔊 Listen Verb</button>
-            <button id="drillSubmitBtn" class="btn-primary">Vérifier (Check) ↵</button>
-            <button id="drillNextBtn" class="btn-primary" style="display:none; background:var(--accent-emerald);">Suivant (Next Question) ↵</button>
+            <button id="drillAudioBtn" class="btn-secondary" data-i18n="drill_audio_btn">🔊 听原形读音</button>
+            <button id="drillSubmitBtn" class="btn-primary" data-i18n="drill_check_btn">检查答案 ↵</button>
+            <button id="drillNextBtn" class="btn-primary" style="display:none; background:var(--accent-emerald);" data-i18n="drill_next_btn">下一题 ↵</button>
           </div>
         </div>
       </div>
@@ -287,13 +291,13 @@
       <div class="drill-arena">
         <div class="panel-header">
           <div>
-            <h2 class="panel-title">🎧 Écoute & Dictée (French Listening & Dictation)</h2>
-            <p class="panel-subtitle">Train your ear to recognize French verb conjugations, liaisons, and conversational speech</p>
+            <h2 class="panel-title" data-i18n="listening_title">🎧 听力与听写训练</h2>
+            <p class="panel-subtitle" data-i18n="listening_subtitle">训练耳朵分辨法语动词变位、连诵陷阱与日常句子</p>
           </div>
           <div class="filter-bar">
-            <button class="filter-tab-btn active" id="lmodeVerbsBtn" data-lmode="verbs">🔤 Dictée de Verbes</button>
-            <button class="filter-tab-btn" id="lmodeLiaisonsBtn" data-lmode="liaisons">⚡ Pièges de Liaison</button>
-            <button class="filter-tab-btn" id="lmodeSentencesBtn" data-lmode="sentences">📝 Dictée de Phrases</button>
+            <button class="filter-tab-btn active" id="lmodeVerbsBtn" data-lmode="verbs" data-i18n="listening_mode_verbs">🔤 动词听写</button>
+            <button class="filter-tab-btn" id="lmodeLiaisonsBtn" data-lmode="liaisons" data-i18n="listening_mode_liaisons">⚡ 连诵辨音</button>
+            <button class="filter-tab-btn" id="lmodeSentencesBtn" data-lmode="sentences" data-i18n="listening_mode_sentences">📝 句子听写</button>
           </div>
         </div>
 
@@ -309,33 +313,33 @@
             </div>
 
             <div class="audio-controls-row">
-              <button id="listeningPlayNormalBtn" class="btn-audio-hero" title="Écouter à vitesse normale (0.9x)">
+              <button id="listeningPlayNormalBtn" class="btn-audio-hero">
                 <span class="audio-icon">🔊</span>
-                <span>Vitesse Normale</span>
+                <span data-i18n="listening_play_normal">正常语速</span>
               </button>
-              <button id="listeningPlaySlowBtn" class="btn-audio-secondary" title="Écouter lentement (0.65x)">
+              <button id="listeningPlaySlowBtn" class="btn-audio-secondary">
                 <span class="audio-icon">🐢</span>
-                <span>Lente (0.65x)</span>
+                <span data-i18n="listening_play_slow">慢速 (0.65x)</span>
               </button>
-              <button id="listeningRepeatBtn" class="btn-audio-secondary" title="Répéter l'audio">
+              <button id="listeningRepeatBtn" class="btn-audio-secondary">
                 <span class="audio-icon">🔁</span>
-                <span>Répéter</span>
+                <span data-i18n="listening_repeat">重播</span>
               </button>
             </div>
 
             <div class="audio-hint-box" id="listeningHintBox">
-              <button id="listeningToggleHintBtn" class="btn-text-hint">💡 Afficher l'indice</button>
+              <button id="listeningToggleHintBtn" class="btn-text-hint" data-i18n="listening_show_hint">💡 显示提示</button>
               <div id="listeningHintText" class="hint-content" style="display:none;"></div>
             </div>
           </div>
 
           <!-- Dictation Input Container (for Verbs & Sentences) -->
           <div id="listeningDictationContainer" class="listening-task-container">
-            <div style="font-size:0.9rem; color:var(--text-muted); margin-bottom: 0.5rem; text-align:center;">
-              Écoutez et écrivez exactement ce que vous entendez :
+            <div style="font-size:0.9rem; color:var(--text-muted); margin-bottom: 0.5rem; text-align:center;" data-i18n="listening_dictation_prompt">
+              仔细听并拼写出你听到的内容：
             </div>
             <div class="drill-input-wrapper">
-              <input type="text" id="listeningInput" class="drill-input" placeholder="Tapez ce que vous entendez..." autocomplete="off" spellcheck="false">
+              <input type="text" id="listeningInput" class="drill-input" data-i18n-placeholder="listening_input_placeholder" placeholder="输入你听到的法语..." autocomplete="off" spellcheck="false">
             </div>
 
             <!-- French Special Character Helper Toolbar -->
@@ -357,20 +361,20 @@
             <div id="listeningFeedback" class="drill-feedback"></div>
 
             <div class="drill-submit-row">
-              <button id="listeningSubmitBtn" class="btn-primary">Vérifier la Dictée ↵</button>
-              <button id="listeningNextBtn" class="btn-primary" style="display:none; background:var(--accent-emerald);">Suivant ↵</button>
+              <button id="listeningSubmitBtn" class="btn-primary" data-i18n="listening_check_btn">检查听写 ↵</button>
+              <button id="listeningNextBtn" class="btn-primary" style="display:none; background:var(--accent-emerald);" data-i18n="listening_next_btn">下一题 ↵</button>
             </div>
           </div>
 
           <!-- Liaison Multiple Choice Container (for Liaison Mode) -->
           <div id="listeningLiaisonContainer" class="listening-task-container" style="display:none;">
-            <div style="font-size:0.95rem; font-weight:600; text-align:center; margin-bottom:1.25rem;">
-              Quelle phrase avez-vous entendue ? (Attention aux liaisons en [z] vs [s])
+            <div style="font-size:0.95rem; font-weight:600; text-align:center; margin-bottom:1.25rem;" data-i18n="listening_liaison_prompt">
+              你听到的是哪一句话？（注意 [z] 与 [s] 的连诵区别）
             </div>
             <div id="listeningLiaisonOptions" class="liaison-options-grid"></div>
             <div id="listeningLiaisonFeedback" class="drill-feedback"></div>
             <div class="drill-submit-row" style="margin-top:1rem;">
-              <button id="listeningLiaisonNextBtn" class="btn-primary" style="display:none; background:var(--accent-emerald);">Question Suivante ↵</button>
+              <button id="listeningLiaisonNextBtn" class="btn-primary" style="display:none; background:var(--accent-emerald);" data-i18n="listening_liaison_next">下一题 ↵</button>
             </div>
           </div>
 
@@ -378,30 +382,30 @@
       </div>
     </section>
 
-    <!-- 3B. VIEW: MISTAKE NOTEBOOK (CARNET D'ERREURS) -->
+    <!-- 3B. VIEW: MISTAKE NOTEBOOK -->
     <section id="view-mistakes" class="view-section">
       <div class="panel-header">
         <div>
-          <h2 class="panel-title">📕 错题本 (Carnet d'Erreurs)</h2>
-          <p class="panel-subtitle">自动收录您在动词变位、听力听写和语境填空中做错的题目，支持专项重练与错题攻坚</p>
+          <h2 class="panel-title" data-i18n="mistakes_title">📕 错题本</h2>
+          <p class="panel-subtitle" data-i18n="mistakes_subtitle">自动收录变位、听写、例句填空和闪卡中做错的题目，支持专项重练</p>
         </div>
         <div class="filter-bar">
           <button id="startMistakesPracticeBtn" class="btn-primary" style="padding:0.55rem 1.1rem; font-size:0.9rem;">
-            <span>🎯</span> 专攻错题 (Re-drill)
+            <span>🎯</span> <span data-i18n="mistakes_start_btn">专攻错题</span>
           </button>
           <button id="clearResolvedMistakesBtn" class="btn-secondary" style="padding:0.55rem 0.9rem; font-size:0.9rem;">
-            <span>🧹</span> 清理已掌握
+            <span>🧹</span> <span data-i18n="mistakes_clear_btn">清理已掌握</span>
           </button>
         </div>
       </div>
 
-      <!-- Mistake Practice Arena (Hidden by default, shown when practicing mistakes) -->
+      <!-- Mistake Practice Arena -->
       <div id="mistakePracticeArena" class="panel-card mistake-practice-card" style="display:none; margin-bottom:1.5rem; background:var(--accent-blue-subtle); border-color:var(--accent-blue);">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
           <div style="font-weight:700; color:var(--accent-blue); font-size:1.1rem;">
-            🎯 错题专项强化训练 (<span id="practiceMistakeProgress">1/5</span>)
+            <span data-i18n="mistakes_arena_title">🎯 错题专项强化训练</span> (<span id="practiceMistakeProgress">1/5</span>)
           </div>
-          <button id="closeMistakePracticeBtn" class="btn-icon" title="退出重练" style="width:30px; height:30px;">✕</button>
+          <button id="closeMistakePracticeBtn" class="btn-icon" style="width:30px; height:30px;">✕</button>
         </div>
 
         <div style="font-size:0.85rem; color:var(--text-muted); margin-bottom:0.35rem;" id="practiceMistakeType">Conjugaison</div>
@@ -409,7 +413,7 @@
         <div id="practiceMistakeHint" style="font-size:0.9rem; color:var(--text-secondary); margin-bottom:1rem; font-style:italic;"></div>
 
         <div class="drill-input-wrapper">
-          <input type="text" id="practiceMistakeInput" class="drill-input" placeholder="重新输入正确形式..." autocomplete="off">
+          <input type="text" id="practiceMistakeInput" class="drill-input" data-i18n-placeholder="mistakes_input_placeholder" placeholder="重新输入正确答案..." autocomplete="off">
         </div>
 
         <div class="accent-bar" aria-label="French accent keyboard helpers">
@@ -429,9 +433,9 @@
         <div id="practiceMistakeFeedback" class="drill-feedback"></div>
 
         <div class="drill-submit-row">
-          <button id="practiceMistakeAudioBtn" class="btn-secondary" title="Écouter">🔊 听读音</button>
-          <button id="practiceMistakeSubmitBtn" class="btn-primary">验证答案 ↵</button>
-          <button id="practiceMistakeNextBtn" class="btn-primary" style="display:none; background:var(--accent-emerald);">下一道错题 ↵</button>
+          <button id="practiceMistakeAudioBtn" class="btn-secondary" data-i18n="mistakes_audio_btn">🔊 听读音</button>
+          <button id="practiceMistakeSubmitBtn" class="btn-primary" data-i18n="mistakes_check_btn">验证答案 ↵</button>
+          <button id="practiceMistakeNextBtn" class="btn-primary" style="display:none; background:var(--accent-emerald);" data-i18n="mistakes_next_btn">下一道错题 ↵</button>
         </div>
       </div>
 
@@ -440,19 +444,19 @@
         <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.75rem;">
           <div style="display:flex; gap:0.5rem; flex-wrap:wrap; align-items:center;">
             <select id="mistakeTypeFilter" class="filter-select">
-              <option value="all">全部题型 (All Types)</option>
-              <option value="Conjugaison">动词变位 (Conjugaison)</option>
-              <option value="Écoute">听力听写 (Écoute)</option>
-              <option value="Phrase">语境填空 (Phrase)</option>
-              <option value="Flashcard">闪卡复习 (Flashcard)</option>
+              <option value="all" data-i18n="mistakes_type_all">全部题型</option>
+              <option value="Conjugaison" data-i18n="mistakes_type_conj">动词变位</option>
+              <option value="Écoute" data-i18n="mistakes_type_listen">听力听写</option>
+              <option value="Phrase" data-i18n="mistakes_type_sentence">例句填空</option>
+              <option value="Vocabulaire" data-i18n="mistakes_type_vocab">词汇闪卡</option>
             </select>
             <select id="mistakeStatusFilter" class="filter-select">
-              <option value="unresolved">待消灭错题 (À réviser)</option>
-              <option value="all">所有记录（含已掌握）</option>
-              <option value="resolved">已掌握错题 (Maîtrisées)</option>
+              <option value="unresolved" data-i18n="mistakes_status_unresolved">待掌握错题</option>
+              <option value="all" data-i18n="mistakes_status_all">全部记录</option>
+              <option value="resolved" data-i18n="mistakes_status_resolved">已掌握错题</option>
             </select>
           </div>
-          <input type="text" id="mistakeSearchInput" class="search-input" placeholder="搜索错题关键词...">
+          <input type="text" id="mistakeSearchInput" class="search-input" data-i18n-placeholder="mistakes_search_placeholder" placeholder="搜索错题关键词...">
         </div>
       </div>
 
@@ -466,17 +470,17 @@
     <section id="view-verbs" class="view-section">
       <div class="panel-header">
         <div>
-          <h2 class="panel-title">📖 Verb Matrix & Conjugation Explorer</h2>
-          <p class="panel-subtitle">Select any verb to inspect its conjugations across all tenses</p>
+          <h2 class="panel-title" data-i18n="verbs_title">📖 动词变位表</h2>
+          <p class="panel-subtitle" data-i18n="verbs_subtitle">点击任意动词查看各时态完整变位并朗读发音</p>
         </div>
         <div class="filter-bar">
-          <input type="text" id="verbSearchInput" class="search-input" placeholder="Search verb in French or English...">
+          <input type="text" id="verbSearchInput" class="search-input" data-i18n-placeholder="verbs_search_placeholder" placeholder="搜索法语或英文动词...">
           <select id="verbGroupFilterSelect" class="filter-select">
-            <option value="all">All Groups</option>
-            <option value="irregular">Irregular Verbs</option>
-            <option value="er">-er (1st Group)</option>
-            <option value="ir">-ir (2nd Group)</option>
-            <option value="re">-re (3rd Group)</option>
+            <option value="all" data-i18n="verbs_group_all">全部分组</option>
+            <option value="irregular" data-i18n="verbs_group_irregular">不规则动词</option>
+            <option value="er" data-i18n="verbs_group_er">-er（第一组）</option>
+            <option value="ir" data-i18n="verbs_group_ir">-ir（第二组）</option>
+            <option value="re" data-i18n="verbs_group_re">-re（第三组）</option>
           </select>
         </div>
       </div>
@@ -500,7 +504,7 @@
               <option value="conditionnel">Conditionnel Présent</option>
               <option value="subjonctif">Subjonctif Présent</option>
             </select>
-            <button id="verbPronounceAllBtn" class="btn-secondary" style="padding:0.5rem 0.85rem;">🔊 Listen All</button>
+            <button id="verbPronounceAllBtn" class="btn-secondary" style="padding:0.5rem 0.85rem;" data-i18n="verbs_listen_all">🔊 朗读全部</button>
           </div>
         </div>
 
@@ -511,8 +515,8 @@
         <table class="conjugation-table">
           <thead>
             <tr>
-              <th>Pronom (Pronoun)</th>
-              <th>Forme Conjuguée (Conjugation)</th>
+              <th data-i18n="verbs_col_pronoun">人称代词</th>
+              <th data-i18n="verbs_col_form">变位形式</th>
             </tr>
           </thead>
           <tbody id="conjugationTableBody">
@@ -527,14 +531,15 @@
       <div class="drill-arena">
         <div class="panel-header">
           <div>
-            <h2 class="panel-title">🧩 Conjugations in Real Context</h2>
-            <p class="panel-subtitle">Fill in the blank with the correct conjugated verb to complete everyday French sentences</p>
+            <h2 class="panel-title" data-i18n="sentences_title">🧩 例句语境填空</h2>
+            <p class="panel-subtitle" data-i18n="sentences_subtitle">在真实日常法语例句中填入正确的动词变位</p>
           </div>
         </div>
 
         <div class="drill-question-box">
           <div style="font-size:0.9rem; color:var(--text-muted); margin-bottom: 0.5rem;">
-            Complétez la phrase : <span style="color:var(--accent-blue); font-size:0.8rem; margin-left:0.5rem;">💡 点击例句中的单词可查释义并加入单词本</span>
+            <span data-i18n="sentences_complete_label">补全句子：</span>
+            <span style="color:var(--accent-blue); font-size:0.8rem; margin-left:0.5rem;" data-i18n="sentences_click_tip">💡 点击例句中的任意单词可查释义并加入单词本</span>
           </div>
           <div id="sentencePrompt" class="drill-prompt-title" style="font-size:1.45rem;">Tous les matins, nous ________ (prendre) un bon petit-déjeuner.</div>
           <div id="sentenceEnglish" style="font-size: 1rem; color: var(--text-secondary); margin-bottom: 1.25rem; font-style: italic;">
@@ -542,14 +547,14 @@
           </div>
 
           <div class="drill-input-wrapper">
-            <input type="text" id="sentenceInput" class="drill-input" placeholder="Type the conjugated verb..." autocomplete="off">
+            <input type="text" id="sentenceInput" class="drill-input" data-i18n-placeholder="sentences_input_placeholder" placeholder="输入正确的动词变位..." autocomplete="off">
           </div>
 
           <div id="sentenceFeedback" class="drill-feedback"></div>
 
           <div class="drill-submit-row">
-            <button id="sentenceSubmitBtn" class="btn-primary">Valider (Submit) ↵</button>
-            <button id="sentenceNextBtn" class="btn-primary" style="display:none; background:var(--accent-emerald);">Phrase Suivante (Next) ↵</button>
+            <button id="sentenceSubmitBtn" class="btn-primary" data-i18n="sentences_check_btn">提交答案 ↵</button>
+            <button id="sentenceNextBtn" class="btn-primary" style="display:none; background:var(--accent-emerald);" data-i18n="sentences_next_btn">下一句 ↵</button>
           </div>
         </div>
       </div>
@@ -559,20 +564,20 @@
     <section id="view-vocab" class="view-section">
       <div class="panel-header">
         <div>
-          <h2 class="panel-title">📚 French Vocabulary & Expressions</h2>
-          <p class="panel-subtitle">High-frequency French words linked to their root verbs and genders</p>
+          <h2 class="panel-title" data-i18n="vocab_title">📚 高频词库</h2>
+          <p class="panel-subtitle" data-i18n="vocab_subtitle">精选常用法语单词，标注词性、阴阳性、音标与关联动词（点击例句单词可加入单词本）</p>
         </div>
         <div class="filter-bar">
-          <input type="text" id="vocabSearchInput" class="search-input" placeholder="Search word...">
+          <input type="text" id="vocabSearchInput" class="search-input" data-i18n-placeholder="vocab_search_placeholder" placeholder="搜索单词...">
           <select id="vocabCategoryFilter" class="filter-select">
-            <option value="all">All Categories</option>
-            <option value="Core Verbs">Core Verbs</option>
-            <option value="Everyday Life">Everyday Life</option>
-            <option value="Food & Dining">Food & Dining</option>
-            <option value="Travel & City">Travel & City</option>
-            <option value="Time & Frequency">Time & Frequency</option>
-            <option value="Adjectives">Adjectives</option>
-            <option value="Connectors">Connectors</option>
+            <option value="all" data-i18n="vocab_cat_all">全部分类</option>
+            <option value="Core Verbs" data-i18n="vocab_cat_verbs">核心动词</option>
+            <option value="Everyday Life" data-i18n="vocab_cat_life">日常生活</option>
+            <option value="Food & Dining" data-i18n="vocab_cat_food">饮食餐桌</option>
+            <option value="Travel & City" data-i18n="vocab_cat_travel">出行与城市</option>
+            <option value="Time & Frequency" data-i18n="vocab_cat_time">时间与频率</option>
+            <option value="Adjectives" data-i18n="vocab_cat_adj">形容词</option>
+            <option value="Connectors" data-i18n="vocab_cat_conn">连接词</option>
           </select>
         </div>
       </div>
@@ -581,11 +586,11 @@
         <table class="vocab-table">
           <thead>
             <tr>
-              <th>Français & Genre</th>
-              <th>English</th>
-              <th>Phonétique</th>
-              <th>Exemple en contexte</th>
-              <th>Audio</th>
+              <th data-i18n="vocab_col_word">法语与阴阳性</th>
+              <th data-i18n="vocab_col_meaning">英文释义</th>
+              <th data-i18n="vocab_col_phonetic">音标</th>
+              <th data-i18n="vocab_col_example">语境例句</th>
+              <th data-i18n="vocab_col_audio">发音</th>
             </tr>
           </thead>
           <tbody id="vocabTableBody">
@@ -599,8 +604,8 @@
     <section id="view-tips" class="view-section">
       <div class="panel-header">
         <div>
-          <h2 class="panel-title">💡 French Conjugation Cheats & Mnemonics</h2>
-          <p class="panel-subtitle">Master the hidden patterns behind irregular verbs</p>
+          <h2 class="panel-title" data-i18n="tips_title">💡 动词变位记忆规律</h2>
+          <p class="panel-subtitle" data-i18n="tips_subtitle">掌握高频不规则动词背后的核心规律</p>
         </div>
       </div>
 
@@ -647,34 +652,34 @@
       </div>
     </section>
 
-    <!-- 8. VIEW: 单词本 USER VOCAB NOTEBOOK -->
+    <!-- 8. VIEW: USER VOCAB NOTEBOOK -->
     <section id="view-uservocab" class="view-section">
       <div class="panel-header">
         <div>
-          <h2 class="panel-title">📒 我的单词本</h2>
-          <p class="panel-subtitle">点击例句中的任意法语单词可查释义并加入单词本，随时朗读或用 SRS 闪卡加深记忆</p>
+          <h2 class="panel-title" data-i18n="uv_title">📒 我的单词本</h2>
+          <p class="panel-subtitle" data-i18n="uv_subtitle">在例句中点击任意法语单词可查释义并收藏到这里，随时朗读或用闪卡复习</p>
         </div>
         <div class="panel-header-actions">
           <span id="userVocabCount" class="vocab-count-pill">0 个单词</span>
-          <button id="practiceUserVocabSrsBtn" class="btn-primary btn-sm" title="使用 SRS 闪卡复习单词本里的单词">🧠 闪卡复习单词本</button>
-          <button id="clearUserVocabBtn" class="btn-sm btn-ghost" title="清空单词本">🗑 清空</button>
+          <button id="practiceUserVocabSrsBtn" class="btn-primary btn-sm" data-i18n="uv_practice_srs_btn">🧠 闪卡复习单词本</button>
+          <button id="clearUserVocabBtn" class="btn-sm btn-ghost" data-i18n="uv_clear_btn">🗑 清空</button>
         </div>
       </div>
 
       <!-- Search & Tip Bar -->
       <div class="panel-card" style="margin-bottom:1rem; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:0.75rem;">
-        <p style="margin:0; font-size:0.88rem; color:var(--text-secondary);">
-          💡 <strong>使用提示：</strong>在「In Context 例句」、「Flashcard 闪卡」或「Vocabulary 词表」中点击任意法语单词，弹出悬浮释义卡即可一键收藏。
+        <p style="margin:0; font-size:0.88rem; color:var(--text-secondary);" data-i18n-html="uv_tip_html">
+          💡 <strong>使用提示：</strong>在「例句填空」、「闪卡复习」或「高频词库」中点击任意法语单词，弹出悬浮卡片后即可一键收藏。
         </p>
-        <input type="text" id="userVocabSearchInput" class="search-input" placeholder="🔍 搜索已收藏的单词或释义..." style="min-width:220px; max-width:300px;">
+        <input type="text" id="userVocabSearchInput" class="search-input" data-i18n-placeholder="uv_search_placeholder" placeholder="🔍 搜索已收藏的单词或释义..." style="min-width:220px; max-width:300px;">
       </div>
 
       <!-- Word grid -->
       <div id="userVocabList" class="user-vocab-grid">
         <div class="empty-state">
           <div style="font-size:3rem;margin-bottom:1rem;">📒</div>
-          <p>单词本还是空的</p>
-          <p style="color:var(--text-secondary);font-size:0.9rem;">在例句中点击单词，然后选择「加入单词本」</p>
+          <p data-i18n="uv_empty_title">你的单词本还是空的</p>
+          <p style="color:var(--text-secondary);font-size:0.9rem;" data-i18n="uv_empty_desc">在例句中点击任意法语单词，然后点击「加入单词本」即可收藏。</p>
         </div>
       </div>
     </section>
@@ -683,8 +688,8 @@
     <section id="view-stats" class="view-section">
       <div class="panel-header">
         <div>
-          <h2 class="panel-title">📊 Memory Mastery & Learning Analytics</h2>
-          <p class="panel-subtitle">Track your retention rates, review counts, and long-term memory progress</p>
+          <h2 class="panel-title" data-i18n="stats_title">📊 学习统计与数据备份</h2>
+          <p class="panel-subtitle" data-i18n="stats_subtitle">追踪你的记忆留存率、复习次数与长期掌握进度</p>
         </div>
       </div>
 
@@ -692,22 +697,21 @@
         <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; text-align:center;">
           <div>
             <div style="font-size: 2.5rem; font-weight:800; color:var(--accent-blue);" id="statsTotalLearned">0</div>
-            <div style="font-size: 0.875rem; color:var(--text-secondary); font-weight:600;">Cards Actively Practiced</div>
+            <div style="font-size: 0.875rem; color:var(--text-secondary); font-weight:600;" data-i18n="stats_learned">已练习卡片数</div>
           </div>
           <div>
             <div style="font-size: 2.5rem; font-weight:800; color:var(--accent-emerald);" id="statsMatureCount">0</div>
-            <div style="font-size: 0.875rem; color:var(--text-secondary); font-weight:600;">Mature Cards (Permanent Memory)</div>
+            <div style="font-size: 0.875rem; color:var(--text-secondary); font-weight:600;" data-i18n="stats_mature">已进入长期记忆</div>
           </div>
           <div>
             <div style="font-size: 2.5rem; font-weight:800; color:var(--accent-purple);" id="statsTotalReviews">0</div>
-            <div style="font-size: 0.875rem; color:var(--text-secondary); font-weight:600;">Total Review Repetitions</div>
+            <div style="font-size: 0.875rem; color:var(--text-secondary); font-weight:600;" data-i18n="stats_reviews">累计复习次数</div>
           </div>
           <div>
             <div style="font-size: 2.5rem; font-weight:800; color:var(--accent-french-red);" id="statsRetentionRate">100%</div>
-            <div style="font-size: 0.875rem; color:var(--text-secondary); font-weight:600;">Retention Accuracy Rate</div>
+            <div style="font-size: 0.875rem; color:var(--text-secondary); font-weight:600;" data-i18n="stats_retention">记忆准确率</div>
           </div>
         </div>
-
       </div>
 
       <!-- 📦 DEDICATED DATA MIGRATION & BACKUP / RESTORE SECTION -->
@@ -715,14 +719,14 @@
         <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; margin-bottom:1.5rem;">
           <div>
             <h3 style="font-size:1.4rem; font-weight:800; color:var(--text-primary); display:flex; align-items:center; gap:0.5rem;">
-              <span>📦</span> 学习数据迁移与备份恢复 (Backup & Restore)
+              <span>📦</span> <span data-i18n="mig_title">学习数据迁移与备份恢复</span>
             </h3>
-            <p style="font-size:0.9rem; color:var(--text-secondary); margin-top:0.25rem;">
-              跨电脑、跨手机同步学习进度。支持一键导出、一键导入恢复，艾宾浩斯复习曲线与错题本永不丢失。
+            <p style="font-size:0.9rem; color:var(--text-secondary); margin-top:0.25rem;" data-i18n="mig_subtitle">
+              跨电脑、跨手机同步学习进度，一键导出与导入，复习曲线、错题本与单词本永不丢失。
             </p>
           </div>
-          <div style="font-size:0.8rem; padding:0.35rem 0.75rem; border-radius:999px; background:var(--accent-emerald-subtle); color:var(--accent-emerald); font-weight:700;">
-            ✓ 本地 LocalStorage 自动保存中
+          <div style="font-size:0.8rem; padding:0.35rem 0.75rem; border-radius:999px; background:var(--accent-emerald-subtle); color:var(--accent-emerald); font-weight:700;" data-i18n="mig_autosave">
+            ✓ 本地自动保存中
           </div>
         </div>
 
@@ -732,11 +736,11 @@
           <div class="migration-btn-card">
             <div class="migration-icon">📥</div>
             <div class="migration-text">
-              <h4>1. 导出备份文件 (Export Backup)</h4>
-              <p>将当前电脑的所有复习记忆曲线、单词熟练度、完整错题本及最高连击记录打包下载为 <code>.json</code> 文件。</p>
+              <h4 data-i18n="mig_export_title">1. 导出备份文件</h4>
+              <p data-i18n-html="mig_export_desc_html">将当前设备的复习记忆曲线、错题本、单词本与最高连对记录打包下载为 <code>.json</code> 文件。</p>
             </div>
             <button id="exportProgressBtn" class="btn-primary" style="width:100%; justify-content:center; padding:0.85rem; font-size:1rem;">
-              <span>📥</span> 立即下载备份 (.json)
+              <span>📥</span> <span data-i18n="mig_export_btn">立即下载备份 (.json)</span>
             </button>
           </div>
 
@@ -744,11 +748,11 @@
           <div class="migration-btn-card restore-card">
             <div class="migration-icon" style="color:var(--accent-emerald);">📤</div>
             <div class="migration-text">
-              <h4>2. 恢复/导入学习记录 (Restore Progress)</h4>
-              <p>选择从其他电脑或手机导出的 <code>.json</code> 备份文件，一键无缝还原所有学习进度与错题本！</p>
+              <h4 data-i18n="mig_import_title">2. 恢复 / 导入学习记录</h4>
+              <p data-i18n-html="mig_import_desc_html">选择从其他电脑或手机导出的 <code>.json</code> 备份文件，一键还原全部进度！</p>
             </div>
             <button id="importProgressBtn" class="btn-primary btn-restore" style="width:100%; justify-content:center; padding:0.85rem; font-size:1rem; background:var(--accent-emerald);">
-              <span>📤</span> 选择备份文件并恢复 (Restore)
+              <span>📤</span> <span data-i18n="mig_import_btn">选择备份文件并恢复</span>
             </button>
             <input type="file" id="importBackupFileInput" accept=".json" style="display:none;">
           </div>
@@ -757,38 +761,38 @@
         <!-- Step-by-Step Visual Migration Tutorial -->
         <div class="migration-tutorial-box">
           <div style="font-size:1.05rem; font-weight:700; margin-bottom:1rem; display:flex; align-items:center; gap:0.4rem;">
-            <span>📖</span> 跨设备 / 跨电脑迁移教程（保姆级步骤）
+            <span>📖</span> <span data-i18n="mig_tut_title">跨设备迁移教程</span>
           </div>
           
           <div class="tutorial-steps-grid">
             <div class="tutorial-step-item">
-              <div class="step-number">步骤 1</div>
-              <div class="step-title">在【电脑 A / 原设备】导出</div>
-              <div class="step-desc">
-                在当前电脑上点击上方的 <strong>「📥 立即下载备份」</strong> 按钮，浏览器会自动下载一个名为 <code>french_learning_backup_YYYY-MM-DD.json</code> 的文件。
+              <div class="step-number" data-i18n="mig_step1_num">步骤 1</div>
+              <div class="step-title" data-i18n="mig_step1_title">在原设备导出备份</div>
+              <div class="step-desc" data-i18n-html="mig_step1_desc_html">
+                点击上方 <strong>「立即下载备份」</strong>，浏览器会下载一个 <code>french_learning_backup_YYYY-MM-DD.json</code> 文件。
               </div>
             </div>
 
             <div class="tutorial-step-item">
-              <div class="step-number">步骤 2</div>
-              <div class="step-title">将文件发送到【电脑 B / 手机】</div>
-              <div class="step-desc">
-                通过微信文件传输助手、隔空投送 (AirDrop)、邮件、QQ、U 盘或网盘，将刚下载的 <code>.json</code> 文件发送到您的手机或另一台电脑上。
+              <div class="step-number" data-i18n="mig_step2_num">步骤 2</div>
+              <div class="step-title" data-i18n="mig_step2_title">发送到另一台设备</div>
+              <div class="step-desc" data-i18n-html="mig_step2_desc_html">
+                通过隔空投送 (AirDrop)、微信文件传输助手、邮件或网盘，把 <code>.json</code> 文件发到你的手机或新电脑。
               </div>
             </div>
 
             <div class="tutorial-step-item">
-              <div class="step-number">步骤 3</div>
-              <div class="step-title">在【电脑 B / 手机】点击恢复</div>
-              <div class="step-desc">
-                在另一台电脑或手机上打开本学习网页，点击上方的 <strong>「📤 选择备份文件并恢复 (Restore)」</strong>，选中接收到的 <code>.json</code> 文件，提示恢复成功即可！
+              <div class="step-number" data-i18n="mig_step3_num">步骤 3</div>
+              <div class="step-title" data-i18n="mig_step3_title">在新设备点击恢复</div>
+              <div class="step-desc" data-i18n-html="mig_step3_desc_html">
+                在新设备打开本页面，点击 <strong>「选择备份文件并恢复」</strong>，选中文件即可完成迁移！
               </div>
             </div>
           </div>
 
           <div style="margin-top:1.25rem; padding:0.75rem 1rem; border-radius:var(--radius-sm); background:rgba(0,0,0,0.03); font-size:0.85rem; color:var(--text-secondary); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem;">
-            <span>💡 提示：备份文件体积仅几十 KB，包含全部艾宾浩斯复习曲线与错题记录，建议每周定期备份一次。</span>
-            <button id="resetProgressBtn" style="background:none; border:none; color:var(--accent-french-red); cursor:pointer; font-size:0.8rem; text-decoration:underline;">清空/重置本设备数据</button>
+            <span data-i18n="mig_footer_tip">💡 提示：备份文件仅几十 KB，包含全部复习曲线、错题本与单词本，建议定期备份。</span>
+            <button id="resetProgressBtn" style="background:none; border:none; color:var(--accent-french-red); cursor:pointer; font-size:0.8rem; text-decoration:underline;" data-i18n="mig_reset_btn">清空 / 重置本设备数据</button>
           </div>
         </div>
       </div>
@@ -799,20 +803,20 @@
 
   <!-- Word Tooltip Popup -->
   <div id="wordTooltip" class="word-tooltip" role="tooltip" style="display:none;">
-    <button id="tooltipCloseBtn" class="tooltip-close" aria-label="关闭">✕</button>
+    <button id="tooltipCloseBtn" class="tooltip-close" data-i18n-title="tooltip_close" aria-label="Close">✕</button>
     <div class="tooltip-word"></div>
     <div class="tooltip-phonetic"></div>
     <div class="tooltip-pos-gender"></div>
-    <div class="tooltip-chinese"></div>
     <div class="tooltip-meaning"></div>
     <div class="tooltip-conjugation-note"></div>
     <div class="tooltip-actions">
-      <button id="tooltipAudioBtn" class="btn-sm btn-ghost">🔊 朗读</button>
-      <button id="tooltipAddVocabBtn" class="btn-sm btn-primary">➕ 加入单词本</button>
+      <button id="tooltipAudioBtn" class="btn-sm btn-ghost" data-i18n="tooltip_listen">🔊 朗读</button>
+      <button id="tooltipAddVocabBtn" class="btn-sm btn-primary" data-i18n="tooltip_add">➕ 加入单词本</button>
     </div>
   </div>
 
   <!-- Scripts -->
+  <script src="js/i18n.js"></script>
   <script src="js/data.js"></script>
   <script src="js/srs.js"></script>
   <script src="js/audio.js"></script>

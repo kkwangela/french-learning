@@ -320,6 +320,29 @@ header.topbar {
   flex-shrink: 0;
 }
 
+.btn-lang-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  padding: 0.32rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  font-family: inherit;
+}
+
+.btn-lang-toggle:hover {
+  border-color: var(--accent-blue);
+  color: var(--accent-blue);
+  background: var(--accent-blue-subtle);
+}
+
 .voice-picker-wrap {
   display: flex;
   align-items: center;
@@ -618,6 +641,14 @@ main {
   transform: rotateY(180deg);
   background: var(--bg-card);
   border-color: var(--accent-blue);
+}
+
+/* Prevent hidden 3D face from intercepting audio button taps on iOS Safari */
+.flashcard-container:not(.is-flipped) .flashcard-back {
+  pointer-events: none;
+}
+.flashcard-container.is-flipped .flashcard-front {
+  pointer-events: none;
 }
 
 .flashcard-badge {

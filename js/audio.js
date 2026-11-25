@@ -1,4 +1,5 @@
 // French Audio & Speech Synthesis Engine + Web Audio Sound FX
+// Optimized for desktop + iOS Safari / Android Chrome / standalone PWA
 class FrenchAudioManager {
   constructor() {
     this.synth = typeof window !== 'undefined' && 'speechSynthesis' in window ? window.speechSynthesis : null;
@@ -7,6 +8,12 @@ class FrenchAudioManager {
     this.speechRate = 0.9; // Slightly slower for language learners
     this.preferredVoiceURI = localStorage.getItem('french_preferred_voice_uri') || null;
     this.frenchVoice = null;
+    this._currentUtterance = null; // Prevent mobile Safari GC mid-speech
+    this._fallbackTimer = null;
+    this._isIOS = typeof navigator !== 'undefined' && (
+      /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)
+    );
 
     this.initVoices();
   }
@@ -16,17 +23,11 @@ class FrenchAudioManager {
     const lang = (v.lang || '').toLowerCase().replace(/_/g, '-');
     const name = (v.name || '').toLowerCase();
 
-    return lang.startsWith('fr') ||
-           name.includes('french') ||
-           name.includes('français') ||
-           name.includes('thomas') ||
-           name.includes('amélie') ||
-           name.includes('amelie') ||
-           name.includes('jacques') ||
-           name.includes('audrey') ||
-           name.includes('aurelie') ||
-           name.includes('flo') ||
-           name.includes('eddy');
+    // Primary & safest check: BCP-47 lang starts with 'fr' (handles fr-FR, fr_FR, fr-CA, fr-BE, fr-CH)
+    if (lang.startsWith('fr')) return true;
+
+    // Fallback only for explicit French labels (never bare names like Flo/Eddy which exist in other languages)
+    return name.includes('french') || name.includes('français') || name.includes('francais');
   }
 
   getAvailableFrenchVoices() {
@@ -34,22 +35,26 @@ class FrenchAudioManager {
     const all = this.synth.getVoices() || [];
     const frenchList = all.filter(v => this.isFrenchVoice(v));
 
-    // Sort: fr-FR top quality voices first, then fr-CA, then others
+    // Sort: local/installed voices first (critical on iOS!), then top-quality fr-FR voices, then others
     return frenchList.sort((a, b) => {
+      // On mobile/iOS, localService voices are guaranteed installed and playable without network errors
+      if (a.localService && !b.localService) return -1;
+      if (!a.localService && b.localService) return 1;
+
       const langA = (a.lang || '').toLowerCase().replace(/_/g, '-');
       const langB = (b.lang || '').toLowerCase().replace(/_/g, '-');
       const nameA = (a.name || '').toLowerCase();
       const nameB = (b.name || '').toLowerCase();
 
-      // Top priority to recognized high-quality native French voices
-      const isTopA = nameA.includes('google') || nameA.includes('thomas') || nameA.includes('amélie') || nameA.includes('amelie') || nameA.includes('jacques');
-      const isTopB = nameB.includes('google') || nameB.includes('thomas') || nameB.includes('amélie') || nameB.includes('amelie') || nameB.includes('jacques');
-      if (isTopA && !isTopB) return -1;
-      if (!isTopA && isTopB) return 1;
-
-      // Prefer fr-fr over others
+      // Prefer standard France French (fr-fr) first
       if (langA === 'fr-fr' && langB !== 'fr-fr') return -1;
       if (langA !== 'fr-fr' && langB === 'fr-fr') return 1;
+
+      // Prefer natural-sounding voices over novelty voices
+      const isTopA = nameA.includes('thomas') || nameA.includes('amélie') || nameA.includes('amelie') || nameA.includes('google') || nameA.includes('audrey') || nameA.includes('aurélie') || nameA.includes('aurelie');
+      const isTopB = nameB.includes('thomas') || nameB.includes('amélie') || nameB.includes('amelie') || nameB.includes('google') || nameB.includes('audrey') || nameB.includes('aurélie') || nameB.includes('aurelie');
+      if (isTopA && !isTopB) return -1;
+      if (!isTopA && isTopB) return 1;
 
       return a.name.localeCompare(b.name);
     });
@@ -61,7 +66,7 @@ class FrenchAudioManager {
       return null;
     }
 
-    // 1. If user selected a preferred voice and it exists
+    // 1. User-selected preferred voice if present on this device
     if (this.preferredVoiceURI) {
       const match = frenchVoices.find(v => v.voiceURI === this.preferredVoiceURI || v.name === this.preferredVoiceURI);
       if (match) {
@@ -70,13 +75,8 @@ class FrenchAudioManager {
       }
     }
 
-    // 2. Prioritize Thomas (standard France French on macOS) or Google français or Amélie
-    const preferred = frenchVoices.find(v => {
-      const n = v.name.toLowerCase();
-      return n.includes('thomas') || n.includes('google') || n.includes('jacques') || n.includes('amélie') || n.includes('amelie');
-    });
-
-    this.frenchVoice = preferred || frenchVoices[0];
+    // 2. Best sorted French voice (already prioritizes localService + fr-FR + Thomas/Amélie/Google)
+    this.frenchVoice = frenchVoices[0];
     return this.frenchVoice;
   }
 
@@ -90,16 +90,27 @@ class FrenchAudioManager {
     if (!this.synth) return;
 
     const update = () => {
+      const voices = this.getAvailableFrenchVoices();
       this.getFrenchVoice();
       if (typeof window !== 'undefined' && window.dispatchEvent) {
         window.dispatchEvent(new CustomEvent('french-voices-ready'));
       }
+      return voices.length > 0;
     };
 
     update();
     if (this.synth.onvoiceschanged !== undefined) {
       this.synth.onvoiceschanged = update;
     }
+
+    // iOS Safari & Chrome Mobile sometimes populate getVoices() lazily without firing onvoiceschanged
+    let retries = 0;
+    const poll = setInterval(() => {
+      retries++;
+      if (update() || retries >= 10) {
+        clearInterval(poll);
+      }
+    }, 300);
   }
 
   speak(text, customRate = null, onStart = null, onEnd = null) {
@@ -109,49 +120,90 @@ class FrenchAudioManager {
       return;
     }
 
-    try {
-      this.synth.cancel(); // Stop any pending speech
-
-      const cleanText = (text || '').trim();
-      if (!cleanText) {
-        if (onEnd) onEnd();
-        return;
-      }
-
-      // Resume synthesis if suspended by browser
-      if (this.synth.paused) {
-        this.synth.resume();
-      }
-
-      const utterance = new SpeechSynthesisUtterance(cleanText);
-      utterance.rate = customRate || this.speechRate;
-      utterance.pitch = 1.0;
-
-      // Always resolve best French voice dynamically
-      const activeVoice = this.getFrenchVoice();
-      if (activeVoice) {
-        utterance.voice = activeVoice;
-        // Normalize lang tag for utterance
-        utterance.lang = (activeVoice.lang || 'fr-FR').replace(/_/g, '-');
-      } else {
-        // Fallback lang
-        utterance.lang = 'fr-FR';
-      }
-
-      if (onStart) utterance.onstart = onStart;
-      if (onEnd) {
-        utterance.onend = onEnd;
-        utterance.onerror = (err) => {
-          console.warn('Utterance error:', err);
-          onEnd();
-        };
-      }
-
-      this.synth.speak(utterance);
-    } catch (e) {
-      console.error('Speech synthesis error:', e);
+    const cleanText = (text || '').trim();
+    if (!cleanText) {
       if (onEnd) onEnd();
+      return;
     }
+
+    clearTimeout(this._fallbackTimer);
+
+    const doSpeak = (useExplicitVoice) => {
+      try {
+        // CRITICAL iOS FIX: Only call cancel() if something is actually speaking or queued.
+        // Calling cancel() when idle on iOS Safari can silently swallow the very next speak() call!
+        if (this.synth.speaking || this.synth.pending) {
+          this.synth.cancel();
+        }
+        if (this.synth.paused) {
+          this.synth.resume();
+        }
+
+        const utterance = new SpeechSynthesisUtterance(cleanText);
+        utterance.rate = customRate || this.speechRate;
+        utterance.pitch = 1.0;
+        utterance.volume = 1.0;
+
+        const activeVoice = useExplicitVoice ? this.getFrenchVoice() : null;
+        if (activeVoice) {
+          utterance.voice = activeVoice;
+          utterance.lang = (activeVoice.lang || 'fr-FR').replace(/_/g, '-');
+        } else {
+          utterance.lang = 'fr-FR';
+        }
+
+        // Keep strong reference so mobile Safari does not garbage-collect the utterance mid-speech
+        this._currentUtterance = utterance;
+
+        let started = false;
+        let finished = false;
+        const finishOnce = () => {
+          if (finished) return;
+          finished = true;
+          clearTimeout(this._fallbackTimer);
+          if (this._currentUtterance === utterance) {
+            this._currentUtterance = null;
+          }
+          if (onEnd) onEnd();
+        };
+
+        utterance.onstart = () => {
+          started = true;
+          clearTimeout(this._fallbackTimer);
+          if (onStart) onStart();
+        };
+
+        utterance.onend = finishOnce;
+
+        utterance.onerror = (err) => {
+          console.warn('Utterance error:', err && err.error ? err.error : err);
+          // If an explicit voice failed on mobile (e.g. undownloaded Siri voice), retry once with OS default fr-FR
+          if (useExplicitVoice && err && err.error !== 'interrupted' && err.error !== 'canceled') {
+            clearTimeout(this._fallbackTimer);
+            doSpeak(false);
+            return;
+          }
+          finishOnce();
+        };
+
+        // Must be called synchronously inside the user gesture for iOS Safari / PWA
+        this.synth.speak(utterance);
+
+        // Mobile watchdog: if explicit voice hung silently without starting, fall back to OS default fr-FR
+        if (useExplicitVoice && activeVoice) {
+          this._fallbackTimer = setTimeout(() => {
+            if (!started && !finished && !this.synth.speaking) {
+              doSpeak(false);
+            }
+          }, 900);
+        }
+      } catch (e) {
+        console.error('Speech synthesis error:', e);
+        if (onEnd) onEnd();
+      }
+    };
+
+    doSpeak(true);
   }
 
   speakSlow(text, onStart = null, onEnd = null) {
@@ -159,6 +211,8 @@ class FrenchAudioManager {
   }
 
   stop() {
+    clearTimeout(this._fallbackTimer);
+    this._currentUtterance = null;
     if (this.synth) {
       this.synth.cancel();
     }

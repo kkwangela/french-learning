@@ -465,12 +465,12 @@ class WordTooltipManager {
     if (window.FRENCH_DATA) {
       // 2. Index ALL verbs + their past participles + ALL conjugated forms
       const tenseLabels = {
-        present: 'Présent (现在时)',
-        passeCompose: 'Passé composé (复合过去时)',
-        imparfait: 'Imparfait (未完成过去时)',
-        futur: 'Futur simple (简单将来时)',
-        conditionnel: 'Conditionnel (条件式)',
-        subjonctif: 'Subjonctif (虚拟式)'
+        present: 'Présent',
+        passeCompose: 'Passé composé',
+        imparfait: 'Imparfait',
+        futur: 'Futur simple',
+        conditionnel: 'Conditionnel',
+        subjonctif: 'Subjonctif'
       };
 
       (window.FRENCH_DATA.verbs || []).forEach(verb => {
@@ -486,7 +486,7 @@ class WordTooltipManager {
           partOfSpeech: `verb (${verb.group || ''})`,
           gender: '',
           category: 'Verb',
-          conjugationNote: `助动词: ${verb.auxiliary || 'avoir'} · 过去分词: ${verb.participlePass || ''}`,
+          conjugationNote: `Auxiliary: ${verb.auxiliary || 'avoir'} · Past participle: ${verb.participlePass || ''}`,
           saveKey: inf,
           isVerb: true
         };
@@ -502,7 +502,7 @@ class WordTooltipManager {
               phonetic: '',
               partOfSpeech: 'past participle',
               gender: '',
-              conjugationNote: `动词 ${verb.infinitive} 的过去分词`,
+              conjugationNote: `Past participle of ${verb.infinitive}`,
               saveKey: inf,
               audioWord: verb.participlePass
             };
@@ -555,7 +555,7 @@ class WordTooltipManager {
           partOfSpeech: item.partOfSpeech || 'word',
           gender: item.gender || '',
           category: item.category || '',
-          conjugationNote: item.associatedVerb ? `关联动词: ${item.associatedVerb}` : '',
+          conjugationNote: item.associatedVerb ? `Related verb: ${item.associatedVerb}` : '',
           exampleFr: item.exampleFr || '',
           saveKey: raw.toLowerCase()
         };
@@ -648,9 +648,9 @@ class WordTooltipManager {
       found = {
         french: clean,
         chinese: '',
-        english: '点击朗读听发音，或加入单词本加深记忆',
+        english: 'French word (listen or save to your notebook)',
         phonetic: '',
-        partOfSpeech: '法语单词',
+        partOfSpeech: 'word',
         gender: '',
         saveKey: lower,
         isFallback: true
@@ -705,7 +705,7 @@ class WordTooltipManager {
         const span = document.createElement('span');
         span.className = 'clickable-word';
         span.textContent = part;
-        span.title = '点击查词 / 加入单词本';
+        span.title = window.I18N ? window.I18N.t('tooltip_click_hint') : 'Click to look up / save';
         span.addEventListener('click', (e) => this._onWordClick(e, part, sentenceText));
         frag.appendChild(span);
       });
@@ -747,7 +747,8 @@ class WordTooltipManager {
       phoneticEl.style.display = ph ? 'block' : 'none';
     }
 
-    const genderLabel = entry.gender === 'm' ? '阳性 (m.)' : entry.gender === 'f' ? '阴性 (f.)' : entry.gender || '';
+    const t = (k, p) => (window.I18N ? window.I18N.t(k, p) : k);
+    const genderLabel = entry.gender === 'm' ? 'masculine (m.)' : entry.gender === 'f' ? 'feminine (f.)' : entry.gender || '';
     const posGender = [entry.partOfSpeech, genderLabel].filter(Boolean).join(' · ');
     if (posEl) {
       posEl.textContent = posGender;
@@ -755,8 +756,7 @@ class WordTooltipManager {
     }
 
     if (chineseEl) {
-      chineseEl.textContent = entry.chinese || '';
-      chineseEl.style.display = entry.chinese ? 'block' : 'none';
+      chineseEl.style.display = 'none';
     }
     if (meaningEl) {
       meaningEl.textContent = entry.english || '';
@@ -770,7 +770,7 @@ class WordTooltipManager {
     const addBtn = el.querySelector('#tooltipAddVocabBtn');
     if (addBtn) {
       const already = this.notebook && this.notebook.has(entry);
-      addBtn.textContent = already ? '✅ 已在单词本' : '➕ 加入单词本';
+      addBtn.textContent = already ? t('tooltip_saved') : t('tooltip_add');
       addBtn.disabled = already;
       addBtn.classList.toggle('saved', already);
     }
@@ -845,8 +845,9 @@ class WordTooltipManager {
       addBtn.addEventListener('click', (e) => {
         e.stopPropagation();
         if (this.currentEntry && this.notebook) {
+          const t = (k, p) => (window.I18N ? window.I18N.t(k, p) : k);
           const saved = this.notebook.addWord(this.currentEntry);
-          addBtn.textContent = '✅ 已在单词本';
+          addBtn.textContent = t('tooltip_saved');
           addBtn.disabled = true;
           addBtn.classList.add('saved');
 
@@ -855,7 +856,7 @@ class WordTooltipManager {
             this._ensureSrsCard(saved);
           }
 
-          this._showToast(`已将「${saved ? saved.french : ''}」加入单词本 📒`);
+          this._showToast(t('tooltip_toast_added', { word: saved ? saved.french : '' }));
         }
       });
     }
@@ -926,15 +927,15 @@ function renderUserVocabView(notebook, audioManager, srsManager, searchQuery = '
   const countPill = document.getElementById('userVocabCount');
   if (!container) return;
 
+  const t = (k, p) => (window.I18N ? window.I18N.t(k, p) : k);
   const allWords = notebook.getAll();
-  if (countPill) countPill.textContent = `${allWords.length} 个单词`;
+  if (countPill) countPill.textContent = t('uv_count', { count: allWords.length });
 
   const q = (searchQuery || '').trim().toLowerCase();
   const words = q
     ? allWords.filter(w =>
         (w.french || '').toLowerCase().includes(q) ||
         (w.english || '').toLowerCase().includes(q) ||
-        (w.chinese || '').toLowerCase().includes(q) ||
         (w.exampleFr || '').toLowerCase().includes(q)
       )
     : allWords;
@@ -943,8 +944,8 @@ function renderUserVocabView(notebook, audioManager, srsManager, searchQuery = '
     container.innerHTML = `
       <div class="empty-state" style="grid-column: 1 / -1; text-align:center; padding: 3rem 1rem;">
         <div style="font-size:3rem;margin-bottom:0.75rem;">📒</div>
-        <p style="font-weight:700; font-size:1.1rem; margin-bottom:0.4rem;">你的单词本还是空的</p>
-        <p style="color:var(--text-secondary);font-size:0.9rem;">在「In Context 例句」、「Flashcard 闪卡」或「Vocabulary 词表」中点击任意法语单词，弹出释义窗后点击「➕ 加入单词本」即可收藏！</p>
+        <p style="font-weight:700; font-size:1.1rem; margin-bottom:0.4rem;">${t('uv_empty_title')}</p>
+        <p style="color:var(--text-secondary);font-size:0.9rem;">${t('uv_empty_desc')}</p>
       </div>`;
     return;
   }
@@ -952,7 +953,7 @@ function renderUserVocabView(notebook, audioManager, srsManager, searchQuery = '
   if (words.length === 0) {
     container.innerHTML = `
       <div class="empty-state" style="grid-column: 1 / -1; text-align:center; padding: 2rem 1rem;">
-        <p style="color:var(--text-secondary);">没有找到匹配「${searchQuery}」的单词</p>
+        <p style="color:var(--text-secondary);">${t('uv_no_match', { query: searchQuery })}</p>
       </div>`;
     return;
   }
@@ -969,18 +970,17 @@ function renderUserVocabView(notebook, audioManager, srsManager, searchQuery = '
       <div class="uvc-top">
         <span class="uvc-french">${w.french}</span>
         <span class="uvc-phonetic">${w.phonetic || ''}</span>
-        <button class="uvc-audio-btn" data-word="${(w.french || '').replace(/"/g, '&quot;')}" title="朗读法语发音">🔊</button>
+        <button class="uvc-audio-btn" data-word="${(w.french || '').replace(/"/g, '&quot;')}" title="${t('tooltip_listen')}">🔊</button>
       </div>
       ${metaText ? `<div class="uvc-meta">${metaText}</div>` : ''}
-      ${w.chinese ? `<div class="uvc-chinese">${w.chinese}</div>` : ''}
       <div class="uvc-english">${w.english || ''}</div>
       ${w.conjugationNote ? `<div class="uvc-note">${w.conjugationNote}</div>` : ''}
       ${w.exampleFr ? `<div class="uvc-example">💬 ${w.exampleFr}</div>` : ''}
       <div class="uvc-actions">
         <button class="btn-sm ${inSrs ? 'btn-ghost' : 'btn-primary'} uvc-srs-btn" data-key="${key.replace(/"/g, '&quot;')}">
-          ${inSrs ? '🧠 去闪卡复习' : '➕ 加入闪卡复习'}
+          ${inSrs ? t('uv_go_srs') : t('uv_add_srs')}
         </button>
-        <button class="btn-sm btn-danger uvc-delete-btn" data-key="${key.replace(/"/g, '&quot;')}">🗑 删除</button>
+        <button class="btn-sm btn-danger uvc-delete-btn" data-key="${key.replace(/"/g, '&quot;')}">${t('uv_delete')}</button>
       </div>
     </div>`;
   }).join('');

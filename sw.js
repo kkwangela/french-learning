@@ -1,9 +1,10 @@
-const CACHE_NAME = 'woyaoqubali-cache-v5';
+const CACHE_NAME = 'woyaoqubali-cache-v6';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
   './manifest.json',
   './css/styles.css',
+  './js/i18n.js',
   './js/data.js',
   './js/srs.js',
   './js/audio.js',

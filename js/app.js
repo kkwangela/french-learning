@@ -1,6 +1,7 @@
 // French Master Learning App - Application Controller
 document.addEventListener('DOMContentLoaded', () => {
   // Initialize managers
+  const t = (k, p) => (window.I18N ? window.I18N.t(k, p) : k);
   const audioManager = new FrenchAudioManager();
   const srsManager = new FrenchSRSManager();
   const mistakeManager = new FrenchMistakeManager();
@@ -9,6 +10,11 @@ document.addEventListener('DOMContentLoaded', () => {
   window.userVocabNotebook = userVocabNotebook;
   const wordTooltipMgr = new WordTooltipManager(userVocabNotebook, audioManager, srsManager);
   window.wordTooltipMgr = wordTooltipMgr;
+
+  // Apply saved UI language immediately
+  if (window.I18N) {
+    window.I18N.apply(document);
+  }
 
   // Application State
   const state = {
@@ -58,6 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const elements = {
     themeToggleBtn: document.getElementById('themeToggleBtn'),
     audioToggleBtn: document.getElementById('audioToggleBtn'),
+    langToggleBtn: document.getElementById('langToggleBtn'),
     voiceSelectDropdown: document.getElementById('voiceSelectDropdown'),
     navTabs: document.querySelectorAll('.nav-tab-btn'),
     viewSections: document.querySelectorAll('.view-section'),
@@ -209,6 +216,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  if (elements.langToggleBtn && window.I18N) {
+    elements.langToggleBtn.addEventListener('click', () => {
+      window.I18N.toggleLang();
+    });
+  }
+
   /* ----------------------------------------------------
      FRENCH VOICE SELECTION
   ---------------------------------------------------- */
@@ -268,18 +281,25 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ----------------------------------------------------
      SIDEBAR & NAVIGATION
   ---------------------------------------------------- */
-  const TAB_TITLES = {
-    srs: '🗂️ Flashcards (SRS)',
-    drill: '⚡ Conjugation Drill',
-    listening: '🎧 Écoute & Dictée',
-    sentences: '🧩 In Context',
-    mistakes: '📕 错题本',
-    uservocab: '📒 单词本',
-    verbs: '📖 Verb Explorer',
-    vocab: '📚 Vocabulary',
-    tips: '💡 Memory Rules',
-    stats: '📊 Stats & 备份'
+  const TAB_ICONS = {
+    srs: '🗂️',
+    drill: '⚡',
+    listening: '🎧',
+    sentences: '🧩',
+    mistakes: '📕',
+    uservocab: '📒',
+    verbs: '📖',
+    vocab: '📚',
+    tips: '💡',
+    stats: '📊'
   };
+
+  function updateTopbarTitle(tabId) {
+    if (!elements.topbarPageTitle) return;
+    const icon = TAB_ICONS[tabId] || '';
+    const label = t(`nav_${tabId}`);
+    elements.topbarPageTitle.textContent = `${icon} ${label}`.trim();
+  }
 
   function isMobileViewport() {
     return window.innerWidth <= 960;
@@ -329,9 +349,7 @@ document.addEventListener('DOMContentLoaded', () => {
       t.setAttribute('aria-selected', isActive ? 'true' : 'false');
     });
     elements.viewSections.forEach(s => s.classList.toggle('active', s.id === `view-${tabId}`));
-    if (elements.topbarPageTitle && TAB_TITLES[tabId]) {
-      elements.topbarPageTitle.textContent = TAB_TITLES[tabId];
-    }
+    updateTopbarTitle(tabId);
 
     if (tabId === 'srs') {
       loadDueCards();
@@ -370,7 +388,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function jumpToUserVocabSrs() {
     const words = userVocabNotebook.getAll();
     if (words.length === 0) {
-      alert('单词本目前还是空的！请先在例句中点击单词并点击「加入单词本」。');
+      alert(t('uv_empty_alert'));
       return;
     }
     // Ensure all notebook words exist in SRS and are due if none are currently due
@@ -415,7 +433,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (elements.clearUserVocabBtn) {
     elements.clearUserVocabBtn.addEventListener('click', () => {
       if (userVocabNotebook.count === 0) return;
-      if (confirm('确定要清空单词本里的所有收藏单词吗？')) {
+      if (confirm(t('uv_confirm_clear'))) {
         // Also remove uservocab SRS cards
         Object.keys(srsManager.cards).forEach(id => {
           if (id.startsWith('uservocab_')) delete srsManager.cards[id];
@@ -426,6 +444,19 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+
+  // Re-render dynamic views whenever UI language switches
+  window.addEventListener('french-ui-lang-changed', () => {
+    updateTopbarTitle(state.activeTab);
+    renderCurrentFlashcard();
+    renderMistakesList();
+    renderUserVocabSection();
+    wordTooltipMgr.hideTooltip();
+    if (elements.listeningToggleHintBtn && elements.listeningHintText) {
+      const isHidden = elements.listeningHintText.style.display === 'none';
+      elements.listeningToggleHintBtn.textContent = isHidden ? t('listening_show_hint') : t('listening_hide_hint');
+    }
+  });
 
   function updateHeaderStats() {
     const stats = srsManager.getStats();
@@ -466,13 +497,13 @@ document.addEventListener('DOMContentLoaded', () => {
     state.isCardFlipped = false;
 
     if (state.dueCards.length === 0) {
-      elements.flashcardWord.textContent = "Félicitations ! 🎉";
+      elements.flashcardWord.textContent = t('srs_all_done_title');
       elements.flashcardPhonetic.textContent = "";
-      elements.flashcardContext.textContent = "All cards are up to date! Great job practicing.";
-      elements.flashcardBadge.textContent = "Complete";
+      elements.flashcardContext.textContent = t('srs_all_done_desc');
+      elements.flashcardBadge.textContent = t('srs_all_done_badge');
       elements.srsRatingBar.style.display = 'none';
       if (elements.flashcardProgressBar) elements.flashcardProgressBar.style.width = '100%';
-      if (elements.flashcardProgressText) elements.flashcardProgressText.textContent = "All caught up";
+      if (elements.flashcardProgressText) elements.flashcardProgressText.textContent = t('srs_all_done_progress');
       return;
     }
 
@@ -487,7 +518,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const progressPercent = Math.round(((state.currentFlashcardIndex) / state.dueCards.length) * 100);
     if (elements.flashcardProgressBar) elements.flashcardProgressBar.style.width = `${progressPercent}%`;
     if (elements.flashcardProgressText) {
-      elements.flashcardProgressText.textContent = `Card ${state.currentFlashcardIndex + 1} of ${state.dueCards.length}`;
+      elements.flashcardProgressText.textContent = t('srs_card_progress', {
+        current: state.currentFlashcardIndex + 1,
+        total: state.dueCards.length
+      });
     }
 
     if (cardMeta.type === 'vocab') {
@@ -516,14 +550,14 @@ document.addEventListener('DOMContentLoaded', () => {
       };
     } else if (cardMeta.type === 'uservocab') {
       const savedWord = userVocabNotebook.words[cardMeta.refId] || cardMeta;
-      elements.flashcardBadge.textContent = '📒 我的单词本';
+      elements.flashcardBadge.textContent = t('srs_uservocab_badge');
       elements.flashcardWord.textContent = savedWord.french || '';
       elements.flashcardPhonetic.textContent = savedWord.phonetic || '';
       const g = savedWord.gender ? ` (${savedWord.gender})` : '';
       elements.flashcardContext.textContent = `Type: ${savedWord.partOfSpeech || 'Word'}${g}`;
 
-      elements.flashcardMeaning.textContent = [savedWord.chinese, savedWord.english].filter(Boolean).join(' — ');
-      elements.flashcardConjugationTag.textContent = savedWord.conjugationNote || '我的单词本收藏';
+      elements.flashcardMeaning.textContent = savedWord.english || '';
+      elements.flashcardConjugationTag.textContent = savedWord.conjugationNote || t('srs_uservocab_default_tag');
       elements.flashcardExampleFr.textContent = savedWord.exampleFr || '';
       if (savedWord.exampleFr) wordTooltipMgr.makeTextClickable(elements.flashcardExampleFr, savedWord.exampleFr);
       elements.flashcardExampleEn.textContent = '';
@@ -651,11 +685,11 @@ document.addEventListener('DOMContentLoaded', () => {
           mistakeManager.addMistake({
             id: `srs_uservocab_${cardMeta.refId}`,
             type: 'Vocabulaire',
-            prompt: `${savedWord.french} (单词本)`,
+            prompt: `${savedWord.french}`,
             userAnswer: 'À revoir (Again)',
-            correctAnswer: `${savedWord.french} = "${[savedWord.chinese, savedWord.english].filter(Boolean).join(' / ')}"`,
-            explanation: savedWord.exampleFr ? `Exemple : ${savedWord.exampleFr}` : '',
-            hint: savedWord.english || savedWord.chinese || '',
+            correctAnswer: `${savedWord.french} = "${savedWord.english || ''}"`,
+            explanation: savedWord.exampleFr ? `Example: ${savedWord.exampleFr}` : '',
+            hint: savedWord.english || '',
             audioText: savedWord.french
           });
         }
@@ -879,7 +913,7 @@ document.addEventListener('DOMContentLoaded', () => {
       elements.listeningHintText.textContent = '';
     }
     if (elements.listeningToggleHintBtn) {
-      elements.listeningToggleHintBtn.textContent = "💡 Afficher l'indice";
+      elements.listeningToggleHintBtn.textContent = t('listening_show_hint');
     }
 
     if (state.listeningMode === 'verbs') {
@@ -1117,7 +1151,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (elements.listeningHintText) {
         const isHidden = elements.listeningHintText.style.display === 'none';
         elements.listeningHintText.style.display = isHidden ? 'block' : 'none';
-        elements.listeningToggleHintBtn.textContent = isHidden ? "🙈 Masquer l'indice" : "💡 Afficher l'indice";
+        elements.listeningToggleHintBtn.textContent = isHidden ? t('listening_hide_hint') : t('listening_show_hint');
       }
     });
   }
@@ -1187,8 +1221,8 @@ document.addEventListener('DOMContentLoaded', () => {
       emptyDiv.className = 'mistake-empty-state';
       emptyDiv.innerHTML = `
         <div class="mistake-empty-icon">🎉</div>
-        <h3 style="font-size:1.3rem; font-weight:700; color:var(--text-primary); margin-bottom:0.4rem;">错题本目前是空的！</h3>
-        <p style="font-size:0.95rem;">没有符合筛选条件的错题。在平时的练习中如果出现失误，系统会自动为您整理到这里。</p>
+        <h3 style="font-size:1.3rem; font-weight:700; color:var(--text-primary); margin-bottom:0.4rem;">${t('mistakes_empty_title')}</h3>
+        <p style="font-size:0.95rem;">${t('mistakes_empty_desc')}</p>
       `;
       elements.mistakesListContainer.appendChild(emptyDiv);
       return;
@@ -1199,8 +1233,8 @@ document.addEventListener('DOMContentLoaded', () => {
       card.className = `mistake-card ${m.resolved ? 'resolved' : ''}`;
 
       const typeLower = (m.type || 'Conjugaison').toLowerCase();
-      const countTag = m.wrongCount > 1 ? `<span class="mistake-count-badge">Échoué ${m.wrongCount}x</span>` : '';
-      const resolvedTag = m.resolved ? `<span style="font-size:0.75rem; font-weight:700; color:var(--accent-emerald);">✓ Maîtrisé</span>` : '';
+      const countTag = m.wrongCount > 1 ? `<span class="mistake-count-badge">${t('mistakes_count_tag', { count: m.wrongCount })}</span>` : '';
+      const resolvedTag = m.resolved ? `<span style="font-size:0.75rem; font-weight:700; color:var(--accent-emerald);">✓ ${t('mistakes_resolved_tag')}</span>` : '';
 
       card.innerHTML = `
         <div>
@@ -1211,22 +1245,22 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="mistake-prompt-title">${m.prompt}</div>
           <div class="mistake-compare-box">
             <div class="mistake-wrong-row">
-              <span style="font-size:0.8rem; color:var(--text-muted);">Votre erreur : </span>
-              <span class="strike">${m.userAnswer || '(vide)'}</span>
+              <span style="font-size:0.8rem; color:var(--text-muted);">${t('mistakes_your_wrong')}</span>
+              <span class="strike">${m.userAnswer || '(empty)'}</span>
             </div>
             <div class="mistake-correct-row">
               <div>
-                <span style="font-size:0.8rem; color:var(--text-muted);">Bonne réponse : </span>
+                <span style="font-size:0.8rem; color:var(--text-muted);">${t('mistakes_correct_ans')}</span>
                 <span>${m.correctAnswer}</span>
               </div>
-              <button class="btn-audio-sm" title="Pronounce" aria-label="Listen ${m.correctAnswer}">🔊</button>
+              <button class="btn-audio-sm" title="Listen" aria-label="Listen ${m.correctAnswer}">🔊</button>
             </div>
           </div>
           ${m.explanation ? `<div class="mistake-explanation-box">${m.explanation}</div>` : ''}
         </div>
         <div class="mistake-action-row">
-          <button class="mistake-btn-sm retry-btn" title="Re-drill this question">🎯 重练</button>
-          <button class="mistake-btn-sm resolve-btn">${m.resolved ? '↩ 标记待练' : '✓ 标记已掌握'}</button>
+          <button class="mistake-btn-sm retry-btn">${t('mistakes_retry_btn')}</button>
+          <button class="mistake-btn-sm resolve-btn">${m.resolved ? t('mistakes_mark_unresolved') : t('mistakes_mark_resolved')}</button>
           <button class="mistake-btn-sm delete-btn" title="Delete">🗑️</button>
         </div>
       `;
@@ -1267,7 +1301,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (elements.clearResolvedMistakesBtn) {
     elements.clearResolvedMistakesBtn.addEventListener('click', () => {
-      if (confirm("Voulez-vous supprimer toutes les erreurs marquées comme maîtrisées ? (确定清理所有已掌握的错题记录吗？)")) {
+      if (confirm(t('mistakes_confirm_clear'))) {
         mistakeManager.clearResolved();
       }
     });
@@ -1277,7 +1311,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function startMistakesPractice(customList = null) {
     const list = customList || mistakeManager.mistakes.filter(m => !m.resolved);
     if (!list || list.length === 0) {
-      alert("Aucune erreur non résolue à pratiquer ! Bravo ! (目前没有待消灭的错题，干得漂亮！)");
+      alert(t('mistakes_none_left'));
       return;
     }
 
@@ -1301,7 +1335,7 @@ document.addEventListener('DOMContentLoaded', () => {
         elements.mistakePracticeArena.style.display = 'none';
       }
       audioManager.playLevelUp();
-      alert("🎉 Félicitations ! Vous avez terminé votre session de révision des erreurs ! (太棒了！错题专攻训练已全部完成！)");
+      alert(t('mistakes_session_done'));
       renderMistakesList();
       return;
     }
@@ -1719,12 +1753,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (elements.resetProgressBtn) {
     elements.resetProgressBtn.addEventListener('click', () => {
-      if (confirm("Are you sure you want to reset all your spaced repetition learning progress? (确定重置所有间隔复习进度吗？)")) {
+      if (confirm(t('mig_confirm_reset'))) {
         srsManager.resetProgress();
         renderStatsView();
         updateHeaderStats();
         loadDueCards();
-        alert("Progress reset successfully.");
+        alert(t('mig_reset_done'));
       }
     });
   }
@@ -1759,7 +1793,7 @@ document.addEventListener('DOMContentLoaded', () => {
       reader.onload = (event) => {
         const success = srsManager.importData(event.target.result);
         if (success) {
-          alert('Félicitations ! Votre progression a été restaurée avec succès. (学习数据、错题本与单词本已成功恢复！)');
+          alert(t('mig_import_ok'));
           renderStatsView();
           updateHeaderStats();
           loadDueCards();
@@ -1767,7 +1801,7 @@ document.addEventListener('DOMContentLoaded', () => {
           updateUserVocabBadge();
           renderUserVocabSection();
         } else {
-          alert('Erreur : Fichier JSON invalide ou corrompu. (导入失败：无效的备份文件)');
+          alert(t('mig_import_fail'));
         }
       };
       reader.readAsText(file);
@@ -1794,6 +1828,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Initial load
+  updateTopbarTitle(state.activeTab);
   loadDueCards();
   generateNewDrill();
   renderVerbGrid();

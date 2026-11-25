@@ -57,6 +57,9 @@
           <span class="nav-icon">📒</span><span class="nav-label" data-i18n="nav_uservocab">单词本</span>
           <span id="userVocabBadgeCount" class="badge-count blue zero">0</span>
         </button>
+        <button class="nav-tab-btn" data-target="dictionary" role="tab" aria-selected="false">
+          <span class="nav-icon">🔍</span><span class="nav-label" data-i18n="nav_dictionary">查词典</span>
+        </button>
         <button class="nav-tab-btn" data-target="verbs" role="tab" aria-selected="false">
           <span class="nav-icon">📖</span><span class="nav-label" data-i18n="nav_verbs">动词变位表</span>
         </button>
@@ -661,6 +664,7 @@
         </div>
         <div class="panel-header-actions">
           <span id="userVocabCount" class="vocab-count-pill">0 个单词</span>
+          <button id="openDictFromVocabBtn" class="btn-sm btn-ghost" data-i18n="uv_lookup_new_btn">🔍 查新词</button>
           <button id="practiceUserVocabSrsBtn" class="btn-primary btn-sm" data-i18n="uv_practice_srs_btn">🧠 闪卡复习单词本</button>
           <button id="clearUserVocabBtn" class="btn-sm btn-ghost" data-i18n="uv_clear_btn">🗑 清空</button>
         </div>
@@ -681,6 +685,66 @@
           <p data-i18n="uv_empty_title">你的单词本还是空的</p>
           <p style="color:var(--text-secondary);font-size:0.9rem;" data-i18n="uv_empty_desc">在例句中点击任意法语单词，然后点击「加入单词本」即可收藏。</p>
         </div>
+      </div>
+    </section>
+
+    <!-- 8B. VIEW: FRENCH DICTIONARY LOOKUP -->
+    <section id="view-dictionary" class="view-section">
+      <div class="drill-arena">
+        <div class="panel-header">
+          <div>
+            <h2 class="panel-title" data-i18n="dict_title">🔍 法语查词典</h2>
+            <p class="panel-subtitle" data-i18n="dict_subtitle">输入任意法语或英文单词查询释义、发音与变位，一键加入单词本</p>
+          </div>
+          <div class="filter-bar">
+            <button type="button" id="dictDirFrEnBtn" class="filter-tab-btn active" data-i18n="dict_dir_fr_en">法语 → 英文</button>
+            <button type="button" id="dictDirEnFrBtn" class="filter-tab-btn" data-i18n="dict_dir_en_fr">英文 → 法语</button>
+            <button type="button" id="dictCustomToggleBtn" class="btn-sm btn-ghost" data-i18n="dict_custom_toggle">✏️ 手动添加生词</button>
+          </div>
+        </div>
+
+        <!-- Search Panel -->
+        <div class="panel-card dict-search-card">
+          <div class="dict-search-row">
+            <input type="text" id="dictSearchInput" class="drill-input dict-search-input" data-i18n-placeholder="dict_input_placeholder" placeholder="输入法语或英文单词（如 croissant, parler, water）..." autocomplete="off" spellcheck="false">
+            <button type="button" id="dictSearchBtn" class="btn-primary dict-search-btn" data-i18n="dict_search_btn">查询 ↵</button>
+          </div>
+
+          <!-- French Accent Helpers -->
+          <div class="accent-bar" aria-label="French accent keyboard helpers" style="margin-top:0.75rem; margin-bottom:0;">
+            <button class="btn-accent" type="button">é</button>
+            <button class="btn-accent" type="button">è</button>
+            <button class="btn-accent" type="button">ê</button>
+            <button class="btn-accent" type="button">à</button>
+            <button class="btn-accent" type="button">â</button>
+            <button class="btn-accent" type="button">ç</button>
+            <button class="btn-accent" type="button">î</button>
+            <button class="btn-accent" type="button">ï</button>
+            <button class="btn-accent" type="button">ô</button>
+            <button class="btn-accent" type="button">û</button>
+            <button class="btn-accent" type="button">œ</button>
+          </div>
+
+          <!-- Recent Searches -->
+          <div id="dictRecentRow" class="dict-recent-row" style="display:none;"></div>
+        </div>
+
+        <!-- Optional Custom Word Entry Card -->
+        <div id="dictCustomBox" class="panel-card dict-custom-box" style="display:none;">
+          <div style="font-weight:700; font-size:1rem; margin-bottom:0.85rem;" data-i18n="dict_custom_title">✏️ 手动添加自定义单词到单词本</div>
+          <div class="dict-custom-grid">
+            <input type="text" id="dictCustomFr" class="search-input" data-i18n-placeholder="dict_custom_fr_ph" placeholder="法语单词（如 le parapluie）">
+            <input type="text" id="dictCustomEn" class="search-input" data-i18n-placeholder="dict_custom_en_ph" placeholder="English meaning (e.g. umbrella)">
+            <input type="text" id="dictCustomPos" class="search-input" data-i18n-placeholder="dict_custom_pos_ph" placeholder="词性（可选，如 noun / verb）">
+            <input type="text" id="dictCustomEx" class="search-input" data-i18n-placeholder="dict_custom_ex_ph" placeholder="例句（可选）">
+          </div>
+          <div style="margin-top:0.85rem; display:flex; justify-content:flex-end;">
+            <button type="button" id="dictCustomSaveBtn" class="btn-primary btn-sm" data-i18n="dict_custom_save_btn">➕ 保存到单词本</button>
+          </div>
+        </div>
+
+        <!-- Results Area -->
+        <div id="dictResultsArea" class="dict-results-area"></div>
       </div>
     </section>
 
@@ -792,7 +856,10 @@
 
           <div style="margin-top:1.25rem; padding:0.75rem 1rem; border-radius:var(--radius-sm); background:rgba(0,0,0,0.03); font-size:0.85rem; color:var(--text-secondary); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem;">
             <span data-i18n="mig_footer_tip">💡 提示：备份文件仅几十 KB，包含全部复习曲线、错题本与单词本，建议定期备份。</span>
-            <button id="resetProgressBtn" style="background:none; border:none; color:var(--accent-french-red); cursor:pointer; font-size:0.8rem; text-decoration:underline;" data-i18n="mig_reset_btn">清空 / 重置本设备数据</button>
+            <div style="display:flex; align-items:center; gap:0.85rem; flex-wrap:wrap;">
+              <button id="refreshAppBtn" type="button" class="btn-sm btn-ghost" data-i18n="mig_refresh_btn">🔄 检查更新（不丢进度）</button>
+              <button id="resetProgressBtn" style="background:none; border:none; color:var(--accent-french-red); cursor:pointer; font-size:0.8rem; text-decoration:underline;" data-i18n="mig_reset_btn">清空 / 重置本设备数据</button>
+            </div>
           </div>
         </div>
       </div>
@@ -821,6 +888,7 @@
   <script src="js/srs.js"></script>
   <script src="js/audio.js"></script>
   <script src="js/wordtooltip.js"></script>
+  <script src="js/dictionary.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>

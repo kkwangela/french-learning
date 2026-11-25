@@ -36,7 +36,8 @@
 - **Liaison Traps**: Train your ear on classic spoken French pairs (*Ils ont* vs *Ils sont*, *Vous avez* vs *Vous savez*, imparfait *-ais* vs passé composé *-é*).
 - **Sentence Dictation**: Listen to conversational French at normal (`0.9x`) or slow (`0.65x`) speed with word-by-word diff feedback.
 
-### 4. 💬 Click-to-Lookup Tooltip & 📒 Word Notebook
+### 4. 🔍 French Dictionary, 💬 Click-to-Lookup & 📒 Word Notebook
+- **French ↔ English Dictionary**: Search any French or English word (instant offline lookup for built-in words + live online Wiktionary/translation lookup for any word + custom entry fallback) with pronunciation, conjugation preview, and recent history.
 - Click any French word inside example sentences (*In Context*, *Flashcards*, *Vocabulary*, or *Listening* feedback) to open an instant dictionary popup with English definition, phonetics, part of speech, gender, verb conjugation source, and French audio.
 - Save words with one click along with their source example sentence, and launch dedicated SRS flashcard reviews directly from your Word Notebook.
 

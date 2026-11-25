@@ -1,4 +1,4 @@
-const CACHE_NAME = 'woyaoqubali-cache-v6';
+const CACHE_NAME = 'woyaoqubali-cache-v8';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -9,6 +9,7 @@ const ASSETS_TO_CACHE = [
   './js/srs.js',
   './js/audio.js',
   './js/wordtooltip.js',
+  './js/dictionary.js',
   './js/app.js',
   './assets/favicon.png',
   './assets/apple-touch-icon.png',
@@ -40,13 +41,27 @@ self.addEventListener('activate', (event) => {
   self.clients.claim();
 });
 
+// Network-First for same-origin app assets so PWA updates load automatically
+// without ever needing to delete & re-add the Home Screen icon (preserving localStorage!).
+// Falls back cleanly to cache when offline.
 self.addEventListener('fetch', (event) => {
+  if (event.request.method !== 'GET') return;
+
+  const url = new URL(event.request.url);
+  if (url.origin !== self.location.origin) {
+    // External APIs (e.g. online dictionary) go straight to network
+    return;
+  }
+
   event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
-      if (cachedResponse) {
-        return cachedResponse;
-      }
-      return fetch(event.request).catch(() => cachedResponse);
-    })
+    fetch(event.request, { cache: 'no-cache' })
+      .then((networkResponse) => {
+        if (networkResponse && networkResponse.ok) {
+          const copy = networkResponse.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
+        }
+        return networkResponse;
+      })
+      .catch(() => caches.match(event.request))
   );
 });

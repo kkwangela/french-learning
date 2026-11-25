@@ -10,6 +10,10 @@ document.addEventListener('DOMContentLoaded', () => {
   window.userVocabNotebook = userVocabNotebook;
   const wordTooltipMgr = new WordTooltipManager(userVocabNotebook, audioManager, srsManager);
   window.wordTooltipMgr = wordTooltipMgr;
+  const dictionaryMgr = typeof FrenchDictionaryManager !== 'undefined'
+    ? new FrenchDictionaryManager(wordTooltipMgr, userVocabNotebook, audioManager, srsManager)
+    : null;
+  window.dictionaryMgr = dictionaryMgr;
 
   // Apply saved UI language immediately
   if (window.I18N) {
@@ -182,6 +186,9 @@ document.addEventListener('DOMContentLoaded', () => {
     userVocabSearchInput: document.getElementById('userVocabSearchInput'),
     clearUserVocabBtn: document.getElementById('clearUserVocabBtn'),
     practiceUserVocabSrsBtn: document.getElementById('practiceUserVocabSrsBtn'),
+    openDictFromVocabBtn: document.getElementById('openDictFromVocabBtn'),
+    dictSearchInput: document.getElementById('dictSearchInput'),
+    refreshAppBtn: document.getElementById('refreshAppBtn'),
 
     // Stats View
     statsTotalLearned: document.getElementById('statsTotalLearned'),
@@ -288,6 +295,7 @@ document.addEventListener('DOMContentLoaded', () => {
     sentences: '🧩',
     mistakes: '📕',
     uservocab: '📒',
+    dictionary: '🔍',
     verbs: '📖',
     vocab: '📚',
     tips: '💡',
@@ -368,6 +376,10 @@ document.addEventListener('DOMContentLoaded', () => {
       renderVocabTable();
     } else if (tabId === 'uservocab') {
       renderUserVocabSection();
+    } else if (tabId === 'dictionary') {
+      if (elements.dictSearchInput) {
+        setTimeout(() => elements.dictSearchInput.focus(), 60);
+      }
     } else if (tabId === 'stats') {
       renderStatsView();
     }
@@ -428,6 +440,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (elements.practiceUserVocabSrsBtn) {
     elements.practiceUserVocabSrsBtn.addEventListener('click', jumpToUserVocabSrs);
+  }
+
+  if (elements.openDictFromVocabBtn) {
+    elements.openDictFromVocabBtn.addEventListener('click', () => switchTab('dictionary'));
   }
 
   if (elements.clearUserVocabBtn) {
@@ -1462,6 +1478,8 @@ document.addEventListener('DOMContentLoaded', () => {
         targetInput = elements.listeningInput;
       } else if (state.activeTab === 'mistakes') {
         targetInput = elements.practiceMistakeInput;
+      } else if (state.activeTab === 'dictionary') {
+        targetInput = elements.dictSearchInput;
       }
 
       if (targetInput) {
@@ -1749,6 +1767,23 @@ document.addEventListener('DOMContentLoaded', () => {
     if (elements.statsMatureCount) elements.statsMatureCount.textContent = stats.matureCount;
     if (elements.statsTotalReviews) elements.statsTotalReviews.textContent = stats.totalReviews;
     if (elements.statsRetentionRate) elements.statsRetentionRate.textContent = `${stats.retentionRate}%`;
+  }
+
+  if (elements.refreshAppBtn) {
+    elements.refreshAppBtn.addEventListener('click', async () => {
+      try {
+        if ('serviceWorker' in navigator) {
+          const regs = await navigator.serviceWorker.getRegistrations();
+          await Promise.all(regs.map(r => r.update()));
+        }
+        if ('caches' in window) {
+          const keys = await caches.keys();
+          await Promise.all(keys.map(k => caches.delete(k)));
+        }
+      } catch (e) {}
+      // Reloads latest code from server without touching localStorage progress!
+      window.location.reload();
+    });
   }
 
   if (elements.resetProgressBtn) {

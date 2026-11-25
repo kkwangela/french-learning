@@ -1238,7 +1238,7 @@ main {
 /* Responsive Adjustments */
 @media (max-width: 768px) {
   .flashcard-container {
-    height: 380px;
+    height: 440px;
   }
   .flashcard-word {
     font-size: 2rem;

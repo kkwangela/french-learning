@@ -93,6 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
     flashcardContext: document.getElementById('flashcardContext'),
     flashcardMeaning: document.getElementById('flashcardMeaning'),
     flashcardConjugationTag: document.getElementById('flashcardConjugationTag'),
+    flashcardConjugationGrid: document.getElementById('flashcardConjugationGrid'),
     flashcardExampleFr: document.getElementById('flashcardExampleFr'),
     flashcardExampleEn: document.getElementById('flashcardExampleEn'),
     flashcardAudioFront: document.getElementById('flashcardAudioFront'),
@@ -513,6 +514,73 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ----------------------------------------------------
      1. FLASHCARD SRS MODE
   ---------------------------------------------------- */
+  const EXTRA_PRESENT_CONJ = {
+    oublier: { je: "oublie", tu: "oublies", il: "oublie", nous: "oublions", vous: "oubliez", ils: "oublient" },
+    apprendre: { je: "apprends", tu: "apprends", il: "apprend", nous: "apprenons", vous: "apprenez", ils: "apprennent" },
+    habiter: { je: "habite", tu: "habites", il: "habite", nous: "habitons", vous: "habitez", ils: "habitent" },
+    vivre: { je: "vis", tu: "vis", il: "vit", nous: "vivons", vous: "vivez", ils: "vivent" }
+  };
+
+  function resolveVerbConjugations(verbName, tenseKey = 'present') {
+    if (!verbName) return null;
+    const clean = verbName.toLowerCase().trim();
+    const verbs = (window.FRENCH_DATA && window.FRENCH_DATA.verbs) || [];
+    const found = verbs.find(v =>
+      (v.infinitive || '').toLowerCase() === clean ||
+      (v.id || '').toLowerCase() === clean
+    );
+    if (found && found.conjugations && found.conjugations[tenseKey]) {
+      return { infinitive: found.infinitive, forms: found.conjugations[tenseKey] };
+    }
+    if (tenseKey === 'present' && EXTRA_PRESENT_CONJ[clean]) {
+      return { infinitive: clean, forms: EXTRA_PRESENT_CONJ[clean] };
+    }
+    // Regular -er verb fallback for user-saved verbs (excluding aller)
+    if (tenseKey === 'present' && /^[a-zà-ÿœ]+er$/.test(clean) && clean !== 'aller' && clean.length > 3) {
+      const stem = clean.slice(0, -2);
+      const nousForm = clean.endsWith('ger') ? `${stem}eons` : clean.endsWith('cer') ? `${stem.slice(0, -1)}çons` : `${stem}ons`;
+      return {
+        infinitive: clean,
+        forms: { je: `${stem}e`, tu: `${stem}es`, il: `${stem}e`, nous: nousForm, vous: `${stem}ez`, ils: `${stem}ent` }
+      };
+    }
+    return null;
+  }
+
+  function renderFlashcardConjGrid(formsObj) {
+    if (!elements.flashcardConjugationGrid) return;
+    if (!formsObj) {
+      elements.flashcardConjugationGrid.style.display = 'none';
+      elements.flashcardConjugationGrid.innerHTML = '';
+      return;
+    }
+
+    const pronounOrder = [
+      { key: 'je', label: 'je' },
+      { key: 'nous', label: 'nous' },
+      { key: 'tu', label: 'tu' },
+      { key: 'vous', label: 'vous' },
+      { key: 'il', label: 'il/elle' },
+      { key: 'ils', label: 'ils/elles' }
+    ];
+
+    const cells = pronounOrder
+      .filter(p => formsObj[p.key] && formsObj[p.key] !== '-')
+      .map(p => {
+        const form = formsObj[p.key];
+        const displayPronoun = (p.key === 'je' && /^[aeéèêiîoôuûyh]/i.test(form)) ? "j'" : `${p.label} `;
+        return `<div class="flashcard-conj-item"><strong>${displayPronoun}</strong>${form}</div>`;
+      })
+      .join('');
+
+    if (cells) {
+      elements.flashcardConjugationGrid.innerHTML = cells;
+      elements.flashcardConjugationGrid.style.display = 'grid';
+    } else {
+      elements.flashcardConjugationGrid.style.display = 'none';
+    }
+  }
+
   function loadDueCards() {
     state.dueCards = srsManager.getDueCards(state.flashcardMode, 50);
     state.currentFlashcardIndex = 0;
@@ -564,7 +632,18 @@ document.addEventListener('DOMContentLoaded', () => {
       elements.flashcardContext.textContent = `Type: ${vocab.partOfSpeech || 'Word'}${vocab.gender ? ' (' + vocab.gender + ')' : ''}`;
 
       elements.flashcardMeaning.textContent = vocab.english;
-      elements.flashcardConjugationTag.textContent = vocab.associatedVerb ? `Related verb: ${vocab.associatedVerb}` : 'Essential Word';
+      // Show full present-tense conjugation for verbs or associated verbs!
+      const targetVerbName = vocab.partOfSpeech === 'verb' ? vocab.french : vocab.associatedVerb;
+      const conjResult = resolveVerbConjugations(targetVerbName, 'present');
+      if (conjResult) {
+        elements.flashcardConjugationTag.textContent = vocab.partOfSpeech === 'verb'
+          ? `Présent — ${conjResult.infinitive}`
+          : `Related verb: ${conjResult.infinitive} (Présent)`;
+        renderFlashcardConjGrid(conjResult.forms);
+      } else {
+        elements.flashcardConjugationTag.textContent = vocab.associatedVerb ? `Related verb: ${vocab.associatedVerb}` : 'Essential Word';
+        renderFlashcardConjGrid(null);
+      }
       elements.flashcardExampleFr.textContent = vocab.exampleFr || '';
       if (vocab.exampleFr) wordTooltipMgr.makeTextClickable(elements.flashcardExampleFr, vocab.exampleFr);
       elements.flashcardExampleEn.textContent = vocab.exampleEn || '';
@@ -587,7 +666,14 @@ document.addEventListener('DOMContentLoaded', () => {
       elements.flashcardContext.textContent = `Type: ${savedWord.partOfSpeech || 'Word'}${g}`;
 
       elements.flashcardMeaning.textContent = savedWord.english || '';
-      elements.flashcardConjugationTag.textContent = savedWord.conjugationNote || t('srs_uservocab_default_tag');
+      const savedConj = resolveVerbConjugations(savedWord.french || savedWord.key, 'present');
+      if (savedConj) {
+        elements.flashcardConjugationTag.textContent = `Présent — ${savedConj.infinitive}`;
+        renderFlashcardConjGrid(savedConj.forms);
+      } else {
+        elements.flashcardConjugationTag.textContent = savedWord.conjugationNote || t('srs_uservocab_default_tag');
+        renderFlashcardConjGrid(null);
+      }
       elements.flashcardExampleFr.textContent = savedWord.exampleFr || '';
       if (savedWord.exampleFr) wordTooltipMgr.makeTextClickable(elements.flashcardExampleFr, savedWord.exampleFr);
       elements.flashcardExampleEn.textContent = '';
@@ -612,13 +698,9 @@ document.addEventListener('DOMContentLoaded', () => {
       elements.flashcardPhonetic.textContent = `[${verb.english}] • Group: ${verb.group.toUpperCase()}`;
       elements.flashcardContext.textContent = `Auxiliary: ${verb.auxiliary} • Participle: ${verb.participlePass}`;
 
-      const sampleForms = Object.entries(verb.conjugations[cardMeta.tense] || {})
-        .slice(0, 3)
-        .map(([p, f]) => `${p}: ${f}`)
-        .join(' | ');
-
       elements.flashcardMeaning.textContent = `${verb.infinitive} = "${verb.english}"`;
-      elements.flashcardConjugationTag.textContent = sampleForms;
+      elements.flashcardConjugationTag.textContent = tenseName;
+      renderFlashcardConjGrid(verb.conjugations[cardMeta.tense] || null);
       
       const example = (verb.examples || []).find(ex => ex.tense === cardMeta.tense) || (verb.examples && verb.examples[0]);
       const exampleFrText = example ? example.fr : `Je ${verb.conjugations[cardMeta.tense]?.je || ''}`;

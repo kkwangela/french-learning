@@ -1,0 +1,4 @@
+.DS_Store
+__pycache__/
+*.pyc
+french_learning_backup_*.json

@@ -42,7 +42,7 @@ def run_server():
                 url = f"http://localhost:{port}"
                 lan_ip = get_lan_ip()
                 print(f"==================================================")
-                print(f"  VerbeMaster - French Learning App running at:")
+                print(f"  我要去巴黎 - French Learning App running at:")
                 print(f"  Mac    --> {url}")
                 if lan_ip:
                     print(f"  iPhone --> http://{lan_ip}:{port}")

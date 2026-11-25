@@ -1,4 +1,4 @@
-const CACHE_NAME = 'verbemaster-cache-v3';
+const CACHE_NAME = 'woyaoqubali-cache-v5';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -9,6 +9,7 @@ const ASSETS_TO_CACHE = [
   './js/audio.js',
   './js/wordtooltip.js',
   './js/app.js',
+  './assets/favicon.png',
   './assets/apple-touch-icon.png',
   './assets/icon-192.png',
   './assets/icon-512.png'

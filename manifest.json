@@ -1,6 +1,6 @@
 {
-  "name": "VerbeMaster - Apprendre le Français",
-  "short_name": "VerbeMaster",
+  "name": "我要去巴黎 - Apprendre le Français",
+  "short_name": "我要去巴黎",
   "description": "Apprendre et mémoriser le vocabulaire et les conjugaisons françaises avec répétition espacée",
   "start_url": "./index.html",
   "scope": "./",

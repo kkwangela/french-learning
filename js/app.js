@@ -719,28 +719,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Flip flashcard on click
+  // Flip flashcard on click (never auto-speak on flip; only speak when clicking 🔊)
   if (elements.flashcardContainer) {
     elements.flashcardContainer.addEventListener('click', (e) => {
-      // Do not flip card if user clicked a clickable word to look up its definition
-      if (e.target && e.target.closest && e.target.closest('.clickable-word')) return;
+      // Do not flip card if user clicked a clickable word or audio button
+      if (e.target && e.target.closest && (e.target.closest('.clickable-word') || e.target.closest('.flashcard-audio-btn'))) return;
       state.isCardFlipped = !state.isCardFlipped;
       elements.flashcardContainer.classList.toggle('is-flipped', state.isCardFlipped);
       audioManager.playFlip();
-
-      if (state.isCardFlipped) {
-        const cardMeta = state.dueCards[state.currentFlashcardIndex];
-        if (cardMeta && cardMeta.type === 'vocab') {
-          const vocab = window.FRENCH_DATA.vocabulary.find(v => v.id === cardMeta.refId);
-          if (vocab) audioManager.speak(vocab.french);
-        } else if (cardMeta && cardMeta.type === 'uservocab') {
-          const savedWord = userVocabNotebook.words[cardMeta.refId] || cardMeta;
-          if (savedWord && savedWord.french) audioManager.speak(savedWord.french);
-        } else if (cardMeta && cardMeta.type === 'verb') {
-          const verb = window.FRENCH_DATA.verbs.find(v => v.id === cardMeta.refId);
-          if (verb) audioManager.speak(verb.infinitive);
-        }
-      }
     });
   }
 

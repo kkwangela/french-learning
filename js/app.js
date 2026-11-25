@@ -235,24 +235,36 @@ document.addEventListener('DOMContentLoaded', () => {
   function populateVoiceSelector() {
     if (!elements.voiceSelectDropdown) return;
     const voices = audioManager.getAvailableFrenchVoices();
+    const useOnline = audioManager.shouldUseOnlineAudio();
+    const pref = audioManager.preferredVoiceURI;
     elements.voiceSelectDropdown.innerHTML = '';
 
-    if (voices.length === 0) {
-      const opt = document.createElement('option');
-      opt.value = '';
-      opt.textContent = 'Voix française (fr-FR)';
-      elements.voiceSelectDropdown.appendChild(opt);
-      return;
+    // 1. Always offer Online French HD (<audio>) — works reliably on iPhone/Android & all browsers
+    const onlineOpt = document.createElement('option');
+    onlineOpt.value = '__online_hd__';
+    onlineOpt.textContent = t('voice_online_opt');
+    if (pref === '__online_hd__' || (!pref && useOnline)) {
+      onlineOpt.selected = true;
     }
+    elements.voiceSelectDropdown.appendChild(onlineOpt);
 
+    // 2. System default French (lets OS pick best native French voice without setting utterance.voice)
+    const sysOpt = document.createElement('option');
+    sysOpt.value = '__system_default__';
+    sysOpt.textContent = t('voice_system_opt');
+    if (pref === '__system_default__') {
+      sysOpt.selected = true;
+    }
+    elements.voiceSelectDropdown.appendChild(sysOpt);
+
+    // 3. Individual installed system French voices
     const currentVoice = audioManager.getFrenchVoice();
-
     voices.forEach(v => {
       const opt = document.createElement('option');
       opt.value = v.voiceURI || v.name;
       const cleanLang = (v.lang || 'fr-FR').replace(/_/g, '-');
       opt.textContent = `${v.name} (${cleanLang})`;
-      if (currentVoice && (v.voiceURI === currentVoice.voiceURI || v.name === currentVoice.name)) {
+      if (!useOnline && pref !== '__system_default__' && currentVoice && (v.voiceURI === currentVoice.voiceURI || v.name === currentVoice.name)) {
         opt.selected = true;
       }
       elements.voiceSelectDropdown.appendChild(opt);
@@ -261,6 +273,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   populateVoiceSelector();
   window.addEventListener('french-voices-ready', populateVoiceSelector);
+  window.addEventListener('french-ui-lang-changed', populateVoiceSelector);
 
   if (elements.voiceSelectDropdown) {
     elements.voiceSelectDropdown.addEventListener('change', (e) => {
@@ -275,6 +288,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (elements.headerBackupRestoreBtn) {
     elements.headerBackupRestoreBtn.addEventListener('click', () => {
       switchTab('stats');
+      closeMobileSidebar();
       if (elements.migrationPanelCard) {
         setTimeout(() => {
           elements.migrationPanelCard.scrollIntoView({ behavior: 'smooth', block: 'center' });

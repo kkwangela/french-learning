@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="referrer" content="no-referrer">
   <title>我要去巴黎 • Apprendre le Français & la Conjugaison</title>
   <meta name="description" content="Master French vocabulary and verb conjugations with Spaced Repetition (SRS), interactive speed drills, listening comprehension dictation, and native audio.">
   
@@ -75,6 +76,19 @@
           <span class="nav-icon">📊</span><span class="nav-label" data-i18n="nav_stats">统计与备份</span>
         </button>
       </nav>
+
+      <!-- Sidebar Footer: Voice Picker & Quick Backup (keeps topbar completely uncluttered!) -->
+      <div class="sidebar-footer">
+        <div class="voice-picker-wrap" data-i18n-title="voice_picker_title" title="选择法语朗读语音">
+          <span aria-hidden="true">🗣️</span>
+          <select id="voiceSelectDropdown" class="voice-select" aria-label="French voice">
+            <option value="__online_hd__" data-i18n="voice_online_opt">🌐 在线真人法语 (HD)</option>
+          </select>
+        </div>
+        <button id="headerBackupRestoreBtn" class="btn-backup-header" data-i18n-title="header_backup_title" title="跨设备迁移学习记录与数据恢复">
+          <span>📦</span> <span data-i18n="header_backup_btn">备份/迁移</span>
+        </button>
+      </div>
     </aside>
 
     <!-- Main Right Column -->
@@ -87,22 +101,10 @@
             <span id="topbarPageTitle" class="topbar-page-title">🗂️ 闪卡复习</span>
           </div>
 
-          <!-- Utility Actions -->
+          <!-- Compact Utility Actions (never crowds or overlaps menu!) -->
           <div class="header-actions">
-            <!-- UI Language Switcher (中文 / EN) -->
             <button id="langToggleBtn" class="btn-lang-toggle" title="Switch UI to English" aria-label="Switch interface language">
               <span>🌐</span> <span id="langToggleLabel">EN</span>
-            </button>
-            <!-- French Voice Selector -->
-            <div class="voice-picker-wrap" data-i18n-title="voice_picker_title" title="选择法语朗读语音">
-              <span aria-hidden="true">🗣️</span>
-              <select id="voiceSelectDropdown" class="voice-select" aria-label="French voice">
-                <option value="" data-i18n="voice_default_opt">法语语音...</option>
-              </select>
-            </div>
-            <!-- Quick Data Migration / Restore Button -->
-            <button id="headerBackupRestoreBtn" class="btn-backup-header" data-i18n-title="header_backup_title" title="跨设备迁移学习记录与数据恢复">
-              <span>📦</span> <span class="hide-xs" data-i18n="header_backup_btn">备份/迁移</span>
             </button>
             <button id="audioToggleBtn" class="btn-icon" data-i18n-title="audio_toggle_title" title="开启/关闭音效" aria-label="Toggle sound effects">🔊</button>
             <button id="themeToggleBtn" class="btn-icon" data-i18n-title="theme_toggle_title" title="切换浅色/深色主题" aria-label="Toggle theme">🌙</button>
@@ -187,8 +189,9 @@
 
               <div id="flashcardMeaning" class="flashcard-meaning">Hello / Good morning</div>
               <div id="flashcardConjugationTag" class="flashcard-conjugation-tag">Greetings</div>
+              <div id="flashcardConjugationGrid" class="flashcard-conj-grid" style="display:none;"></div>
 
-              <div style="margin-top: 0.75rem; max-width: 460px;">
+              <div style="margin-top: 0.5rem; max-width: 460px;">
                 <div id="flashcardExampleFr" class="flashcard-example-fr">"Bonjour, comment allez-vous ?"</div>
                 <div id="flashcardExampleEn" class="flashcard-example-en">"Hello, how are you?"</div>
               </div>

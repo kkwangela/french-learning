@@ -579,7 +579,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const form = formsObj[p.key];
         const displayPronoun = (p.key === 'je' && /^[aeéèêiîoôuûyh]/i.test(form)) ? "j'" : `${p.label} `;
         const spokenText = formatSpokenConjugation(p.key, form).replace(/"/g, '&quot;');
-        return `<button type="button" class="flashcard-conj-item" data-speak="${spokenText}" title="Listen: ${spokenText}"><span class="conj-text"><strong>${displayPronoun}</strong>${form}</span><span class="conj-speaker" aria-hidden="true">🔊</span></button>`;
+        return `<button type="button" class="flashcard-conj-item" data-speak="${spokenText}" title="Listen: ${spokenText}"><span class="conj-text"><strong>${displayPronoun}</strong>${form}</span></button>`;
       })
       .join('');
 
@@ -590,13 +590,8 @@ document.addEventListener('DOMContentLoaded', () => {
       elements.flashcardConjugationGrid.querySelectorAll('.flashcard-conj-item').forEach(btn => {
         btn.addEventListener('click', (e) => {
           e.stopPropagation();
-          btn.classList.add('is-speaking');
-          audioManager.speak(
-            btn.dataset.speak,
-            null,
-            null,
-            () => btn.classList.remove('is-speaking')
-          );
+          btn.blur();
+          audioManager.speak(btn.dataset.speak);
         });
       });
     } else {

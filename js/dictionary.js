@@ -542,7 +542,7 @@ class FrenchDictionaryManager {
           .map(([p, f]) => {
             const spoken = (p === 'je' && /^[aeéèêiîoôuûyh]/i.test(f)) ? `j'${f}` : `${p} ${f}`;
             const displayPronoun = (p === 'je' && /^[aeéèêiîoôuûyh]/i.test(f)) ? "j'" : `${p} `;
-            return `<button type="button" class="dict-conj-pill" data-speak="${this._esc(spoken)}" title="Listen: ${this._esc(spoken)}"><strong>${this._esc(displayPronoun)}</strong>${this._esc(f)} <span class="conj-speaker" aria-hidden="true">🔊</span></button>`;
+            return `<button type="button" class="dict-conj-pill" data-speak="${this._esc(spoken)}" title="Listen: ${this._esc(spoken)}"><strong>${this._esc(displayPronoun)}</strong>${this._esc(f)}</button>`;
           })
           .join('');
         conjHtml = `
@@ -593,6 +593,7 @@ class FrenchDictionaryManager {
     // Wire up audio & save buttons
     this.els.resultsArea.querySelectorAll('.dict-conj-pill').forEach(btn => {
       btn.addEventListener('click', () => {
+        btn.blur();
         if (this.audio && btn.dataset.speak) this.audio.speak(btn.dataset.speak);
       });
     });

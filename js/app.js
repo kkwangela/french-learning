@@ -612,17 +612,35 @@ document.addEventListener('DOMContentLoaded', () => {
     elements.flashcardContainer.classList.remove('is-flipped');
     state.isCardFlipped = false;
 
+    const promptHintEl = elements.flashcardContainer.querySelector('.flashcard-prompt-hint');
+
     if (state.dueCards.length === 0) {
       elements.flashcardWord.textContent = t('srs_all_done_title');
       elements.flashcardPhonetic.textContent = "";
       elements.flashcardContext.textContent = t('srs_all_done_desc');
       elements.flashcardBadge.textContent = t('srs_all_done_badge');
       elements.srsRatingBar.style.display = 'none';
+      elements.flashcardContainer.style.cursor = 'default';
+      if (elements.flashcardAudioFront) elements.flashcardAudioFront.style.display = 'none';
+      if (promptHintEl) promptHintEl.style.display = 'none';
+
+      // Clear stale back-face data so completion screen never leaks the last reviewed word
+      if (elements.flashcardMeaning) elements.flashcardMeaning.textContent = '';
+      if (elements.flashcardConjugationTag) elements.flashcardConjugationTag.textContent = '';
+      renderFlashcardConjGrid(null);
+      if (elements.flashcardExampleFr) elements.flashcardExampleFr.textContent = '';
+      if (elements.flashcardExampleEn) elements.flashcardExampleEn.textContent = '';
+      if (elements.flashcardAudioFront) elements.flashcardAudioFront.onclick = null;
+      if (elements.flashcardAudioBack) elements.flashcardAudioBack.onclick = null;
+
       if (elements.flashcardProgressBar) elements.flashcardProgressBar.style.width = '100%';
       if (elements.flashcardProgressText) elements.flashcardProgressText.textContent = t('srs_all_done_progress');
       return;
     }
 
+    elements.flashcardContainer.style.cursor = 'pointer';
+    if (elements.flashcardAudioFront) elements.flashcardAudioFront.style.display = '';
+    if (promptHintEl) promptHintEl.style.display = '';
     elements.srsRatingBar.style.display = 'flex';
     const cardMeta = state.dueCards[state.currentFlashcardIndex];
     if (!cardMeta) {
@@ -753,6 +771,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // Flip flashcard on click (never auto-speak on flip; only speak when clicking 🔊)
   if (elements.flashcardContainer) {
     elements.flashcardContainer.addEventListener('click', (e) => {
+      // Do not flip the "All Done" completion screen
+      if (!state.dueCards || state.dueCards.length === 0) return;
       // Do not flip card if user clicked a clickable word, conjugation pill, or audio button
       if (e.target && e.target.closest && (
         e.target.closest('.clickable-word') ||

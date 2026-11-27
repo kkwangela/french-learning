@@ -1869,15 +1869,16 @@ document.addEventListener('DOMContentLoaded', () => {
       try {
         if ('serviceWorker' in navigator) {
           const regs = await navigator.serviceWorker.getRegistrations();
-          await Promise.all(regs.map(r => r.update()));
+          await Promise.all(regs.map(r => r.unregister()));
         }
         if ('caches' in window) {
           const keys = await caches.keys();
           await Promise.all(keys.map(k => caches.delete(k)));
         }
       } catch (e) {}
-      // Reloads latest code from server without touching localStorage progress!
-      window.location.reload();
+      // Force fresh network reload without touching localStorage progress!
+      const cleanUrl = window.location.origin + window.location.pathname + '?r=' + Date.now();
+      window.location.replace(cleanUrl);
     });
   }
 

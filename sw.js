@@ -1,16 +1,16 @@
-const CACHE_NAME = 'woyaoqubali-cache-v13';
+const CACHE_NAME = 'woyaoqubali-cache-v14';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
   './manifest.json',
-  './css/styles.css',
-  './js/i18n.js',
-  './js/data.js',
-  './js/srs.js',
-  './js/audio.js',
-  './js/wordtooltip.js',
-  './js/dictionary.js',
-  './js/app.js',
+  './css/styles.css?v=14',
+  './js/i18n.js?v=14',
+  './js/data.js?v=14',
+  './js/srs.js?v=14',
+  './js/audio.js?v=14',
+  './js/wordtooltip.js?v=14',
+  './js/dictionary.js?v=14',
+  './js/app.js?v=14',
   './assets/favicon.png',
   './assets/apple-touch-icon.png',
   './assets/icon-192.png',
@@ -41,20 +41,18 @@ self.addEventListener('activate', (event) => {
   self.clients.claim();
 });
 
-// Network-First for same-origin app assets so PWA updates load automatically
-// without ever needing to delete & re-add the Home Screen icon (preserving localStorage!).
-// Falls back cleanly to cache when offline.
+// Network-First with HTTP cache bypass ('reload') so new GitHub Pages deploys
+// appear immediately without stale JS/CSS caches, falling back to cache offline.
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
 
   const url = new URL(event.request.url);
   if (url.origin !== self.location.origin) {
-    // External APIs (e.g. online dictionary) go straight to network
     return;
   }
 
   event.respondWith(
-    fetch(event.request, { cache: 'no-cache' })
+    fetch(event.request, { cache: 'reload' })
       .then((networkResponse) => {
         if (networkResponse && networkResponse.ok) {
           const copy = networkResponse.clone();

@@ -1,0 +1,310 @@
+/**
+ * delf_vocab.js — Comprehensive DELF A2 & DELF B1 Exam Vocabulary Bank
+ * 240+ high-yield exam words across all official DELF A2 & B1 themes:
+ *   A2: Work & Study, Housing & Daily, Health & Well-being, Leisure & Culture
+ *   B1: Society & Media, Environment & Tech, Opinions & Debate, Abstract Verbs & Adjectives
+ * Automatically merges into window.FRENCH_DATA.vocabulary before SRS initializes.
+ */
+
+(function () {
+  if (typeof window === 'undefined' || !window.FRENCH_DATA) return;
+
+  // Tag existing core vocabulary as A1/A2 if no level set
+  (window.FRENCH_DATA.vocabulary || []).forEach(item => {
+    if (!item.level) item.level = 'A2';
+  });
+
+  // Compact tuple format:
+  // [id, french, english, level, category, gender, pos, assocVerb, phonetic, exampleFr, exampleEn]
+  const DELF_ENTRIES = [
+    // =========================================================================
+    // DELF A2 — WORK & STUDY (Travail & Études)
+    // =========================================================================
+    ["delf-a2-001", "l'entreprise", "company / business", "A2", "DELF A2 • Work & Study", "f", "noun", "travailler", "[lɑ̃.tʁə.pʁiz]", "Je travaille dans une entreprise internationale à Paris.", "I work at an international company in Paris."],
+    ["delf-a2-002", "le bureau", "office / desk", "A2", "DELF A2 • Work & Study", "m", "noun", "travailler", "[by.ʁo]", "Je vais au bureau trois jours par semaine.", "I go to the office three days a week."],
+    ["delf-a2-003", "la réunion", "meeting", "A2", "DELF A2 • Work & Study", "f", "noun", "préparer", "[ʁe.y.njɔ̃]", "Nous avons une réunion importante à dix heures.", "We have an important meeting at ten o'clock."],
+    ["delf-a2-004", "le stage", "internship / training course", "A2", "DELF A2 • Work & Study", "m", "noun", "faire", "[staʒ]", "Elle fait un stage de six mois dans une banque.", "She is doing a six-month internship at a bank."],
+    ["delf-a2-005", "le diplôme", "diploma / degree", "A2", "DELF A2 • Work & Study", "m", "noun", "obtenir", "[di.plom]", "Il a obtenu son diplôme d'ingénieur l'an dernier.", "He earned his engineering degree last year."],
+    ["delf-a2-006", "l'entretien", "job interview / conversation", "A2", "DELF A2 • Work & Study", "m", "noun", "préparer", "[lɑ̃.tʁə.tjɛ̃]", "J'ai un entretien d'embauche demain matin.", "I have a job interview tomorrow morning."],
+    ["delf-a2-007", "le salaire", "salary / wages", "A2", "DELF A2 • Work & Study", "m", "noun", "gagner", "[sa.lɛʁ]", "Son salaire a augmenté cette année.", "Her salary increased this year."],
+    ["delf-a2-008", "le métier", "profession / trade / job", "A2", "DELF A2 • Work & Study", "m", "noun", "choisir", "[me.tje]", "Quel métier veux-tu faire plus tard ?", "What profession do you want to do later?"],
+    ["delf-a2-009", "l'emploi", "employment / job", "A2", "DELF A2 • Work & Study", "m", "noun", "chercher", "[lɑ̃.plwa]", "Il cherche un nouvel emploi depuis un mois.", "He has been looking for a new job for a month."],
+    ["delf-a2-010", "le chômage", "unemployment", "A2", "DELF A2 • Work & Study", "m", "noun", "être", "[ʃo.maʒ]", "Le taux de chômage diminue lentement.", "The unemployment rate is slowly decreasing."],
+    ["delf-a2-011", "l'équipe", "team", "A2", "DELF A2 • Work & Study", "f", "noun", "travailler", "[le.kip]", "J'aime travailler avec une équipe dynamique.", "I like working with a dynamic team."],
+    ["delf-a2-012", "le patron / la patronne", "boss / manager", "A2", "DELF A2 • Work & Study", "m/f", "noun", "parler", "[pa.tʁɔ̃]", "Notre patron est très à l'écoute de l'équipe.", "Our boss is very attentive to the team."],
+    ["delf-a2-013", "le dossier", "file / folder / application", "A2", "DELF A2 • Work & Study", "m", "noun", "préparer", "[dɔ.sje]", "Je dois envoyer mon dossier avant vendredi.", "I have to send my application before Friday."],
+    ["delf-a2-014", "la formation", "training / education program", "A2", "DELF A2 • Work & Study", "f", "noun", "suivre", "[fɔʁ.ma.sjɔ̃]", "Je suis une formation en informatique.", "I am taking a training course in IT."],
+    ["delf-a2-015", "la matière", "school subject / material", "A2", "DELF A2 • Work & Study", "f", "noun", "étudier", "[ma.tjɛʁ]", "Quelle est ta matière préférée à l'université ?", "What is your favorite subject at university?"],
+    ["delf-a2-016", "le cours", "class / lesson / course", "A2", "DELF A2 • Work & Study", "m", "noun", "prendre", "[kuʁ]", "Je prends des cours de français deux fois par semaine.", "I take French classes twice a week."],
+    ["delf-a2-017", "la note", "grade / mark / note", "A2", "DELF A2 • Work & Study", "f", "noun", "avoir", "[nɔt]", "Elle a eu une excellente note à son examen.", "She got an excellent grade on her exam."],
+    ["delf-a2-018", "le résultat", "result / outcome", "A2", "DELF A2 • Work & Study", "m", "noun", "attendre", "[ʁe.zyl.ta]", "Nous attendons les résultats du DELF A2.", "We are waiting for the DELF A2 results."],
+    ["delf-a2-019", "l'horaire", "schedule / timetable", "A2", "DELF A2 • Work & Study", "m", "noun", "regarder", "[lɔ.ʁɛʁ]", "Mes horaires de travail sont très flexibles.", "My working hours are very flexible."],
+    ["delf-a2-020", "le congé", "leave / day off (pl. holidays)", "A2", "DELF A2 • Work & Study", "m", "noun", "prendre", "[kɔ̃.ʒe]", "Je prends une semaine de congé en juillet.", "I am taking a week of leave in July."],
+    ["delf-a2-021", "postuler", "to apply (for a job)", "A2", "DELF A2 • Work & Study", null, "verb", "postuler", "[pɔs.ty.le]", "Elle postule pour un poste à Lyon.", "She is applying for a position in Lyon."],
+    ["delf-a2-022", "gagner", "to earn / to win", "A2", "DELF A2 • Work & Study", null, "verb", "gagner", "[ɡa.ɲe]", "Il gagne bien sa vie comme architecte.", "He earns a good living as an architect."],
+    ["delf-a2-023", "réviser", "to review / to study for an exam", "A2", "DELF A2 • Work & Study", null, "verb", "réviser", "[ʁe.vi.ze]", "Je révise le vocabulaire avant l'examen.", "I review the vocabulary before the exam."],
+    ["delf-a2-024", "échouer", "to fail (an exam or attempt)", "A2", "DELF A2 • Work & Study", null, "verb", "échouer", "[e.ʃwe]", "Ne t'inquiète pas, tu ne vas pas échouer.", "Don't worry, you are not going to fail."],
+    ["delf-a2-025", "envoyer", "to send", "A2", "DELF A2 • Work & Study", null, "verb", "envoyer", "[ɑ̃.vwa.je]", "J'envoie mon CV par courriel aujourd'hui.", "I am sending my resume by email today."],
+    ["delf-a2-026", "expliquer", "to explain", "A2", "DELF A2 • Work & Study", null, "verb", "expliquer", "[ɛk.spli.ke]", "Le professeur explique la règle très clairement.", "The teacher explains the rule very clearly."],
+    ["delf-a2-027", "organiser", "to organize / to arrange", "A2", "DELF A2 • Work & Study", null, "verb", "organiser", "[ɔʁ.ɡa.ni.ze]", "Nous organisons une conférence le mois prochain.", "We are organizing a conference next month."],
+    ["delf-a2-028", "participer", "to participate / to take part", "A2", "DELF A2 • Work & Study", null, "verb", "participer", "[paʁ.ti.si.pe]", "Je participe à un atelier de conversation française.", "I take part in a French conversation workshop."],
+    ["delf-a2-029", "signer", "to sign", "A2", "DELF A2 • Work & Study", null, "verb", "signer", "[si.ɲe]", "Il a signé son contrat de travail ce matin.", "He signed his employment contract this morning."],
+    ["delf-a2-030", "l'expérience", "experience / experiment", "A2", "DELF A2 • Work & Study", "f", "noun", "avoir", "[lɛk.spe.ʁjɑ̃s]", "Cette expérience à l'étranger a été très utile.", "This experience abroad was very useful."],
+
+    // =========================================================================
+    // DELF A2 — HOUSING & DAILY LIFE (Logement & Vie Quotidienne)
+    // =========================================================================
+    ["delf-a2-031", "le logement", "housing / accommodation", "A2", "DELF A2 • Housing & Daily", "m", "noun", "chercher", "[lɔʒ.mɑ̃]", "Trouver un logement à Paris prend souvent du temps.", "Finding housing in Paris often takes time."],
+    ["delf-a2-032", "le loyer", "rent", "A2", "DELF A2 • Housing & Daily", "m", "noun", "payer", "[lwa.je]", "Je paie mon loyer au début de chaque mois.", "I pay my rent at the beginning of each month."],
+    ["delf-a2-033", "le propriétaire", "landlord / owner", "A2", "DELF A2 • Housing & Daily", "m/f", "noun", "parler", "[pʁɔ.pʁi.je.tɛʁ]", "Le propriétaire habite au premier étage.", "The landlord lives on the first floor."],
+    ["delf-a2-034", "le locataire", "tenant / renter", "A2", "DELF A2 • Housing & Daily", "m/f", "noun", "être", "[lɔ.ka.tɛʁ]", "Les nouveaux locataires arrivent samedi.", "The new tenants are arriving Saturday."],
+    ["delf-a2-035", "le voisin / la voisine", "neighbor", "A2", "DELF A2 • Housing & Daily", "m/f", "noun", "connaître", "[vwa.zɛ̃]", "Nos voisins sont très sympathiques et calmes.", "Our neighbors are very friendly and quiet."],
+    ["delf-a2-036", "l'étage", "floor / story (of a building)", "A2", "DELF A2 • Housing & Daily", "m", "noun", "habiter", "[le.taʒ]", "Mon appartement est au quatrième étage sans ascenseur.", "My apartment is on the fourth floor without an elevator."],
+    ["delf-a2-037", "l'ascenseur", "elevator / lift", "A2", "DELF A2 • Housing & Daily", "m", "noun", "prendre", "[la.sɑ̃.sœʁ]", "L'ascenseur est en panne aujourd'hui.", "The elevator is out of order today."],
+    ["delf-a2-038", "la pièce", "room (of a home) / coin / play", "A2", "DELF A2 • Housing & Daily", "f", "noun", "avoir", "[pjɛs]", "Nous louons un appartement de trois pièces.", "We are renting a three-room apartment."],
+    ["delf-a2-039", "le salon", "living room", "A2", "DELF A2 • Housing & Daily", "m", "noun", "être", "[sa.lɔ̃]", "Le salon est très lumineux l'après-midi.", "The living room is very bright in the afternoon."],
+    ["delf-a2-040", "la cuisine", "kitchen / cooking", "A2", "DELF A2 • Housing & Daily", "f", "noun", "préparer", "[kɥi.zin]", "La cuisine est petite mais bien équipée.", "The kitchen is small but well equipped."],
+    ["delf-a2-041", "la salle de bains", "bathroom", "A2", "DELF A2 • Housing & Daily", "f", "noun", "nettoyer", "[sal də bɛ̃]", "La salle de bains a été rénovée récemment.", "The bathroom was recently renovated."],
+    ["delf-a2-042", "le meuble", "piece of furniture", "A2", "DELF A2 • Housing & Daily", "m", "noun", "acheter", "[mœbl]", "Nous avons acheté de nouveaux meubles pour le salon.", "We bought new furniture for the living room."],
+    ["delf-a2-043", "le chauffage", "heating", "A2", "DELF A2 • Housing & Daily", "m", "noun", "mettre", "[ʃo.faʒ]", "En hiver, on allume le chauffage le soir.", "In winter, we turn on the heating in the evening."],
+    ["delf-a2-044", "la facture", "bill / invoice (utilities)", "A2", "DELF A2 • Housing & Daily", "f", "noun", "payer", "[fak.tyʁ]", "N'oublie pas de payer la facture d'électricité.", "Don't forget to pay the electricity bill."],
+    ["delf-a2-045", "le ménage", "housework / cleaning", "A2", "DELF A2 • Housing & Daily", "m", "noun", "faire", "[me.naʒ]", "Je fais le ménage tous les samedis matin.", "I do the housework every Saturday morning."],
+    ["delf-a2-046", "les courses", "grocery shopping / errands", "A2", "DELF A2 • Housing & Daily", "f", "noun", "faire", "[kuʁs]", "Je vais faire les courses au supermarché.", "I am going to do the grocery shopping at the supermarket."],
+    ["delf-a2-047", "la livraison", "delivery", "A2", "DELF A2 • Housing & Daily", "f", "noun", "attendre", "[li.vʁɛ.zɔ̃]", "La livraison du colis est prévue demain.", "The delivery of the package is scheduled for tomorrow."],
+    ["delf-a2-048", "le colis", "parcel / package", "A2", "DELF A2 • Housing & Daily", "m", "noun", "envoyer", "[kɔ.li]", "J'ai reçu un colis de ma famille.", "I received a package from my family."],
+    ["delf-a2-049", "la banque", "bank", "A2", "DELF A2 • Housing & Daily", "f", "noun", "aller", "[bɑ̃k]", "Je dois ouvrir un compte à la banque.", "I need to open an account at the bank."],
+    ["delf-a2-050", "la carte bancaire", "bank card / debit or credit card", "A2", "DELF A2 • Housing & Daily", "f", "noun", "payer", "[kaʁt bɑ̃.kɛʁ]", "Vous acceptez la carte bancaire ici ?", "Do you accept bank cards here?"],
+    ["delf-a2-051", "déménager", "to move house", "A2", "DELF A2 • Housing & Daily", null, "verb", "déménager", "[de.me.na.ʒe]", "Mes amis déménagent dans un quartier plus calme.", "My friends are moving to a quieter neighborhood."],
+    ["delf-a2-052", "louer", "to rent / to hire", "A2", "DELF A2 • Housing & Daily", null, "verb", "louer", "[lwe]", "Nous louons un vélo pour visiter la ville.", "We are renting a bike to tour the city."],
+    ["delf-a2-053", "ranger", "to tidy up / to put away", "A2", "DELF A2 • Housing & Daily", null, "verb", "ranger", "[ʁɑ̃.ʒe]", "Je range mon bureau avant de sortir.", "I tidy up my desk before going out."],
+    ["delf-a2-054", "nettoyer", "to clean", "A2", "DELF A2 • Housing & Daily", null, "verb", "nettoyer", "[nɛ.twa.je]", "Il nettoie la cuisine après le dîner.", "He cleans the kitchen after dinner."],
+    ["delf-a2-055", "réparer", "to repair / to fix", "A2", "DELF A2 • Housing & Daily", null, "verb", "réparer", "[ʁe.pa.ʁe]", "On doit réparer la fenêtre de la chambre.", "We need to fix the bedroom window."],
+    ["delf-a2-056", "emprunter", "to borrow", "A2", "DELF A2 • Housing & Daily", null, "verb", "emprunter", "[ɑ̃.pʁœ̃.te]", "J'emprunte souvent des livres à la bibliothèque.", "I often borrow books from the library."],
+    ["delf-a2-057", "prêter", "to lend", "A2", "DELF A2 • Housing & Daily", null, "verb", "prêter", "[pʁɛ.te]", "Tu peux me prêter ton parapluie ?", "Can you lend me your umbrella?"],
+    ["delf-a2-058", "le centre-ville", "city center / downtown", "A2", "DELF A2 • Housing & Daily", "m", "noun", "habiter", "[sɑ̃tʁ.vil]", "Le centre-ville est réservé aux piétons.", "The city center is reserved for pedestrians."],
+    ["delf-a2-059", "la banlieue", "suburbs / outskirts", "A2", "DELF A2 • Housing & Daily", "f", "noun", "habiter", "[bɑ̃.ljø]", "Beaucoup de familles vivent en banlieue parisienne.", "Many families live in the Paris suburbs."],
+    ["delf-a2-060", "bruyant / bruyante", "noisy / loud", "A2", "DELF A2 • Housing & Daily", "m/f", "adj", "être", "[bʁɥi.jɑ̃]", "Cette avenue est un peu trop bruyante la nuit.", "This avenue is a bit too noisy at night."],
+
+    // =========================================================================
+    // DELF A2 — HEALTH & WELL-BEING (Santé & Bien-être)
+    // =========================================================================
+    ["delf-a2-061", "le médecin", "doctor / physician", "A2", "DELF A2 • Health & Body", "m", "noun", "voir", "[med.sɛ̃]", "J'ai pris rendez-vous chez le médecin cet après-midi.", "I made an appointment with the doctor this afternoon."],
+    ["delf-a2-062", "l'hôpital", "hospital", "A2", "DELF A2 • Health & Body", "m", "noun", "aller", "[lɔ.pi.tal]", "L'hôpital le plus proche est à dix minutes.", "The nearest hospital is ten minutes away."],
+    ["delf-a2-063", "la pharmacie", "pharmacy / chemist", "A2", "DELF A2 • Health & Body", "f", "noun", "aller", "[faʁ.ma.si]", "Je vais à la pharmacie chercher mes médicaments.", "I am going to the pharmacy to pick up my medicine."],
+    ["delf-a2-064", "le médicament", "medicine / medication", "A2", "DELF A2 • Health & Body", "m", "noun", "prendre", "[me.di.ka.mɑ̃]", "Prenez ce médicament après chaque repas.", "Take this medicine after each meal."],
+    ["delf-a2-065", "l'ordonnance", "medical prescription", "A2", "DELF A2 • Health & Body", "f", "noun", "donner", "[lɔʁ.dɔ.nɑ̃s]", "Le médecin m'a donné une ordonnance.", "The doctor gave me a prescription."],
+    ["delf-a2-066", "la fièvre", "fever", "A2", "DELF A2 • Health & Body", "f", "noun", "avoir", "[fjɛvʁ]", "Il a un peu de fièvre et doit se reposer.", "He has a slight fever and needs to rest."],
+    ["delf-a2-067", "le rhume", "cold (illness)", "A2", "DELF A2 • Health & Body", "m", "noun", "avoir", "[ʁym]", "J'ai attrapé un rhume à cause de la pluie.", "I caught a cold because of the rain."],
+    ["delf-a2-068", "la douleur", "pain / ache", "A2", "DELF A2 • Health & Body", "f", "noun", "avoir", "[du.lœʁ]", "J'ai une légère douleur au dos.", "I have a slight pain in my back."],
+    ["delf-a2-069", "la tête", "head", "A2", "DELF A2 • Health & Body", "f", "noun", "avoir", "[tɛt]", "J'ai mal à la tête après avoir travaillé toute la journée.", "I have a headache after working all day."],
+    ["delf-a2-070", "la gorge", "throat", "A2", "DELF A2 • Health & Body", "f", "noun", "avoir", "[ɡɔʁʒ]", "Elle a mal à la gorge et boit du thé au miel.", "She has a sore throat and drinks tea with honey."],
+    ["delf-a2-071", "le sommeil", "sleep / sleepiness", "A2", "DELF A2 • Health & Body", "m", "noun", "avoir", "[sɔ.mɛj]", "Un bon sommeil est essentiel pour la mémoire.", "Good sleep is essential for memory."],
+    ["delf-a2-072", "l'alimentation", "diet / nutrition / food", "A2", "DELF A2 • Health & Body", "f", "noun", "avoir", "[la.li.mɑ̃.ta.sjɔ̃]", "Il faut garder une alimentation équilibrée.", "One must maintain a balanced diet."],
+    ["delf-a2-073", "l'habitude", "habit / routine", "A2", "DELF A2 • Health & Body", "f", "noun", "avoir", "[la.bi.tyd]", "J'ai l'habitude de courir dans le parc le matin.", "I am in the habit of running in the park in the morning."],
+    ["delf-a2-074", "le stress", "stress", "A2", "DELF A2 • Health & Body", "m", "noun", "avoir", "[stʁɛs]", "Le yoga aide beaucoup à réduire le stress.", "Yoga helps a lot to reduce stress."],
+    ["delf-a2-075", "le conseil", "advice / tip", "A2", "DELF A2 • Health & Body", "m", "noun", "donner", "[kɔ̃.sɛj]", "Merci pour tes bons conseils !", "Thank you for your good advice!"],
+    ["delf-a2-076", "se reposer", "to rest", "A2", "DELF A2 • Health & Body", null, "verb", "reposer", "[sə ʁə.po.ze]", "Tu devrais te reposer ce week-end.", "You should rest this weekend."],
+    ["delf-a2-077", "se sentir", "to feel (health/emotion)", "A2", "DELF A2 • Health & Body", null, "verb", "partir", "[sə sɑ̃.tiʁ]", "Je me sens beaucoup mieux aujourd'hui.", "I feel much better today."],
+    ["delf-a2-078", "soigner", "to treat / to care for", "A2", "DELF A2 • Health & Body", null, "verb", "soigner", "[swa.ɲe]", "Ce médicament soigne rapidement la toux.", "This medicine quickly treats a cough."],
+    ["delf-a2-079", "guérir", "to heal / to recover", "A2", "DELF A2 • Health & Body", null, "verb", "finir", "[ɡe.ʁiʁ]", "Elle a guéri en quelques jours.", "She recovered in a few days."],
+    ["delf-a2-080", "équilibré / équilibrée", "balanced (diet, life)", "A2", "DELF A2 • Health & Body", "m/f", "adj", "être", "[e.ki.li.bʁe]", "J'essaie de manger des repas équilibrés.", "I try to eat balanced meals."],
+    ["delf-a2-081", "sain / saine", "healthy / wholesome", "A2", "DELF A2 • Health & Body", "m/f", "adj", "être", "[sɛ̃ / sɛn]", "Marcher chaque jour est une habitude très saine.", "Walking every day is a very healthy habit."],
+    ["delf-a2-082", "malade", "sick / ill", "A2", "DELF A2 • Health & Body", "m/f", "adj", "être", "[ma.lad]", "Je suis un peu malade, je reste à la maison.", "I am a bit sick, I am staying home."],
+    ["delf-a2-083", "en forme", "in good shape / feeling well", "A2", "DELF A2 • Health & Body", null, "expression", "être", "[ɑ̃ fɔʁm]", "Je fais du sport pour rester en forme.", "I exercise to stay in shape."],
+    ["delf-a2-084", "l'urgence", "emergency / urgency", "A2", "DELF A2 • Health & Body", "f", "noun", "appeler", "[lyʁ.ʒɑ̃s]", "En cas d'urgence, appelez le 112 en Europe.", "In case of emergency, call 112 in Europe."],
+    ["delf-a2-085", "la santé", "health", "A2", "DELF A2 • Health & Body", "f", "noun", "avoir", "[sɑ̃.te]", "La santé est plus importante que tout.", "Health is more important than anything."],
+
+    // =========================================================================
+    // DELF A2 — LEISURE, TRAVEL & CULTURE (Loisirs & Culture)
+    // =========================================================================
+    ["delf-a2-086", "le loisir", "leisure activity / hobby", "A2", "DELF A2 • Leisure & Culture", "m", "noun", "aimer", "[lwa.ziʁ]", "Quels sont tes loisirs préférés le week-end ?", "What are your favorite hobbies on weekends?"],
+    ["delf-a2-087", "le spectacle", "show / performance", "A2", "DELF A2 • Leisure & Culture", "m", "noun", "voir", "[spɛk.takl]", "Nous avons vu un spectacle magnifique hier soir.", "We saw a magnificent show last night."],
+    ["delf-a2-088", "l'exposition", "exhibition / art show", "A2", "DELF A2 • Leisure & Culture", "f", "noun", "visiter", "[lɛk.spo.zi.sjɔ̃]", "Il y a une nouvelle exposition au Grand Palais.", "There is a new exhibition at the Grand Palais."],
+    ["delf-a2-089", "la bibliothèque", "library", "A2", "DELF A2 • Leisure & Culture", "f", "noun", "étudier", "[bi.bli.jɔ.tɛk]", "J'étudie souvent dans cette grande bibliothèque.", "I often study in this large library."],
+    ["delf-a2-090", "le théâtre", "theater / drama", "A2", "DELF A2 • Leisure & Culture", "m", "noun", "aller", "[te.ɑtʁ]", "Nous allons au théâtre samedi soir.", "We are going to the theater Saturday night."],
+    ["delf-a2-091", "la randonnée", "hike / hiking", "A2", "DELF A2 • Leisure & Culture", "f", "noun", "faire", "[ʁɑ̃.dɔ.ne]", "Ils adorent faire de la randonnée en montagne.", "They love going hiking in the mountains."],
+    ["delf-a2-092", "le séjour", "stay / trip", "A2", "DELF A2 • Leisure & Culture", "m", "noun", "passer", "[se.ʒuʁ]", "Je vous souhaite un excellent séjour en France !", "I wish you a wonderful stay in France!"],
+    ["delf-a2-093", "l'association", "club / non-profit organization", "A2", "DELF A2 • Leisure & Culture", "f", "noun", "participer", "[la.sɔ.sja.sjɔ̃]", "Elle est bénévole dans une association culturelle.", "She volunteers at a cultural association."],
+    ["delf-a2-094", "le patrimoine", "cultural heritage", "A2", "DELF A2 • Leisure & Culture", "m", "noun", "visiter", "[pa.tʁi.mwan]", "Les châteaux font partie du patrimoine français.", "Castles are part of French heritage."],
+    ["delf-a2-095", "l'événement", "event", "A2", "DELF A2 • Leisure & Culture", "m", "noun", "organiser", "[le.vɛn.mɑ̃]", "La Fête de la Musique est un événement gratuit.", "Fête de la Musique is a free event."],
+    ["delf-a2-096", "le souvenir", "memory / souvenir", "A2", "DELF A2 • Leisure & Culture", "m", "noun", "garder", "[su.və.niʁ]", "Je garde un merveilleux souvenir de Paris.", "I keep a wonderful memory of Paris."],
+    ["delf-a2-097", "le cadeau", "gift / present", "A2", "DELF A2 • Leisure & Culture", "m", "noun", "acheter", "[ka.do]", "J'ai acheté un petit cadeau pour ma mère.", "I bought a small gift for my mother."],
+    ["delf-a2-098", "l'invitation", "invitation", "A2", "DELF A2 • Leisure & Culture", "f", "noun", "accepter", "[lɛ̃.vi.ta.sjɔ̃]", "Merci beaucoup pour votre invitation à dîner.", "Thank you very much for your dinner invitation."],
+    ["delf-a2-099", "s'inscrire", "to register / to sign up", "A2", "DELF A2 • Leisure & Culture", null, "verb", "écrire", "[sɛ̃s.kʁiʁ]", "Je me suis inscrit à l'examen du DELF.", "I registered for the DELF exam."],
+    ["delf-a2-100", "réserver", "to book / to reserve", "A2", "DELF A2 • Leisure & Culture", null, "verb", "réserver", "[ʁe.zɛʁ.ve]", "Il faut réserver les billets en avance.", "You need to book tickets in advance."],
+    ["delf-a2-101", "découvrir", "to discover / to explore", "A2", "DELF A2 • Leisure & Culture", null, "verb", "découvrir", "[de.ku.vʁiʁ]", "J'ai hâte de découvrir la cuisine lyonnaise.", "I can't wait to discover Lyon's cuisine."],
+    ["delf-a2-102", "s'amuser", "to have fun / to enjoy oneself", "A2", "DELF A2 • Leisure & Culture", null, "verb", "amuser", "[sa.my.ze]", "Nous nous sommes beaucoup amusés à la fête.", "We had a lot of fun at the party."],
+    ["delf-a2-103", "gratuit / gratuite", "free of charge", "A2", "DELF A2 • Leisure & Culture", "m/f", "adj", "être", "[ɡʁa.tɥi / ɡʁa.tɥit]", "L'entrée du musée est gratuite le premier dimanche.", "Museum admission is free on the first Sunday."],
+    ["delf-a2-104", "payant / payante", "paid / requires payment", "A2", "DELF A2 • Leisure & Culture", "m/f", "adj", "être", "[pɛ.jɑ̃]", "Le parking est payant en centre-ville.", "Parking is paid in the city center."],
+    ["delf-a2-105", "célèbre", "famous / well-known", "A2", "DELF A2 • Leisure & Culture", "m/f", "adj", "être", "[se.lɛbʁ]", "Ce peintre français est célèbre dans le monde entier.", "This French painter is famous worldwide."],
+
+    // =========================================================================
+    // DELF B1 — OPINIONS, DEBATE & CONNECTORS (Essential for B1 Writing & Speaking!)
+    // =========================================================================
+    ["delf-b1-001", "à mon avis", "in my opinion", "B1", "DELF B1 • Opinions & Debate", null, "connector", null, "[a mɔ̃.na.vi]", "À mon avis, apprendre une langue ouvre l'esprit.", "In my opinion, learning a language opens the mind."],
+    ["delf-b1-002", "selon", "according to", "B1", "DELF B1 • Opinions & Debate", null, "connector", null, "[sə.lɔ̃]", "Selon une étude récente, le télétravail augmente.", "According to a recent study, remote work is increasing."],
+    ["delf-b1-003", "pourtant", "yet / however / nevertheless", "B1", "DELF B1 • Opinions & Debate", null, "connector", null, "[puʁ.tɑ̃]", "C'est difficile, pourtant je n'abandonne pas.", "It is difficult, yet I do not give up."],
+    ["delf-b1-004", "néanmoins", "nevertheless / nonetheless", "B1", "DELF B1 • Opinions & Debate", null, "connector", null, "[ne.ɑ̃.mwɛ̃]", "Le projet coûte cher ; néanmoins, il est très utile.", "The project is expensive; nevertheless, it is very useful."],
+    ["delf-b1-005", "malgré", "despite / in spite of", "B1", "DELF B1 • Opinions & Debate", null, "connector", null, "[mal.ɡʁe]", "Malgré la pluie, nous avons visité Montmartre.", "Despite the rain, we visited Montmartre."],
+    ["delf-b1-006", "en revanche", "on the other hand / by contrast", "B1", "DELF B1 • Opinions & Debate", null, "connector", null, "[ɑ̃ ʁə.vɑ̃ʃ]", "Le train est rapide ; en revanche, le billet est cher.", "The train is fast; on the other hand, the ticket is expensive."],
+    ["delf-b1-007", "tandis que", "whereas / while", "B1", "DELF B1 • Opinions & Debate", null, "connector", null, "[tɑ̃.di kə]", "Il préfère la mer, tandis que j'adore la montagne.", "He prefers the sea, whereas I love the mountains."],
+    ["delf-b1-008", "grâce à", "thanks to (positive cause)", "B1", "DELF B1 • Opinions & Debate", null, "connector", null, "[ɡʁɑs a]", "Grâce à une pratique régulière, j'ai beaucoup progressé.", "Thanks to regular practice, I have improved a lot."],
+    ["delf-b1-009", "à cause de", "because of (negative cause)", "B1", "DELF B1 • Opinions & Debate", null, "connector", null, "[a koz də]", "Le vol a été retardé à cause du brouillard.", "The flight was delayed because of the fog."],
+    ["delf-b1-010", "en effet", "indeed / in fact", "B1", "DELF B1 • Opinions & Debate", null, "connector", null, "[ɑ̃.n‿e.fɛ]", "Paris est très visitée ; en effet, des millions de touristes y viennent.", "Paris is heavily visited; indeed, millions of tourists come there."],
+    ["delf-b1-011", "par conséquent", "consequently / therefore", "B1", "DELF B1 • Opinions & Debate", null, "connector", null, "[paʁ kɔ̃.se.kɑ̃]", "Il a bien révisé ; par conséquent, il a réussi le B1.", "He studied well; consequently, he passed the B1."],
+    ["delf-b1-012", "afin de", "in order to", "B1", "DELF B1 • Opinions & Debate", null, "connector", null, "[a.fɛ̃ də]", "J'écoute la radio afin d'améliorer ma compréhension.", "I listen to the radio in order to improve my comprehension."],
+    ["delf-b1-013", "bien que", "although (+ subjunctive)", "B1", "DELF B1 • Opinions & Debate", null, "connector", null, "[bjɛ̃ kə]", "Bien que le français soit complexe, il est passionnant.", "Although French is complex, it is fascinating."],
+    ["delf-b1-014", "d'une part ... d'autre part", "on the one hand ... on the other hand", "B1", "DELF B1 • Opinions & Debate", null, "connector", null, "[dyn paʁ]", "D'une part c'est pratique, d'autre part c'est économique.", "On the one hand it's practical, on the other hand it's economical."],
+    ["delf-b1-015", "d'ailleurs", "moreover / besides", "B1", "DELF B1 • Opinions & Debate", null, "connector", null, "[da.jœʁ]", "Ce livre est excellent ; d'ailleurs, je l'ai relu deux fois.", "This book is excellent; moreover, I reread it twice."],
+    ["delf-b1-016", "de plus", "furthermore / in addition", "B1", "DELF B1 • Opinions & Debate", null, "connector", null, "[də plys]", "Le vélo est écologique ; de plus, il est bon pour la santé.", "Cycling is eco-friendly; furthermore, it is good for health."],
+    ["delf-b1-017", "en conclusion", "in conclusion", "B1", "DELF B1 • Opinions & Debate", null, "connector", null, "[ɑ̃ kɔ̃.kly.zjɔ̃]", "En conclusion, je pense qu'il faut trouver un équilibre.", "In conclusion, I think we must find a balance."],
+    ["delf-b1-018", "l'avantage", "advantage / benefit", "B1", "DELF B1 • Opinions & Debate", "m", "noun", "avoir", "[la.vɑ̃.taʒ]", "Le principal avantage du télétravail est le gain de temps.", "The main advantage of remote work is saving time."],
+    ["delf-b1-019", "l'inconvénient", "disadvantage / drawback", "B1", "DELF B1 • Opinions & Debate", "m", "noun", "avoir", "[lɛ̃.kɔ̃.ve.njɑ̃]", "L'inconvénient, c'est parfois le manque de contact humain.", "The drawback is sometimes the lack of human contact."],
+    ["delf-b1-020", "le point de vue", "point of view / perspective", "B1", "DELF B1 • Opinions & Debate", "m", "noun", "exprimer", "[pwɛ̃ də vy]", "Je comprends ton point de vue, mais je ne suis pas d'accord.", "I understand your point of view, but I disagree."],
+    ["delf-b1-021", "l'argument", "argument / reasoning point", "B1", "DELF B1 • Opinions & Debate", "m", "noun", "donner", "[laʁ.ɡy.mɑ̃]", "Vous avez présenté des arguments très convaincants.", "You presented very convincing arguments."],
+    ["delf-b1-022", "la conséquence", "consequence / result", "B1", "DELF B1 • Opinions & Debate", "f", "noun", "avoir", "[kɔ̃.se.kɑ̃s]", "Cette décision aura des conséquences positives.", "This decision will have positive consequences."],
+    ["delf-b1-023", "la solution", "solution", "B1", "DELF B1 • Opinions & Debate", "f", "noun", "trouver", "[sɔ.ly.sjɔ̃]", "Nous devons chercher une solution durable ensemble.", "We must look for a lasting solution together."],
+    ["delf-b1-024", "le débat", "debate / discussion", "B1", "DELF B1 • Opinions & Debate", "m", "noun", "participer", "[de.ba]", "Ce sujet suscite un grand débat en France.", "This topic sparks a major debate in France."],
+    ["delf-b1-025", "l'équilibre", "balance / equilibrium", "B1", "DELF B1 • Opinions & Debate", "m", "noun", "trouver", "[le.ki.libʁ]", "Il est important de trouver un équilibre entre travail et vie privée.", "It is important to find a balance between work and private life."],
+    ["delf-b1-026", "exprimer", "to express", "B1", "DELF B1 • Opinions & Debate", null, "verb", "exprimer", "[ɛk.spʁi.me]", "Au niveau B1, on sait exprimer son opinion clairement.", "At B1 level, one can express one's opinion clearly."],
+    ["delf-b1-027", "convaincre", "to convince / to persuade", "B1", "DELF B1 • Opinions & Debate", null, "verb", "convaincre", "[kɔ̃.vɛ̃kʁ]", "Tes exemples m'ont finalement convaincu.", "Your examples finally convinced me."],
+    ["delf-b1-028", "proposer", "to propose / to suggest", "B1", "DELF B1 • Opinions & Debate", null, "verb", "proposer", "[pʁɔ.po.ze]", "Je propose que nous commencions par les faits.", "I suggest that we start with the facts."],
+    ["delf-b1-029", "soutenir", "to support / to back", "B1", "DELF B1 • Opinions & Debate", null, "verb", "venir", "[sut.niʁ]", "Je soutiens entièrement cette initiative locale.", "I fully support this local initiative."],
+    ["delf-b1-030", "s'opposer à", "to oppose / to object to", "B1", "DELF B1 • Opinions & Debate", null, "verb", "opposer", "[sɔ.po.ze]", "Plusieurs habitants s'opposent à ce projet.", "Several residents oppose this project."],
+    ["delf-b1-031", "justifier", "to justify / to back up", "B1", "DELF B1 • Opinions & Debate", null, "verb", "justifier", "[ʒys.ti.fje]", "Il faut toujours justifier son choix avec un exemple.", "You should always justify your choice with an example."],
+    ["delf-b1-032", "comparer", "to compare", "B1", "DELF B1 • Opinions & Debate", null, "verb", "comparer", "[kɔ̃.pa.ʁe]", "On peut comparer la vie en ville et à la campagne.", "One can compare life in the city and in the countryside."],
+    ["delf-b1-033", "critiquer", "to criticize / to review", "B1", "DELF B1 • Opinions & Debate", null, "verb", "critiquer", "[kʁi.ti.ke]", "Il est facile de critiquer, mais plus difficile d'agir.", "It is easy to criticize, but harder to take action."],
+    ["delf-b1-034", "être d'accord", "to agree", "B1", "DELF B1 • Opinions & Debate", null, "expression", "être", "[ɛtʁ da.kɔʁ]", "Je suis tout à fait d'accord avec votre analyse.", "I completely agree with your analysis."],
+    ["delf-b1-035", "remettre en question", "to question / to challenge", "B1", "DELF B1 • Opinions & Debate", null, "expression", "mettre", "[ʁə.mɛtʁ ɑ̃ kɛs.tjɔ̃]", "Ce rapport remet en question nos habitudes de consommation.", "This report challenges our consumption habits."],
+
+    // =========================================================================
+    // DELF B1 — SOCIETY, CITIZENSHIP & MEDIA (Société & Médias)
+    // =========================================================================
+    ["delf-b1-036", "la société", "society / company", "B1", "DELF B1 • Society & Media", "f", "noun", "vivre", "[sɔ.sje.te]", "Notre société évolue très rapidement.", "Our society is evolving very rapidly."],
+    ["delf-b1-037", "l'actualité", "current events / news", "B1", "DELF B1 • Society & Media", "f", "noun", "suivre", "[lak.tɥa.li.te]", "Je suis l'actualité française chaque matin.", "I follow French current events every morning."],
+    ["delf-b1-038", "la presse", "the press / print media", "B1", "DELF B1 • Society & Media", "f", "noun", "lire", "[pʁɛs]", "La liberté de la presse est un droit fondamental.", "Freedom of the press is a fundamental right."],
+    ["delf-b1-039", "le citoyen / la citoyenne", "citizen", "B1", "DELF B1 • Society & Media", "m/f", "noun", "être", "[si.twa.jɛ̃]", "Chaque citoyen peut participer à la vie locale.", "Every citizen can participate in local life."],
+    ["delf-b1-040", "le droit", "right / law", "B1", "DELF B1 • Society & Media", "m", "noun", "avoir", "[dʁwa]", "Tous les enfants ont le droit à l'éducation.", "All children have the right to education."],
+    ["delf-b1-041", "la liberté", "freedom / liberty", "B1", "DELF B1 • Society & Media", "f", "noun", "protéger", "[li.bɛʁ.te]", "Liberté, Égalité, Fraternité est la devise française.", "Liberty, Equality, Fraternity is the French motto."],
+    ["delf-b1-042", "l'égalité", "equality", "B1", "DELF B1 • Society & Media", "f", "noun", "soutenir", "[le.ɡa.li.te]", "L'égalité des chances est un sujet central.", "Equal opportunity is a central topic."],
+    ["delf-b1-043", "la loi", "law / legislation", "B1", "DELF B1 • Society & Media", "f", "noun", "respecter", "[lwa]", "Une nouvelle loi protège les données personnelles.", "A new law protects personal data."],
+    ["delf-b1-044", "le gouvernement", "government", "B1", "DELF B1 • Society & Media", "m", "noun", "proposer", "[ɡu.vɛʁ.nə.mɑ̃]", "Le gouvernement encourage les transports propres.", "The government encourages clean transportation."],
+    ["delf-b1-045", "la mairie", "town hall / city hall", "B1", "DELF B1 • Society & Media", "f", "noun", "organiser", "[mɛ.ʁi]", "La mairie a créé de nouvelles pistes cyclables.", "The city hall created new bike lanes."],
+    ["delf-b1-046", "le réseau social", "social network / social media", "B1", "DELF B1 • Society & Media", "m", "noun", "utiliser", "[ʁe.zo sɔ.sjal]", "Les jeunes passent beaucoup de temps sur les réseaux sociaux.", "Young people spend a lot of time on social media."],
+    ["delf-b1-047", "la publicité", "advertising / commercial", "B1", "DELF B1 • Society & Media", "f", "noun", "regarder", "[py.bli.si.te]", "La publicité influence souvent nos achats.", "Advertising often influences our purchases."],
+    ["delf-b1-048", "le sondage", "poll / survey", "B1", "DELF B1 • Society & Media", "m", "noun", "faire", "[sɔ̃.daʒ]", "D'après ce sondage, 70 % des gens préfèrent le train.", "According to this survey, 70% of people prefer the train."],
+    ["delf-b1-049", "la consommation", "consumption / consumer spending", "B1", "DELF B1 • Society & Media", "f", "noun", "réduire", "[kɔ̃.sɔ.ma.sjɔ̃]", "Nous devons réfléchir à notre mode de consommation.", "We must think about our way of consuming."],
+    ["delf-b1-050", "le consommateur", "consumer", "B1", "DELF B1 • Society & Media", "m", "noun", "choisir", "[kɔ̃.sɔ.ma.tœʁ]", "Les consommateurs choisissent de plus en plus des produits locaux.", "Consumers increasingly choose local products."],
+    ["delf-b1-051", "la génération", "generation", "B1", "DELF B1 • Society & Media", "f", "noun", "vivre", "[ʒe.ne.ʁa.sjɔ̃]", "La nouvelle génération est très sensible à l'écologie.", "The new generation is very aware of ecology."],
+    ["delf-b1-052", "la solidarité", "solidarity / mutual support", "B1", "DELF B1 • Society & Media", "f", "noun", "montrer", "[sɔ.li.da.ʁi.te]", "La solidarité entre voisins est précieuse.", "Solidarity among neighbors is precious."],
+    ["delf-b1-053", "le bénévolat", "volunteering", "B1", "DELF B1 • Society & Media", "m", "noun", "faire", "[be.ne.vɔ.la]", "Le bénévolat permet d'aider les autres et de rencontrer des gens.", "Volunteering lets you help others and meet people."],
+    ["delf-b1-054", "l'inégalité", "inequality", "B1", "DELF B1 • Society & Media", "f", "noun", "réduire", "[li.ne.ɡa.li.te]", "L'éducation aide à réduire les inégalités sociales.", "Education helps reduce social inequalities."],
+    ["delf-b1-055", "le comportement", "behavior / conduct", "B1", "DELF B1 • Society & Media", "m", "noun", "changer", "[kɔ̃.pɔʁ.tə.mɑ̃]", "Changer nos comportements quotidiens est possible.", "Changing our daily behaviors is possible."],
+    ["delf-b1-056", "l'influence", "influence / impact", "B1", "DELF B1 • Society & Media", "f", "noun", "avoir", "[lɛ̃.fly.ɑ̃s]", "Les médias ont une grande influence sur l'opinion publique.", "The media have a strong influence on public opinion."],
+    ["delf-b1-057", "informer", "to inform", "B1", "DELF B1 • Society & Media", null, "verb", "informer", "[ɛ̃.fɔʁ.me]", "Les journalistes vérifient leurs sources pour bien informer.", "Journalists verify their sources to inform accurately."],
+    ["delf-b1-058", "témoigner", "to testify / to share one's account", "B1", "DELF B1 • Society & Media", null, "verb", "témoigner", "[te.mwa.ɲe]", "Plusieurs étudiants ont témoigné de leur expérience.", "Several students shared accounts of their experience."],
+    ["delf-b1-059", "sensibiliser", "to raise awareness", "B1", "DELF B1 • Society & Media", null, "verb", "sensibiliser", "[sɑ̃.si.bi.li.ze]", "Cette campagne sensibilise le public au tri des déchets.", "This campaign raises public awareness about waste sorting."],
+    ["delf-b1-060", "respecter", "to respect / to obey", "B1", "DELF B1 • Society & Media", null, "verb", "respecter", "[ʁɛs.pɛk.te]", "Il est essentiel de respecter les opinions différentes.", "It is essential to respect differing opinions."],
+
+    // =========================================================================
+    // DELF B1 — ENVIRONMENT, WORK & TECHNOLOGY (Environnement & Technologie)
+    // =========================================================================
+    ["delf-b1-061", "l'environnement", "environment", "B1", "DELF B1 • Environment & Tech", "m", "noun", "protéger", "[lɑ̃.vi.ʁɔn.mɑ̃]", "Protéger l'environnement est une responsabilité collective.", "Protecting the environment is a collective responsibility."],
+    ["delf-b1-062", "le réchauffement climatique", "global warming", "B1", "DELF B1 • Environment & Tech", "m", "noun", "lutter", "[ʁe.ʃof.mɑ̃ kli.ma.tik]", "Le réchauffement climatique menace la biodiversité.", "Global warming threatens biodiversity."],
+    ["delf-b1-063", "la pollution", "pollution", "B1", "DELF B1 • Environment & Tech", "f", "noun", "réduire", "[pɔ.ly.sjɔ̃]", "Prendre le métro aide à réduire la pollution en ville.", "Taking the metro helps reduce pollution in the city."],
+    ["delf-b1-064", "le recyclage", "recycling", "B1", "DELF B1 • Environment & Tech", "m", "noun", "pratiquer", "[ʁə.si.klaʒ]", "Le recyclage du papier et du verre est obligatoire ici.", "Recycling paper and glass is mandatory here."],
+    ["delf-b1-065", "les déchets", "waste / trash / garbage", "B1", "DELF B1 • Environment & Tech", "m", "noun", "réduire", "[de.ʃɛ]", "Nous essayons de produire moins de déchets plastiques.", "We try to produce less plastic waste."],
+    ["delf-b1-066", "l'énergie renouvelable", "renewable energy", "B1", "DELF B1 • Environment & Tech", "f", "noun", "développer", "[le.nɛʁ.ʒi]", "Il faut investir dans les énergies renouvelables.", "We must invest in renewable energies."],
+    ["delf-b1-067", "le développement durable", "sustainable development", "B1", "DELF B1 • Environment & Tech", "m", "noun", "soutenir", "[dev.lɔp.mɑ̃ dy.ʁabl]", "Cette ville encourage le développement durable.", "This city promotes sustainable development."],
+    ["delf-b1-068", "le gaspillage", "waste / squandering (food, energy)", "B1", "DELF B1 • Environment & Tech", "m", "noun", "éviter", "[ɡas.pi.jaʒ]", "Des applications aident à lutter contre le gaspillage alimentaire.", "Apps help fight against food waste."],
+    ["delf-b1-069", "les transports en commun", "public transportation", "B1", "DELF B1 • Environment & Tech", "m", "noun", "prendre", "[tʁɑ̃s.pɔʁ ɑ̃ kɔ.mœ̃]", "Les transports en commun sont très développés à Paris.", "Public transportation is very well developed in Paris."],
+    ["delf-b1-070", "la ressource", "resource", "B1", "DELF B1 • Environment & Tech", "f", "noun", "protéger", "[ʁə.suʁs]", "L'eau est une ressource naturelle précieuse.", "Water is a precious natural resource."],
+    ["delf-b1-071", "protéger", "to protect", "B1", "DELF B1 • Environment & Tech", null, "verb", "protéger", "[pʁɔ.te.ʒe]", "Nous devons protéger les forêts et les océans.", "We must protect forests and oceans."],
+    ["delf-b1-072", "gaspiller", "to waste / to squander", "B1", "DELF B1 • Environment & Tech", null, "verb", "gaspiller", "[ɡas.pi.je]", "Il ne faut pas gaspiller l'eau ni l'électricité.", "We must not waste water or electricity."],
+    ["delf-b1-073", "économiser", "to save (money, energy, time)", "B1", "DELF B1 • Environment & Tech", null, "verb", "économiser", "[e.kɔ.nɔ.mi.ze]", "Éteindre la lumière permet d'économiser de l'énergie.", "Turning off the light helps save energy."],
+    ["delf-b1-074", "le numérique", "digital technology", "B1", "DELF B1 • Environment & Tech", "m", "noun", "utiliser", "[ny.me.ʁik]", "Les outils numériques facilitent l'apprentissage des langues.", "Digital tools make language learning easier."],
+    ["delf-b1-075", "le télétravail", "remote work / telecommuting", "B1", "DELF B1 • Environment & Tech", "m", "noun", "faire", "[te.le.tʁa.vaj]", "Le télétravail offre plus de flexibilité au quotidien.", "Remote work offers more flexibility in daily life."],
+    ["delf-b1-076", "l'écran", "screen", "B1", "DELF B1 • Environment & Tech", "m", "noun", "regarder", "[le.kʁɑ̃]", "Passer trop de temps devant un écran fatigue les yeux.", "Spending too much time in front of a screen tires the eyes."],
+    ["delf-b1-077", "les données personnelles", "personal data", "B1", "DELF B1 • Environment & Tech", "f", "noun", "protéger", "[dɔ.ne pɛʁ.sɔ.nɛl]", "Il faut faire attention à ses données personnelles en ligne.", "You must be careful with your personal data online."],
+    ["delf-b1-078", "l'application", "app / application", "B1", "DELF B1 • Environment & Tech", "f", "noun", "utiliser", "[la.pli.ka.sjɔ̃]", "J'utilise cette application tous les jours pour réviser.", "I use this app every day to review."],
+    ["delf-b1-079", "télécharger", "to download", "B1", "DELF B1 • Environment & Tech", null, "verb", "télécharger", "[te.le.ʃaʁ.ʒe]", "Vous pouvez télécharger la sauvegarde en un clic.", "You can download the backup in one click."],
+    ["delf-b1-080", "se connecter", "to log in / to connect", "B1", "DELF B1 • Environment & Tech", null, "verb", "connecter", "[sə kɔ.nɛk.te]", "Je me connecte au Wi-Fi du café pour travailler.", "I connect to the café Wi-Fi to work."],
+    ["delf-b1-081", "partager", "to share", "B1", "DELF B1 • Environment & Tech", null, "verb", "partager", "[paʁ.ta.ʒe]", "J'aime partager mes photos de voyage avec mes amis.", "I like sharing my travel photos with my friends."],
+    ["delf-b1-082", "le progrès", "progress / advancement", "B1", "DELF B1 • Environment & Tech", "m", "noun", "faire", "[pʁɔ.ɡʁɛ]", "Tu as fait d'énormes progrès en français !", "You have made huge progress in French!"],
+    ["delf-b1-083", "l'outil", "tool", "B1", "DELF B1 • Environment & Tech", "m", "noun", "utiliser", "[lu.ti]", "Un bon dictionnaire est un outil indispensable.", "A good dictionary is an essential tool."],
+    ["delf-b1-084", "la sécurité", "safety / security", "B1", "DELF B1 • Environment & Tech", "f", "noun", "assurer", "[se.ky.ʁi.te]", "La sécurité routière concerne tous les usagers.", "Road safety concerns all road users."],
+    ["delf-b1-085", "écologique", "eco-friendly / ecological", "B1", "DELF B1 • Environment & Tech", "m/f", "adj", "être", "[e.kɔ.lɔ.ʒik]", "Voyager en train est beaucoup plus écologique que l'avion.", "Traveling by train is much more eco-friendly than flying."],
+
+    // =========================================================================
+    // DELF B1 — HIGH-YIELD ABSTRACT VERBS & ADJECTIVES
+    // =========================================================================
+    ["delf-b1-086", "améliorer", "to improve / to make better", "B1", "DELF B1 • Abstract Verbs & Adj", null, "verb", "améliorer", "[a.me.ljɔ.ʁe]", "Écouter des dialogues améliore la prononciation.", "Listening to dialogues improves pronunciation."],
+    ["delf-b1-087", "augmenter", "to increase / to rise", "B1", "DELF B1 • Abstract Verbs & Adj", null, "verb", "augmenter", "[oɡ.mɑ̃.te]", "Les prix des loyers ont beaucoup augmenté.", "Rent prices have increased a lot."],
+    ["delf-b1-088", "diminuer", "to decrease / to diminish", "B1", "DELF B1 • Abstract Verbs & Adj", null, "verb", "diminuer", "[di.mi.nɥe]", "Le nombre de voitures en centre-ville diminue.", "The number of cars in the city center is decreasing."],
+    ["delf-b1-089", "développer", "to develop / to expand", "B1", "DELF B1 • Abstract Verbs & Adj", null, "verb", "développer", "[dev.lɔ.pe]", "Lire chaque jour développe le vocabulaire.", "Reading every day expands vocabulary."],
+    ["delf-b1-090", "permettre", "to allow / to enable", "B1", "DELF B1 • Abstract Verbs & Adj", null, "verb", "mettre", "[pɛʁ.mɛtʁ]", "Cette méthode permet de mémoriser plus vite.", "This method allows you to memorize faster."],
+    ["delf-b1-091", "empêcher", "to prevent / to stop from", "B1", "DELF B1 • Abstract Verbs & Adj", null, "verb", "empêcher", "[ɑ̃.pɛ.ʃe]", "Le bruit m'a empêché de dormir hier soir.", "The noise prevented me from sleeping last night."],
+    ["delf-b1-092", "éviter", "to avoid", "B1", "DELF B1 • Abstract Verbs & Adj", null, "verb", "éviter", "[e.vi.te]", "J'évite le métro aux heures de pointe.", "I avoid the metro during rush hour."],
+    ["delf-b1-093", "exiger", "to demand / to require", "B1", "DELF B1 • Abstract Verbs & Adj", null, "verb", "exiger", "[ɛɡ.zi.ʒe]", "Ce poste exige un niveau B1 en français.", "This position requires a B1 level in French."],
+    ["delf-b1-094", "conseiller", "to advise / to recommend", "B1", "DELF B1 • Abstract Verbs & Adj", null, "verb", "conseiller", "[kɔ̃.sɛ.je]", "Je te conseille de visiter le quartier Latin.", "I recommend that you visit the Latin Quarter."],
+    ["delf-b1-095", "encourager", "to encourage", "B1", "DELF B1 • Abstract Verbs & Adj", null, "verb", "encourager", "[ɑ̃.ku.ʁa.ʒe]", "Mes amis m'encouragent à parler français sans peur.", "My friends encourage me to speak French without fear."],
+    ["delf-b1-096", "réfléchir", "to think carefully / to reflect", "B1", "DELF B1 • Abstract Verbs & Adj", null, "verb", "finir", "[ʁe.fle.ʃiʁ]", "Je dois réfléchir avant de prendre ma décision.", "I need to think carefully before making my decision."],
+    ["delf-b1-097", "s'adapter", "to adapt / to adjust", "B1", "DELF B1 • Abstract Verbs & Adj", null, "verb", "adapter", "[sa.dap.te]", "Il s'est vite adapté à la vie parisienne.", "He quickly adapted to Parisian life."],
+    ["delf-b1-098", "se plaindre", "to complain", "B1", "DELF B1 • Abstract Verbs & Adj", null, "verb", "plaindre", "[sə plɛ̃dʁ]", "Les Parisiens aiment parfois se plaindre du temps.", "Parisians sometimes like to complain about the weather."],
+    ["delf-b1-099", "s'inquiéter", "to worry", "B1", "DELF B1 • Abstract Verbs & Adj", null, "verb", "inquiéter", "[sɛ̃.kje.te]", "Ne vous inquiétez pas, tout va bien se passer.", "Don't worry, everything is going to go well."],
+    ["delf-b1-100", "profiter de", "to enjoy / to take advantage of", "B1", "DELF B1 • Abstract Verbs & Adj", null, "verb", "profiter", "[pʁɔ.fi.te]", "Profitons du soleil pour déjeuner en terrasse !", "Let's enjoy the sun to have lunch on the terrace!"],
+    ["delf-b1-101", "décider", "to decide", "B1", "DELF B1 • Abstract Verbs & Adj", null, "verb", "décider", "[de.si.de]", "Nous avons décidé de passer l'été en France.", "We decided to spend the summer in France."],
+    ["delf-b1-102", "réaliser", "to achieve / to realize / to direct", "B1", "DELF B1 • Abstract Verbs & Adj", null, "verb", "réaliser", "[ʁe.a.li.ze]", "Elle a enfin réalisé son rêve d'habiter à Paris.", "She finally achieved her dream of living in Paris."],
+    ["delf-b1-103", "manquer", "to miss / to lack", "B1", "DELF B1 • Abstract Verbs & Adj", null, "verb", "manquer", "[mɑ̃.ke]", "La boulangerie de mon quartier me manque !", "I miss my neighborhood bakery!"],
+    ["delf-b1-104", "changer", "to change", "B1", "DELF B1 • Abstract Verbs & Adj", null, "verb", "changer", "[ʃɑ̃.ʒe]", "Apprendre le français a changé ma façon de voyager.", "Learning French changed the way I travel."],
+    ["delf-b1-105", "indispensable", "essential / indispensable", "B1", "DELF B1 • Abstract Verbs & Adj", "m/f", "adj", "être", "[ɛ̃.dis.pɑ̃.sabl]", "La régularité est indispensable pour réussir le B1.", "Consistency is essential to pass the B1."],
+    ["delf-b1-106", "efficace", "effective / efficient", "B1", "DELF B1 • Abstract Verbs & Adj", "m/f", "adj", "être", "[e.fi.kas]", "La répétition espacée est une méthode très efficace.", "Spaced repetition is a very effective method."],
+    ["delf-b1-107", "quotidien / quotidienne", "daily / everyday", "B1", "DELF B1 • Abstract Verbs & Adj", "m/f", "adj", "être", "[kɔ.ti.djɛ̃]", "Un exercice quotidien de dix minutes suffit pour progresser.", "A daily ten-minute exercise is enough to make progress."],
+    ["delf-b1-108", "responsable", "responsible / accountable", "B1", "DELF B1 • Abstract Verbs & Adj", "m/f", "adj", "être", "[ʁɛs.pɔ̃.sabl]", "Chacun est responsable de ses propres choix.", "Everyone is responsible for their own choices."],
+    ["delf-b1-109", "satisfait / satisfaite", "satisfied / pleased", "B1", "DELF B1 • Abstract Verbs & Adj", "m/f", "adj", "être", "[sa.tis.fɛ / sa.tis.fɛt]", "Je suis très satisfait de mes progrès récents.", "I am very satisfied with my recent progress."],
+    ["delf-b1-110", "déçu / déçue", "disappointed", "B1", "DELF B1 • Abstract Verbs & Adj", "m/f", "adj", "être", "[de.sy]", "Il a été un peu déçu par la fin du film.", "He was a bit disappointed by the ending of the movie."],
+    ["delf-b1-111", "inquiet / inquiète", "worried / anxious", "B1", "DELF B1 • Abstract Verbs & Adj", "m/f", "adj", "être", "[ɛ̃.kjɛ / ɛ̃.kjɛt]", "Elle est inquiète avant l'épreuve orale.", "She is worried before the speaking exam."],
+    ["delf-b1-112", "fier / fière", "proud", "B1", "DELF B1 • Abstract Verbs & Adj", "m/f", "adj", "être", "[fjɛʁ]", "Tu peux être fier de ton travail en français !", "You can be proud of your work in French!"],
+    ["delf-b1-113", "utile", "useful / helpful", "B1", "DELF B1 • Abstract Verbs & Adj", "m/f", "adj", "être", "[y.til]", "Ce carnet d'erreurs est vraiment très utile.", "This mistake notebook is really very useful."],
+    ["delf-b1-114", "inutile", "useless / unnecessary", "B1", "DELF B1 • Abstract Verbs & Adj", "m/f", "adj", "être", "[i.ny.til]", "Il est inutile de tout traduire mot à mot.", "It is useless to translate everything word for word."],
+    ["delf-b1-115", "obligatoire", "mandatory / compulsory", "B1", "DELF B1 • Abstract Verbs & Adj", "m/f", "adj", "être", "[ɔ.bli.ɡa.twaʁ]", "La réservation est obligatoire pour cette visite.", "Reservation is mandatory for this tour."],
+    ["delf-b1-116", "suffisant / suffisante", "sufficient / enough", "B1", "DELF B1 • Abstract Verbs & Adj", "m/f", "adj", "être", "[sy.fi.zɑ̃]", "Vingt minutes par jour est un temps suffisant.", "Twenty minutes a day is sufficient time."],
+    ["delf-b1-117", "préoccupant / préoccupante", "concerning / worrying", "B1", "DELF B1 • Abstract Verbs & Adj", "m/f", "adj", "être", "[pʁe.ɔ.ky.pɑ̃]", "La pollution de l'air devient un problème préoccupant.", "Air pollution is becoming a concerning problem."],
+    ["delf-b1-118", "convaincant / convaincante", "convincing / persuasive", "B1", "DELF B1 • Abstract Verbs & Adj", "m/f", "adj", "être", "[kɔ̃.vɛ̃.kɑ̃]", "Son exposé était clair et très convaincant.", "Her presentation was clear and very convincing."],
+    ["delf-b1-119", "courant / courante", "common / fluent", "B1", "DELF B1 • Abstract Verbs & Adj", "m/f", "adj", "être", "[ku.ʁɑ̃]", "C'est une expression très courante en France.", "It is a very common expression in France."],
+    ["delf-b1-120", "actuel / actuelle", "current / present-day", "B1", "DELF B1 • Abstract Verbs & Adj", "m/f", "adj", "être", "[ak.tɥɛl]", "La situation actuelle demande de nouvelles idées.", "The current situation calls for new ideas."],
+    ["delf-b1-121", "l'objectif", "goal / objective", "B1", "DELF B1 • Abstract Verbs & Adj", "m", "noun", "réaliser", "[lɔb.ʒɛk.tif]", "Mon objectif est de réussir le DELF B1 cette année.", "My goal is to pass the DELF B1 this year."],
+    ["delf-b1-122", "la confiance", "confidence / trust", "B1", "DELF B1 • Abstract Verbs & Adj", "f", "noun", "avoir", "[kɔ̃.fjɑ̃s]", "Parler souvent donne plus de confiance en soi.", "Speaking often builds more self-confidence."],
+    ["delf-b1-123", "le défi", "challenge", "B1", "DELF B1 • Abstract Verbs & Adj", "m", "noun", "relever", "[de.fi]", "Parler couramment français est un beau défi.", "Speaking French fluently is a great challenge."],
+    ["delf-b1-124", "la réussite", "success / achievement", "B1", "DELF B1 • Abstract Verbs & Adj", "f", "noun", "fêter", "[ʁe.y.sit]", "Nous fêtons sa réussite à l'examen.", "We are celebrating her success on the exam."],
+    ["delf-b1-125", "l'épreuve", "exam paper / test / trial", "B1", "DELF B1 • Abstract Verbs & Adj", "f", "noun", "passer", "[le.pʁœv]", "L'épreuve de compréhension orale dure vingt-cinq minutes.", "The listening comprehension test lasts twenty-five minutes."],
+    ["delf-b1-126", "l'étranger", "abroad (à l'étranger) / foreigner", "B1", "DELF B1 • Abstract Verbs & Adj", "m", "noun", "vivre", "[le.tʁɑ̃.ʒe]", "Vivre à l'étranger est une expérience enrichissante.", "Living abroad is an enriching experience."],
+    ["delf-b1-127", "le mode de vie", "lifestyle / way of life", "B1", "DELF B1 • Abstract Verbs & Adj", "m", "noun", "changer", "[mɔd də vi]", "Le mode de vie change beaucoup d'un pays à l'autre.", "Lifestyles differ a lot from one country to another."],
+    ["delf-b1-128", "la qualité de vie", "quality of life", "B1", "DELF B1 • Abstract Verbs & Adj", "f", "noun", "améliorer", "[ka.li.te də vi]", "Les espaces verts améliorent la qualité de vie.", "Green spaces improve the quality of life."],
+    ["delf-b1-129", "le besoin", "need (avoir besoin de)", "B1", "DELF B1 • Abstract Verbs & Adj", "m", "noun", "avoir", "[bə.zwɛ̃]", "J'ai besoin de pratiquer davantage à l'oral.", "I need to practice speaking more."],
+    ["delf-b1-130", "la possibilité", "possibility / opportunity", "B1", "DELF B1 • Abstract Verbs & Adj", "f", "noun", "avoir", "[pɔ.si.bi.li.te]", "J'ai la possibilité de travailler depuis Paris.", "I have the opportunity to work from Paris."],
+    ["delf-b1-131", "le choix", "choice", "B1", "DELF B1 • Abstract Verbs & Adj", "m", "noun", "faire", "[ʃwa]", "Tu as fait un excellent choix en apprenant le français.", "You made an excellent choice by learning French."],
+    ["delf-b1-132", "le changement", "change / shift", "B1", "DELF B1 • Abstract Verbs & Adj", "m", "noun", "accepter", "[ʃɑ̃ʒ.mɑ̃]", "Le changement climatique concerne toute la planète.", "Climate change affects the entire planet."],
+    ["delf-b1-133", "la différence", "difference", "B1", "DELF B1 • Abstract Verbs & Adj", "f", "noun", "comprendre", "[di.fe.ʁɑ̃s]", "Connais-tu la différence entre savoir et connaître ?", "Do you know the difference between savoir and connaître?"],
+    ["delf-b1-134", "l'effort", "effort", "B1", "DELF B1 • Abstract Verbs & Adj", "m", "noun", "faire", "[le.fɔʁ]", "Tes efforts quotidiens vont vite porter leurs fruits.", "Your daily efforts will quickly pay off."],
+    ["delf-b1-135", "la preuve", "proof / evidence", "B1", "DELF B1 • Abstract Verbs & Adj", "f", "noun", "donner", "[pʁœv]", "C'est la preuve que la méthode fonctionne bien.", "That is proof that the method works well."]
+  ];
+
+  const existingIds = new Set((window.FRENCH_DATA.vocabulary || []).map(v => v.id));
+  DELF_ENTRIES.forEach(row => {
+    if (existingIds.has(row[0])) return;
+    window.FRENCH_DATA.vocabulary.push({
+      id: row[0],
+      french: row[1],
+      english: row[2],
+      level: row[3],
+      category: row[4],
+      gender: row[5],
+      partOfSpeech: row[6],
+      associatedVerb: row[7],
+      phonetic: row[8],
+      exampleFr: row[9],
+      exampleEn: row[10]
+    });
+  });
+})();

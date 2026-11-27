@@ -180,6 +180,7 @@ document.addEventListener('DOMContentLoaded', () => {
     sentenceNextBtn: document.getElementById('sentenceNextBtn'),
 
     // Vocab Explorer
+    vocabLevelFilter: document.getElementById('vocabLevelFilter'),
     vocabCategoryFilter: document.getElementById('vocabCategoryFilter'),
     vocabSearchInput: document.getElementById('vocabSearchInput'),
     vocabTableBody: document.getElementById('vocabTableBody'),
@@ -671,7 +672,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const vocab = window.FRENCH_DATA.vocabulary.find(v => v.id === cardMeta.refId);
       if (!vocab) return;
 
-      elements.flashcardBadge.textContent = vocab.category || 'Vocabulaire';
+      const lvlTag = vocab.level ? `DELF ${vocab.level} • ` : '';
+      elements.flashcardBadge.textContent = vocab.category && vocab.category.startsWith('DELF')
+        ? vocab.category
+        : `${lvlTag}${vocab.category || 'Vocabulaire'}`;
       elements.flashcardWord.textContent = vocab.french;
       elements.flashcardPhonetic.textContent = vocab.phonetic || '';
       elements.flashcardContext.textContent = `Type: ${vocab.partOfSpeech || 'Word'}${vocab.gender ? ' (' + vocab.gender + ')' : ''}`;
@@ -1864,9 +1868,13 @@ document.addEventListener('DOMContentLoaded', () => {
     elements.vocabTableBody.innerHTML = '';
 
     let items = window.FRENCH_DATA.vocabulary;
+    const lvl = elements.vocabLevelFilter ? elements.vocabLevelFilter.value : 'all';
     const cat = elements.vocabCategoryFilter ? elements.vocabCategoryFilter.value : 'all';
     const query = elements.vocabSearchInput ? elements.vocabSearchInput.value.trim().toLowerCase() : '';
 
+    if (lvl !== 'all') {
+      items = items.filter(v => (v.level || 'A2') === lvl);
+    }
     if (cat !== 'all') {
       items = items.filter(v => v.category === cat);
     }
@@ -1878,10 +1886,12 @@ document.addEventListener('DOMContentLoaded', () => {
       const tr = document.createElement('tr');
       const genderClass = item.gender === 'm' ? 'm' : item.gender === 'f' ? 'f' : item.gender ? 'mf' : '';
       const genderTag = item.gender ? `<span class="gender-badge ${genderClass}">${item.gender.toUpperCase()}</span>` : '';
+      const lvlCode = (item.level || 'A2').toLowerCase();
+      const levelTag = `<span class="level-badge ${lvlCode}">${(item.level || 'A2').toUpperCase()}</span>`;
 
       tr.innerHTML = `
         <td style="font-weight:700; color:var(--accent-blue);">
-          <span class="vocab-word-cell">${item.french}</span> ${genderTag}
+          <span class="vocab-word-cell">${item.french}</span> ${genderTag}${levelTag}
         </td>
         <td>${item.english}</td>
         <td>${item.phonetic || ''}</td>
@@ -1908,6 +1918,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  if (elements.vocabLevelFilter) {
+    elements.vocabLevelFilter.addEventListener('change', renderVocabTable);
+  }
   if (elements.vocabCategoryFilter) {
     elements.vocabCategoryFilter.addEventListener('change', renderVocabTable);
   }

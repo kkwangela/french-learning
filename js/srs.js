@@ -29,7 +29,7 @@ class FrenchSRSManager {
 
     let modified = false;
 
-    // Initialize vocabulary cards
+    // Initialize vocabulary cards (and backfill level on existing saved cards)
     if (window.FRENCH_DATA.vocabulary) {
       window.FRENCH_DATA.vocabulary.forEach(item => {
         const id = `vocab_${item.id}`;
@@ -38,6 +38,7 @@ class FrenchSRSManager {
             id,
             refId: item.id,
             type: 'vocab',
+            level: item.level || 'A2',
             reps: 0,
             interval: 0,
             ef: 2.5,
@@ -45,6 +46,9 @@ class FrenchSRSManager {
             history: [],
             lastReviewed: null
           };
+          modified = true;
+        } else if (!this.cards[id].level && item.level) {
+          this.cards[id].level = item.level;
           modified = true;
         }
       });
@@ -141,14 +145,18 @@ class FrenchSRSManager {
     return card;
   }
 
+  _matchesFilter(card, filterType) {
+    if (filterType === 'all') return true;
+    if (filterType === 'vocab_A2') return card.type === 'vocab' && (card.level || 'A2') === 'A2';
+    if (filterType === 'vocab_B1') return card.type === 'vocab' && card.level === 'B1';
+    return card.type === filterType;
+  }
+
   getDueCards(filterType = 'all', limit = 30) {
     const now = Date.now();
     const all = Object.values(this.cards);
     
-    let filtered = all.filter(c => {
-      if (filterType !== 'all' && c.type !== filterType) return false;
-      return c.due <= now;
-    });
+    let filtered = all.filter(c => this._matchesFilter(c, filterType) && c.due <= now);
 
     // Sort by due date ascending (most overdue first)
     filtered.sort((a, b) => a.due - b.due);
@@ -157,7 +165,7 @@ class FrenchSRSManager {
 
   getPracticeAheadCards(filterType = 'all', limit = 20) {
     const all = Object.values(this.cards);
-    const filtered = all.filter(c => filterType === 'all' || c.type === filterType);
+    const filtered = all.filter(c => this._matchesFilter(c, filterType));
     // Soonest-due / least-practiced cards first
     filtered.sort((a, b) => (a.due || 0) - (b.due || 0));
     return filtered.slice(0, limit);

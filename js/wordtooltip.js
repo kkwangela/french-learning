@@ -355,7 +355,90 @@ const FRENCH_COMMON_DICT = {
   "comprends": { french: "comprends (comprendre)", chinese: "理解 / 明白（je/tu 现在时）", english: "understand (from comprendre)", phonetic: "[kɔ̃.pʁɑ̃]", partOfSpeech: "verb" },
   "comprenez": { french: "comprenez (comprendre)", chinese: "您/你们理解（vous 现在时）", english: "you understand (from comprendre)", phonetic: "[kɔ̃.pʁə.ne]", partOfSpeech: "verb" },
   "compris": { french: "compris (comprendre)", chinese: "明白了（comprendre 过去分词）", english: "understood (past participle of comprendre)", phonetic: "[kɔ̃.pʁi]", partOfSpeech: "verb" },
-  "apprends": { french: "apprends (apprendre)", chinese: "学习（je/tu 现在时）", english: "learn (from apprendre)", phonetic: "[a.pʁɑ̃]", partOfSpeech: "verb" }
+  "apprends": { french: "apprends (apprendre)", chinese: "学习（je/tu 现在时）", english: "learn (from apprendre)", phonetic: "[a.pʁɑ̃]", partOfSpeech: "verb" },
+
+  // Additional vocabulary from all tense-specific example sentences
+  "balcon": { french: "le balcon", english: "balcony", phonetic: "[bal.kɔ̃]", partOfSpeech: "noun", gender: "m" },
+  "autrefois": { french: "autrefois", english: "in the past / formerly", phonetic: "[o.tʁə.fwa]", partOfSpeech: "adverb" },
+  "bientôt": { french: "bientôt", english: "soon", phonetic: "[bjɛ̃.to]", partOfSpeech: "adverb" },
+  "certainement": { french: "certainement", english: "certainly / surely", phonetic: "[sɛʁ.tɛn.mɑ̃]", partOfSpeech: "adverb" },
+  "sûrement": { french: "sûrement", english: "surely / probably", phonetic: "[syʁ.mɑ̃]", partOfSpeech: "adverb" },
+  "facilement": { french: "facilement", english: "easily", phonetic: "[fa.sil.mɑ̃]", partOfSpeech: "adverb" },
+  "longtemps": { french: "longtemps", english: "a long time", phonetic: "[lɔ̃.tɑ̃]", partOfSpeech: "adverb" },
+  "encore": { french: "encore", english: "still / again / more", phonetic: "[ɑ̃.kɔʁ]", partOfSpeech: "adverb" },
+  "jamais": { french: "ne ... jamais", english: "never / ever", phonetic: "[ʒa.mɛ]", partOfSpeech: "adverb" },
+  "presque": { french: "presque", english: "almost / nearly", phonetic: "[pʁɛsk]", partOfSpeech: "adverb" },
+  "trop": { french: "trop", english: "too / too much", phonetic: "[tʁo]", partOfSpeech: "adverb" },
+  "vite": { french: "vite", english: "fast / quickly", phonetic: "[vit]", partOfSpeech: "adverb" },
+  "chez": { french: "chez", english: "at the home/place of", phonetic: "[ʃe]", partOfSpeech: "preposition" },
+  "dès": { french: "dès", english: "from / as soon as (dès que)", phonetic: "[dɛ]", partOfSpeech: "preposition" },
+  "pendant": { french: "pendant", english: "during / for", phonetic: "[pɑ̃.dɑ̃]", partOfSpeech: "preposition" },
+  "près": { french: "près de", english: "near / close to", phonetic: "[pʁɛ]", partOfSpeech: "preposition" },
+  "sous": { french: "sous", english: "under / beneath", phonetic: "[su]", partOfSpeech: "preposition" },
+  "vers": { french: "vers", english: "around / towards", phonetic: "[vɛʁ]", partOfSpeech: "preposition" },
+  "plusieurs": { french: "plusieurs", english: "several", phonetic: "[ply.zjœʁ]", partOfSpeech: "determiner" },
+  "personne": { french: "personne", english: "nobody / anyone / person", phonetic: "[pɛʁ.sɔn]", partOfSpeech: "pronoun / noun", gender: "f" },
+  "août": { french: "août", english: "August", phonetic: "[u / ut]", partOfSpeech: "noun", gender: "m" },
+  "vendredi": { french: "vendredi", english: "Friday", phonetic: "[vɑ̃.dʁə.di]", partOfSpeech: "noun", gender: "m" },
+  "année": { french: "une année", english: "year", phonetic: "[a.ne]", partOfSpeech: "noun", gender: "f" },
+  "avance": { french: "l'avance", english: "advance (à l'avance = in advance)", phonetic: "[a.vɑ̃s]", partOfSpeech: "noun", gender: "f" },
+  "époque": { french: "une époque", english: "era / time / period", phonetic: "[e.pɔk]", partOfSpeech: "noun", gender: "f" },
+  "début": { french: "le début", english: "beginning / start", phonetic: "[de.by]", partOfSpeech: "noun", gender: "m" },
+  "fin": { french: "la fin", english: "end", phonetic: "[fɛ̃]", partOfSpeech: "noun", gender: "f" },
+  "aéroport": { french: "un aéroport", english: "airport", phonetic: "[a.e.ʁɔ.pɔʁ]", partOfSpeech: "noun", gender: "m" },
+  "entrée": { french: "une entrée", english: "entrance / starter", phonetic: "[ɑ̃.tʁe]", partOfSpeech: "noun", gender: "f" },
+  "destination": { french: "la destination", english: "destination", phonetic: "[dɛs.ti.na.sjɔ̃]", partOfSpeech: "noun", gender: "f" },
+  "vol": { french: "le vol", english: "flight", phonetic: "[vɔl]", partOfSpeech: "noun", gender: "m" },
+  "valise": { french: "la valise", english: "suitcase", phonetic: "[va.liz]", partOfSpeech: "noun", gender: "f" },
+  "parapluie": { french: "le parapluie", english: "umbrella", phonetic: "[pa.ʁa.plɥi]", partOfSpeech: "noun", gender: "m" },
+  "pluie": { french: "la pluie", english: "rain", phonetic: "[plɥi]", partOfSpeech: "noun", gender: "f" },
+  "écharpe": { french: "une écharpe", english: "scarf", phonetic: "[e.ʃaʁp]", partOfSpeech: "noun", gender: "f" },
+  "parc": { french: "le parc", english: "park", phonetic: "[paʁk]", partOfSpeech: "noun", gender: "m" },
+  "promenade": { french: "la promenade", english: "walk / stroll", phonetic: "[pʁɔm.nad]", partOfSpeech: "noun", gender: "f" },
+  "mer": { french: "la mer", english: "sea", phonetic: "[mɛʁ]", partOfSpeech: "noun", gender: "f" },
+  "fenêtre": { french: "la fenêtre", english: "window", phonetic: "[fə.nɛtʁ]", partOfSpeech: "noun", gender: "f" },
+  "tour": { french: "la tour", english: "tower (la tour Eiffel)", phonetic: "[tuʁ]", partOfSpeech: "noun", gender: "f" },
+  "eiffel": { french: "la tour Eiffel", english: "Eiffel Tower", phonetic: "[ɛ.fɛl]", partOfSpeech: "proper noun" },
+  "france": { french: "la France", english: "France", phonetic: "[fʁɑ̃s]", partOfSpeech: "proper noun", gender: "f" },
+  "chat": { french: "le chat", english: "cat", phonetic: "[ʃa]", partOfSpeech: "noun", gender: "m" },
+  "chanson": { french: "la chanson", english: "song", phonetic: "[ʃɑ̃.sɔ̃]", partOfSpeech: "noun", gender: "f" },
+  "gâteau": { french: "le gâteau", english: "cake", phonetic: "[ɡɑ.to]", partOfSpeech: "noun", gender: "m" },
+  "chocolat": { french: "le chocolat", english: "chocolate", phonetic: "[ʃɔ.kɔ.la]", partOfSpeech: "noun", gender: "m" },
+  "soupe": { french: "la soupe", english: "soup", phonetic: "[sup]", partOfSpeech: "noun", gender: "f" },
+  "crêperie": { french: "la crêperie", english: "crêpe restaurant / crêperie", phonetic: "[kʁɛp.ʁi]", partOfSpeech: "noun", gender: "f" },
+  "tisane": { french: "la tisane", english: "herbal tea", phonetic: "[ti.zan]", partOfSpeech: "noun", gender: "f" },
+  "téléphone": { french: "le téléphone", english: "telephone / phone", phonetic: "[te.le.fɔn]", partOfSpeech: "noun", gender: "m" },
+  "lettres": { french: "une lettre / des lettres", english: "letters", phonetic: "[lɛtʁ]", partOfSpeech: "noun", gender: "f" },
+  "main": { french: "la main", english: "hand (à la main = by hand)", phonetic: "[mɛ̃]", partOfSpeech: "noun", gender: "f" },
+  "gens": { french: "les gens", english: "people", phonetic: "[ʒɑ̃]", partOfSpeech: "noun", gender: "m" },
+  "parents": { french: "les parents", english: "parents", phonetic: "[pa.ʁɑ̃]", partOfSpeech: "noun", gender: "m" },
+  "grand-mère": { french: "la grand-mère", english: "grandmother", phonetic: "[ɡʁɑ̃.mɛʁ]", partOfSpeech: "noun", gender: "f" },
+  "petit-déjeuner": { french: "le petit-déjeuner", english: "breakfast", phonetic: "[pə.ti.de.ʒœ.ne]", partOfSpeech: "noun", gender: "m" },
+  "pratique": { french: "la pratique", english: "practice / practical", phonetic: "[pʁa.tik]", partOfSpeech: "noun / adj", gender: "f" },
+  "libre": { french: "libre", english: "free / available", phonetic: "[libʁ]", partOfSpeech: "adjective" },
+  "long": { french: "long", english: "long", phonetic: "[lɔ̃]", partOfSpeech: "adjective" },
+  "meilleurs": { french: "meilleur / meilleurs", english: "best / better", phonetic: "[mɛ.jœʁ]", partOfSpeech: "adjective" },
+  "patient": { french: "patient", english: "patient", phonetic: "[pa.sjɑ̃]", partOfSpeech: "adjective" },
+  "prochaine": { french: "prochain / prochaine", english: "next (fem.)", phonetic: "[pʁɔ.ʃɛn]", partOfSpeech: "adjective" },
+  "rouge": { french: "rouge", english: "red", phonetic: "[ʁuʒ]", partOfSpeech: "adjective" },
+  "inoubliable": { french: "inoubliable", english: "unforgettable", phonetic: "[i.nu.bli.jabl]", partOfSpeech: "adjective" },
+  "dix-huit": { french: "dix-huit", english: "eighteen", phonetic: "[di.zɥit]", partOfSpeech: "number" },
+  "16h": { french: "16h (seize heures)", english: "4:00 PM (16:00)", phonetic: "[sɛz œʁ]", partOfSpeech: "time" },
+  "apporter": { french: "apporter", english: "to bring", phonetic: "[a.pɔʁ.te]", partOfSpeech: "verb" },
+  "arrivé": { french: "arrivé (arriver)", english: "arrived / happened (past participle of arriver)", phonetic: "[a.ʁi.ve]", partOfSpeech: "verb" },
+  "arriverai": { french: "arriverai (arriver)", english: "I will arrive (futur of arriver)", phonetic: "[a.ʁi.və.ʁe]", partOfSpeech: "verb" },
+  "conjuguer": { french: "conjuguer", english: "to conjugate", phonetic: "[kɔ̃.ʒy.ɡe]", partOfSpeech: "verb" },
+  "dessiner": { french: "dessiner", english: "to draw", phonetic: "[de.si.ne]", partOfSpeech: "verb" },
+  "habiter": { french: "habiter", english: "to live (in a place)", phonetic: "[a.bi.te]", partOfSpeech: "verb" },
+  "habitais": { french: "habitais (habiter)", english: "used to live / lived (imparfait of habiter)", phonetic: "[a.bi.tɛ]", partOfSpeech: "verb" },
+  "nager": { french: "nager", english: "to swim", phonetic: "[na.ʒe]", partOfSpeech: "verb" },
+  "préparer": { french: "préparer", english: "to prepare / to pack", phonetic: "[pʁe.pa.ʁe]", partOfSpeech: "verb" },
+  "rester": { french: "rester", english: "to stay / to remain", phonetic: "[ʁɛs.te]", partOfSpeech: "verb" },
+  "revenir": { french: "revenir", english: "to come back / to return", phonetic: "[ʁə.və.niʁ]", partOfSpeech: "verb" },
+  "levais": { french: "levais (se lever)", english: "used to get up (imparfait of se lever)", phonetic: "[lə.vɛ]", partOfSpeech: "verb" },
+  "lèverons": { french: "lèverons (se lever)", english: "we will get up (futur of se lever)", phonetic: "[lɛ.və.ʁɔ̃]", partOfSpeech: "verb" },
+  "souvenait": { french: "souvenait (se souvenir)", english: "remembered (imparfait of se souvenir)", phonetic: "[su.və.nɛ]", partOfSpeech: "verb" },
+  "souviendrons": { french: "souviendrons (se souvenir)", english: "we will remember (futur of se souvenir)", phonetic: "[su.vjɛ̃.dʁɔ̃]", partOfSpeech: "verb" }
 };
 
 /* ─────────────────────────── UserVocabNotebook ─────────────────────────── */
@@ -648,7 +731,7 @@ class WordTooltipManager {
       found = {
         french: clean,
         chinese: '',
-        english: 'French word (listen or save to your notebook)',
+        english: 'Looking up online...',
         phonetic: '',
         partOfSpeech: 'word',
         gender: '',
@@ -804,6 +887,31 @@ class WordTooltipManager {
     requestAnimationFrame(() => {
       el.style.opacity = '1';
     });
+
+    // If word wasn't in local dictionary, auto-fetch online definition live!
+    if (entry.isFallback && window.dictionaryMgr && typeof window.dictionaryMgr.searchOnline === 'function') {
+      const targetWord = entry.clickedWord || entry.french;
+      window.dictionaryMgr.searchOnline(targetWord, 'fr-en').then((onlineResults) => {
+        if (!this.currentEntry || (this.currentEntry.clickedWord || this.currentEntry.french) !== targetWord) return;
+        if (onlineResults && onlineResults.length > 0) {
+          const hit = onlineResults[0];
+          this.currentEntry.english = hit.english || this.currentEntry.english;
+          this.currentEntry.partOfSpeech = hit.partOfSpeech || this.currentEntry.partOfSpeech;
+          this.currentEntry.isFallback = false;
+          if (meaningEl) meaningEl.textContent = this.currentEntry.english;
+          if (posEl && hit.partOfSpeech) {
+            posEl.textContent = hit.partOfSpeech;
+            posEl.style.display = 'block';
+          }
+        } else if (meaningEl) {
+          meaningEl.textContent = 'French word (listen or save to your notebook)';
+        }
+      }).catch(() => {
+        if (meaningEl && this.currentEntry && this.currentEntry.isFallback) {
+          meaningEl.textContent = 'French word (listen or save to your notebook)';
+        }
+      });
+    }
   }
 
   hideTooltip() {

@@ -101,6 +101,8 @@ document.addEventListener('DOMContentLoaded', () => {
     flashcardProgressBar: document.getElementById('flashcardProgressBar'),
     flashcardProgressText: document.getElementById('flashcardProgressText'),
     srsRatingBar: document.getElementById('srsRatingBar'),
+    srsCompleteActions: document.getElementById('srsCompleteActions'),
+    srsPracticeAheadBtn: document.getElementById('srsPracticeAheadBtn'),
     flashcardFilterSelect: document.getElementById('flashcardFilterSelect'),
 
     // Conjugation Drill
@@ -518,7 +520,9 @@ document.addEventListener('DOMContentLoaded', () => {
     oublier: { je: "oublie", tu: "oublies", il: "oublie", nous: "oublions", vous: "oubliez", ils: "oublient" },
     apprendre: { je: "apprends", tu: "apprends", il: "apprend", nous: "apprenons", vous: "apprenez", ils: "apprennent" },
     habiter: { je: "habite", tu: "habites", il: "habite", nous: "habitons", vous: "habitez", ils: "habitent" },
-    vivre: { je: "vis", tu: "vis", il: "vit", nous: "vivons", vous: "vivez", ils: "vivent" }
+    vivre: { je: "vis", tu: "vis", il: "vit", nous: "vivons", vous: "vivez", ils: "vivent" },
+    acheter: { je: "achète", tu: "achètes", il: "achète", nous: "achetons", vous: "achetez", ils: "achètent" },
+    payer: { je: "paie", tu: "paies", il: "paie", nous: "payons", vous: "payez", ils: "paient" }
   };
 
   function resolveVerbConjugations(verbName, tenseKey = 'present') {
@@ -635,9 +639,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (elements.flashcardProgressBar) elements.flashcardProgressBar.style.width = '100%';
       if (elements.flashcardProgressText) elements.flashcardProgressText.textContent = t('srs_all_done_progress');
+      if (elements.srsCompleteActions) {
+        const hasAny = srsManager.getPracticeAheadCards(state.flashcardMode, 1).length > 0;
+        elements.srsCompleteActions.style.display = hasAny ? 'flex' : 'none';
+      }
       return;
     }
 
+    if (elements.srsCompleteActions) elements.srsCompleteActions.style.display = 'none';
     elements.flashcardContainer.style.cursor = 'pointer';
     if (elements.flashcardAudioFront) elements.flashcardAudioFront.style.display = '';
     if (promptHintEl) promptHintEl.style.display = '';
@@ -863,6 +872,15 @@ document.addEventListener('DOMContentLoaded', () => {
     elements.flashcardFilterSelect.addEventListener('change', (e) => {
       state.flashcardMode = e.target.value;
       loadDueCards();
+    });
+  }
+
+  if (elements.srsPracticeAheadBtn) {
+    elements.srsPracticeAheadBtn.addEventListener('click', () => {
+      state.dueCards = srsManager.getPracticeAheadCards(state.flashcardMode, 20);
+      state.currentFlashcardIndex = 0;
+      state.isCardFlipped = false;
+      renderCurrentFlashcard();
     });
   }
 

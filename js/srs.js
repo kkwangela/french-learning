@@ -155,6 +155,14 @@ class FrenchSRSManager {
     return filtered.slice(0, limit);
   }
 
+  getPracticeAheadCards(filterType = 'all', limit = 20) {
+    const all = Object.values(this.cards);
+    const filtered = all.filter(c => filterType === 'all' || c.type === filterType);
+    // Soonest-due / least-practiced cards first
+    filtered.sort((a, b) => (a.due || 0) - (b.due || 0));
+    return filtered.slice(0, limit);
+  }
+
   getStats() {
     const all = Object.values(this.cards);
     const now = Date.now();

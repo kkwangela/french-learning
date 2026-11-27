@@ -61,7 +61,8 @@ const FRENCH_DATA = {
       examples: [
         { fr: "J'ai vingt-cinq ans.", en: "I am twenty-five years old.", tense: "present" },
         { fr: "Nous avons eu beaucoup de chance.", en: "We were very lucky (had a lot of luck).", tense: "passeCompose" },
-        { fr: "Elle avait une belle maison de campagne.", en: "She had a beautiful country house.", tense: "imparfait" }
+        { fr: "Elle avait une belle maison de campagne.", en: "She had a beautiful country house.", tense: "imparfait" },
+        { fr: "Demain, nous aurons plus de temps libre.", en: "Tomorrow, we will have more free time.", tense: "futur" }
       ]
     },
     {
@@ -83,7 +84,8 @@ const FRENCH_DATA = {
       examples: [
         { fr: "Comment allez-vous aujourd'hui ?", en: "How are you doing today?", tense: "present" },
         { fr: "Elle est allée au marché ce matin.", en: "She went to the market this morning.", tense: "passeCompose" },
-        { fr: "Nous irons en vacances en Bretagne cet été.", en: "We will go on vacation to Brittany this summer.", tense: "futur" }
+        { fr: "Nous irons en vacances en Bretagne cet été.", en: "We will go on vacation to Brittany this summer.", tense: "futur" },
+        { fr: "Autrefois, j'allais souvent au cinéma le vendredi.", en: "In the past, I often went to the cinema on Fridays.", tense: "imparfait" }
       ]
     },
     {
@@ -105,7 +107,9 @@ const FRENCH_DATA = {
       examples: [
         { fr: "Qu'est-ce que vous faites ce week-end ?", en: "What are you doing this weekend?", tense: "present" },
         { fr: "Il a fait très beau hier.", en: "The weather was very nice yesterday.", tense: "passeCompose" },
-        { fr: "Je ferais bien une petite pause.", en: "I would gladly take a short break.", tense: "conditionnel" }
+        { fr: "Je ferais bien une petite pause.", en: "I would gladly take a short break.", tense: "conditionnel" },
+        { fr: "Chaque dimanche, nous faisions une promenade dans le parc.", en: "Every Sunday, we used to take a walk in the park.", tense: "imparfait" },
+        { fr: "Demain, je ferai un gâteau au chocolat.", en: "Tomorrow, I will make a chocolate cake.", tense: "futur" }
       ]
     },
     {
@@ -126,7 +130,10 @@ const FRENCH_DATA = {
       },
       examples: [
         { fr: "Est-ce que je peux vous aider ?", en: "Can I help you?", tense: "present" },
-        { fr: "Nous pourrions réserver une table pour ce soir.", en: "We could reserve a table for tonight.", tense: "conditionnel" }
+        { fr: "Nous pourrions réserver une table pour ce soir.", en: "We could reserve a table for tonight.", tense: "conditionnel" },
+        { fr: "Hier, je n'ai pas pu finir mon travail à temps.", en: "Yesterday, I could not finish my work on time.", tense: "passeCompose" },
+        { fr: "Quand j'étais enfant, je pouvais nager pendant des heures.", en: "When I was a child, I could swim for hours.", tense: "imparfait" },
+        { fr: "La semaine prochaine, vous pourrez visiter le musée.", en: "Next week, you will be able to visit the museum.", tense: "futur" }
       ]
     },
     {
@@ -147,7 +154,10 @@ const FRENCH_DATA = {
       },
       examples: [
         { fr: "Je voudrais un café s'il vous plaît.", en: "I would like a coffee, please.", tense: "conditionnel" },
-        { fr: "Ils veulent apprendre la langue française.", en: "They want to learn the French language.", tense: "present" }
+        { fr: "Ils veulent apprendre la langue française.", en: "They want to learn the French language.", tense: "present" },
+        { fr: "Elle a voulu apprendre le français avant son voyage.", en: "She wanted to learn French before her trip.", tense: "passeCompose" },
+        { fr: "Avant, nous voulions habiter près de la mer.", en: "Before, we wanted to live near the sea.", tense: "imparfait" },
+        { fr: "Tu voudras sûrement revenir à Paris un jour.", en: "You will surely want to come back to Paris one day.", tense: "futur" }
       ]
     },
     {
@@ -168,7 +178,10 @@ const FRENCH_DATA = {
       },
       examples: [
         { fr: "Vous devez partir avant minuit.", en: "You must leave before midnight.", tense: "present" },
-        { fr: "Tu devrais te reposer un peu.", en: "You should rest a bit.", tense: "conditionnel" }
+        { fr: "Tu devrais te reposer un peu.", en: "You should rest a bit.", tense: "conditionnel" },
+        { fr: "J'ai dû prendre le train très tôt ce matin.", en: "I had to take the train very early this morning.", tense: "passeCompose" },
+        { fr: "À l'école, nous devions étudier tous les soirs.", en: "At school, we had to study every evening.", tense: "imparfait" },
+        { fr: "Demain, il devra préparer sa valise pour le voyage.", en: "Tomorrow, he will have to pack his suitcase for the trip.", tense: "futur" }
       ]
     },
     {
@@ -189,7 +202,10 @@ const FRENCH_DATA = {
       },
       examples: [
         { fr: "Je ne sais pas la réponse.", en: "I do not know the answer.", tense: "present" },
-        { fr: "Elle sait parler trois langues.", en: "She knows how to speak three languages.", tense: "present" }
+        { fr: "Elle sait parler trois langues.", en: "She knows how to speak three languages.", tense: "present" },
+        { fr: "Hier, j'ai su la bonne nouvelle par téléphone.", en: "Yesterday, I found out the good news by phone.", tense: "passeCompose" },
+        { fr: "À cette époque, je ne savais pas encore parler français.", en: "At that time, I did not know how to speak French yet.", tense: "imparfait" },
+        { fr: "Bientôt, tu sauras conjuguer tous les verbes.", en: "Soon, you will know how to conjugate all the verbs.", tense: "futur" }
       ]
     },
     {
@@ -210,7 +226,9 @@ const FRENCH_DATA = {
       },
       examples: [
         { fr: "Je prends le métro chaque matin.", en: "I take the subway every morning.", tense: "present" },
-        { fr: "Nous avons pris un café en terrasse.", en: "We had a coffee on the terrace.", tense: "passeCompose" }
+        { fr: "Nous avons pris un café en terrasse.", en: "We had a coffee on the terrace.", tense: "passeCompose" },
+        { fr: "En été, nous prenions toujours notre petit-déjeuner sur le balcon.", en: "In summer, we always used to have breakfast on the balcony.", tense: "imparfait" },
+        { fr: "Demain matin, je prendrai le premier train pour Lyon.", en: "Tomorrow morning, I will take the first train to Lyon.", tense: "futur" }
       ]
     },
     {
@@ -231,7 +249,9 @@ const FRENCH_DATA = {
       },
       examples: [
         { fr: "Tu viens avec nous au restaurant ?", en: "Are you coming with us to the restaurant?", tense: "present" },
-        { fr: "Ils sont venus de Lyon.", en: "They came from Lyon.", tense: "passeCompose" }
+        { fr: "Ils sont venus de Lyon.", en: "They came from Lyon.", tense: "passeCompose" },
+        { fr: "Avant, nos amis venaient dîner chez nous chaque samedi.", en: "Before, our friends used to come over for dinner every Saturday.", tense: "imparfait" },
+        { fr: "L'année prochaine, elle viendra nous voir à Paris.", en: "Next year, she will come to see us in Paris.", tense: "futur" }
       ]
     },
     {
@@ -252,7 +272,9 @@ const FRENCH_DATA = {
       },
       examples: [
         { fr: "Je vois ce que tu veux dire.", en: "I see what you mean.", tense: "present" },
-        { fr: "On verra bien ce qui se passera.", en: "We shall see what happens.", tense: "futur" }
+        { fr: "On verra bien ce qui se passera.", en: "We shall see what happens.", tense: "futur" },
+        { fr: "Hier soir, nous avons vu un film magnifique.", en: "Last night, we saw a wonderful movie.", tense: "passeCompose" },
+        { fr: "De sa fenêtre, il voyait la tour Eiffel tous les jours.", en: "From his window, he could see the Eiffel Tower every day.", tense: "imparfait" }
       ]
     },
     {
@@ -273,7 +295,9 @@ const FRENCH_DATA = {
       },
       examples: [
         { fr: "Qu'est-ce que vous dites ?", en: "What are you saying?", tense: "present" },
-        { fr: "Il a dit la vérité.", en: "He told the truth.", tense: "passeCompose" }
+        { fr: "Il a dit la vérité.", en: "He told the truth.", tense: "passeCompose" },
+        { fr: "Ma grand-mère disait toujours qu'il faut rester patient.", en: "My grandmother always used to say that one must stay patient.", tense: "imparfait" },
+        { fr: "Je te dirai toute l'histoire demain.", en: "I will tell you the whole story tomorrow.", tense: "futur" }
       ]
     },
     {
@@ -294,7 +318,9 @@ const FRENCH_DATA = {
       },
       examples: [
         { fr: "Où as-tu mis les clés ?", en: "Where did you put the keys?", tense: "passeCompose" },
-        { fr: "Elle met son manteau chaud.", en: "She puts on her warm coat.", tense: "present" }
+        { fr: "Elle met son manteau chaud.", en: "She puts on her warm coat.", tense: "present" },
+        { fr: "En hiver, je mettais toujours une écharpe rouge.", en: "In winter, I always used to wear a red scarf.", tense: "imparfait" },
+        { fr: "Nous mettrons les livres sur la grande table.", en: "We will put the books on the big table.", tense: "futur" }
       ]
     },
     {
@@ -315,7 +341,9 @@ const FRENCH_DATA = {
       },
       examples: [
         { fr: "Nous parlons français et anglais.", en: "We speak French and English.", tense: "present" },
-        { fr: "J'ai parlé avec mon professeur.", en: "I spoke with my teacher.", tense: "passeCompose" }
+        { fr: "J'ai parlé avec mon professeur.", en: "I spoke with my teacher.", tense: "passeCompose" },
+        { fr: "Quand j'habitais à Paris, je parlais français tous les jours.", en: "When I lived in Paris, I spoke French every day.", tense: "imparfait" },
+        { fr: "Bientôt, tu parleras français couramment !", en: "Soon, you will speak French fluently!", tense: "futur" }
       ]
     },
     {
@@ -336,7 +364,10 @@ const FRENCH_DATA = {
       },
       examples: [
         { fr: "J'aime la musique classique.", en: "I like classical music.", tense: "present" },
-        { fr: "J'aimerais visiter le musée du Louvre.", en: "I would like to visit the Louvre museum.", tense: "conditionnel" }
+        { fr: "J'aimerais visiter le musée du Louvre.", en: "I would like to visit the Louvre museum.", tense: "conditionnel" },
+        { fr: "Nous avons beaucoup aimé ce petit café parisien.", en: "We really liked that little Parisian café.", tense: "passeCompose" },
+        { fr: "Quand elle était petite, elle aimait dessiner des chats.", en: "When she was little, she loved drawing cats.", tense: "imparfait" },
+        { fr: "Tu aimeras certainement ce nouveau restaurant.", en: "You will certainly love this new restaurant.", tense: "futur" }
       ]
     },
     {
@@ -357,7 +388,9 @@ const FRENCH_DATA = {
       },
       examples: [
         { fr: "Nous mangeons des croissants le dimanche.", en: "We eat croissants on Sundays.", tense: "present" },
-        { fr: "Ils ont mangé dans un bistrot parisien.", en: "They ate at a Parisian bistro.", tense: "passeCompose" }
+        { fr: "Ils ont mangé dans un bistrot parisien.", en: "They ate at a Parisian bistro.", tense: "passeCompose" },
+        { fr: "Chez mes parents, nous mangions souvent de la soupe le soir.", en: "At my parents' house, we often ate soup in the evening.", tense: "imparfait" },
+        { fr: "Ce soir, nous mangerons dans une crêperie.", en: "Tonight, we will eat at a crêperie.", tense: "futur" }
       ]
     },
     {
@@ -378,7 +411,9 @@ const FRENCH_DATA = {
       },
       examples: [
         { fr: "Je finis mes devoirs et j'arrive.", en: "I finish my homework and I'm coming.", tense: "present" },
-        { fr: "Nous avons enfin fini le projet.", en: "We finally finished the project.", tense: "passeCompose" }
+        { fr: "Nous avons enfin fini le projet.", en: "We finally finished the project.", tense: "passeCompose" },
+        { fr: "Avant, il finissait toujours son travail à dix-huit heures.", en: "Before, he always finished his work at six p.m.", tense: "imparfait" },
+        { fr: "Je finirai ce livre avant la fin de la semaine.", en: "I will finish this book before the end of the week.", tense: "futur" }
       ]
     },
     {
@@ -399,7 +434,9 @@ const FRENCH_DATA = {
       },
       examples: [
         { fr: "Quel dessert choisissez-vous ?", en: "Which dessert are you choosing?", tense: "present" },
-        { fr: "Elle a choisi la robe bleue.", en: "She chose the blue dress.", tense: "passeCompose" }
+        { fr: "Elle a choisi la robe bleue.", en: "She chose the blue dress.", tense: "passeCompose" },
+        { fr: "Chaque matin, nous choisissions des croissants tout chauds.", en: "Every morning, we used to choose warm croissants.", tense: "imparfait" },
+        { fr: "Demain, vous choisirez votre destination de vacances.", en: "Tomorrow, you will choose your vacation destination.", tense: "futur" }
       ]
     },
     {
@@ -420,7 +457,9 @@ const FRENCH_DATA = {
       },
       examples: [
         { fr: "J'attends le bus depuis dix minutes.", en: "I have been waiting for the bus for ten minutes.", tense: "present" },
-        { fr: "Nous avons attendu nos amis à la gare.", en: "We waited for our friends at the station.", tense: "passeCompose" }
+        { fr: "Nous avons attendu nos amis à la gare.", en: "We waited for our friends at the station.", tense: "passeCompose" },
+        { fr: "Autrefois, j'attendais longtemps le bus sous la pluie.", en: "In the past, I used to wait a long time for the bus in the rain.", tense: "imparfait" },
+        { fr: "Je t'attendrai devant l'entrée du musée.", en: "I will wait for you in front of the museum entrance.", tense: "futur" }
       ]
     },
     {
@@ -441,7 +480,9 @@ const FRENCH_DATA = {
       },
       examples: [
         { fr: "Est-ce que vous comprenez cette phrase ?", en: "Do you understand this sentence?", tense: "present" },
-        { fr: "J'ai tout à fait compris votre explication.", en: "I completely understood your explanation.", tense: "passeCompose" }
+        { fr: "J'ai tout à fait compris votre explication.", en: "I completely understood your explanation.", tense: "passeCompose" },
+        { fr: "Au début, je ne comprenais pas quand les Français parlaient vite.", en: "At first, I did not understand when French people spoke fast.", tense: "imparfait" },
+        { fr: "Avec de la pratique, vous comprendrez tout facilement.", en: "With practice, you will understand everything easily.", tense: "futur" }
       ]
     },
     {
@@ -462,7 +503,9 @@ const FRENCH_DATA = {
       },
       examples: [
         { fr: "Le train part à huit heures pile.", en: "The train leaves at eight o'clock sharp.", tense: "present" },
-        { fr: "Ils sont partis en voyage ce matin.", en: "They left on a trip this morning.", tense: "passeCompose" }
+        { fr: "Ils sont partis en voyage ce matin.", en: "They left on a trip this morning.", tense: "passeCompose" },
+        { fr: "Chaque été, notre famille partait en vacances en août.", en: "Every summer, our family used to leave on vacation in August.", tense: "imparfait" },
+        { fr: "Demain matin, nous partirons très tôt pour l'aéroport.", en: "Tomorrow morning, we will leave very early for the airport.", tense: "futur" }
       ]
     },
     {
@@ -483,7 +526,9 @@ const FRENCH_DATA = {
       },
       examples: [
         { fr: "J'écris un courriel à mon collègue.", en: "I am writing an email to my colleague.", tense: "present" },
-        { fr: "Elle a écrit un roman passionnant.", en: "She wrote a gripping novel.", tense: "passeCompose" }
+        { fr: "Elle a écrit un roman passionnant.", en: "She wrote a gripping novel.", tense: "passeCompose" },
+        { fr: "Autrefois, les gens écrivaient souvent des lettres à la main.", en: "In the past, people often wrote letters by hand.", tense: "imparfait" },
+        { fr: "Je t'écrirai dès que j'arriverai à Paris.", en: "I will write to you as soon as I arrive in Paris.", tense: "futur" }
       ]
     },
     {
@@ -504,7 +549,9 @@ const FRENCH_DATA = {
       },
       examples: [
         { fr: "Tu lis quel journal d'habitude ?", en: "Which newspaper do you usually read?", tense: "present" },
-        { fr: "J'ai lu ce livre d'une seule traite.", en: "I read this book in one sitting.", tense: "passeCompose" }
+        { fr: "J'ai lu ce livre d'une seule traite.", en: "I read this book in one sitting.", tense: "passeCompose" },
+        { fr: "Enfant, je lisais une histoire chaque soir avant de dormir.", en: "As a child, I used to read a story every night before sleeping.", tense: "imparfait" },
+        { fr: "Pendant le vol, elle lira un roman français.", en: "During the flight, she will read a French novel.", tense: "futur" }
       ]
     },
     {
@@ -525,7 +572,9 @@ const FRENCH_DATA = {
       },
       examples: [
         { fr: "Je bois de l'eau minérale chaque jour.", en: "I drink mineral water every day.", tense: "present" },
-        { fr: "Nous avons bu un bon thé à la menthe.", en: "We drank a good mint tea.", tense: "passeCompose" }
+        { fr: "Nous avons bu un bon thé à la menthe.", en: "We drank a good mint tea.", tense: "passeCompose" },
+        { fr: "Avant, nous buvions du café ensemble après le déjeuner.", en: "Before, we used to drink coffee together after lunch.", tense: "imparfait" },
+        { fr: "Ce soir, je boirai une tasse de tisane chaude.", en: "Tonight, I will drink a cup of hot herbal tea.", tense: "futur" }
       ]
     },
     {
@@ -546,7 +595,9 @@ const FRENCH_DATA = {
       },
       examples: [
         { fr: "Je crois qu'il va faire beau demain.", en: "I think the weather will be nice tomorrow.", tense: "present" },
-        { fr: "Elle a toujours cru en ses rêves.", en: "She always believed in her dreams.", tense: "passeCompose" }
+        { fr: "Elle a toujours cru en ses rêves.", en: "She always believed in her dreams.", tense: "passeCompose" },
+        { fr: "Quand j'étais jeune, je croyais que le français était trop difficile.", en: "When I was young, I used to think French was too hard.", tense: "imparfait" },
+        { fr: "Tu ne croiras jamais ce qui m'est arrivé aujourd'hui !", en: "You will never believe what happened to me today!", tense: "futur" }
       ]
     },
     {
@@ -567,7 +618,9 @@ const FRENCH_DATA = {
       },
       examples: [
         { fr: "L'enfant dort paisiblement.", en: "The child is sleeping peacefully.", tense: "present" },
-        { fr: "J'ai très bien dormi cette nuit.", en: "I slept very well last night.", tense: "passeCompose" }
+        { fr: "J'ai très bien dormi cette nuit.", en: "I slept very well last night.", tense: "passeCompose" },
+        { fr: "Le chat dormait paisiblement près de la fenêtre.", en: "The cat was sleeping peacefully near the window.", tense: "imparfait" },
+        { fr: "Ce soir, nous dormirons tôt après ce long voyage.", en: "Tonight, we will sleep early after this long trip.", tense: "futur" }
       ]
     },
     {
@@ -588,7 +641,9 @@ const FRENCH_DATA = {
       },
       examples: [
         { fr: "Est-ce que tu connais ce quartier ?", en: "Do you know this neighborhood?", tense: "present" },
-        { fr: "Nous nous sommes connus à l'université.", en: "We met each other at university.", tense: "passeCompose" }
+        { fr: "Nous nous sommes connus à l'université.", en: "We met each other at university.", tense: "passeCompose" },
+        { fr: "Avant mon voyage, je ne connaissais personne en France.", en: "Before my trip, I did not know anyone in France.", tense: "imparfait" },
+        { fr: "Bientôt, tu connaîtras tous les meilleurs cafés du quartier.", en: "Soon, you will know all the best cafés in the neighborhood.", tense: "futur" }
       ]
     },
     {
@@ -609,7 +664,9 @@ const FRENCH_DATA = {
       },
       examples: [
         { fr: "Je me lève à sept heures en semaine.", en: "I get up at seven o'clock on weekdays.", tense: "present" },
-        { fr: "Ils se sont levés très tôt ce matin.", en: "They got up very early this morning.", tense: "passeCompose" }
+        { fr: "Ils se sont levés très tôt ce matin.", en: "They got up very early this morning.", tense: "passeCompose" },
+        { fr: "Pendant les vacances, je me levais toujours vers dix heures.", en: "During vacation, I always used to get up around ten o'clock.", tense: "imparfait" },
+        { fr: "Demain, nous nous lèverons à six heures pour prendre le train.", en: "Tomorrow, we will get up at six o'clock to catch the train.", tense: "futur" }
       ]
     },
     {
@@ -630,7 +687,10 @@ const FRENCH_DATA = {
       },
       examples: [
         { fr: "Je me souviens très bien de nos vacances.", en: "I remember our vacation very well.", tense: "present" },
-        { fr: "Est-ce que tu te souviens de son prénom ?", en: "Do you remember their first name?", tense: "present" }
+        { fr: "Est-ce que tu te souviens de son prénom ?", en: "Do you remember their first name?", tense: "present" },
+        { fr: "Hier, je me suis souvenu de cette belle chanson française.", en: "Yesterday, I remembered that lovely French song.", tense: "passeCompose" },
+        { fr: "Elle se souvenait encore de son premier jour à Paris.", en: "She still remembered her first day in Paris.", tense: "imparfait" },
+        { fr: "Nous nous souviendrons toujours de ce voyage inoubliable.", en: "We will always remember this unforgettable trip.", tense: "futur" }
       ]
     },
     {
@@ -651,7 +711,10 @@ const FRENCH_DATA = {
       },
       examples: [
         { fr: "Il faut pratiquer tous les jours.", en: "It is necessary to practice every day.", tense: "present" },
-        { fr: "Il faudrait partir maintenant.", en: "We ought to / should leave now.", tense: "conditionnel" }
+        { fr: "Il faudrait partir maintenant.", en: "We ought to / should leave now.", tense: "conditionnel" },
+        { fr: "Hier, il a fallu attendre presque une heure.", en: "Yesterday, we had to wait almost an hour.", tense: "passeCompose" },
+        { fr: "À cette époque, il fallait réserver plusieurs semaines à l'avance.", en: "At that time, it was necessary to book several weeks in advance.", tense: "imparfait" },
+        { fr: "Demain, il faudra apporter un parapluie.", en: "Tomorrow, it will be necessary to bring an umbrella.", tense: "futur" }
       ]
     }
   ],

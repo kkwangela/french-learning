@@ -702,11 +702,24 @@ document.addEventListener('DOMContentLoaded', () => {
       elements.flashcardConjugationTag.textContent = tenseName;
       renderFlashcardConjGrid(verb.conjugations[cardMeta.tense] || null);
       
-      const example = (verb.examples || []).find(ex => ex.tense === cardMeta.tense) || (verb.examples && verb.examples[0]);
-      const exampleFrText = example ? example.fr : `Je ${verb.conjugations[cardMeta.tense]?.je || ''}`;
+      const exactExample = (verb.examples || []).find(ex => ex.tense === cardMeta.tense);
+      let exampleFrText = '';
+      let exampleEnText = '';
+      if (exactExample) {
+        exampleFrText = exactExample.fr;
+        exampleEnText = exactExample.en || '';
+      } else {
+        // Fallback strictly in the card's own tense (never fall back to a Present tense example!)
+        const forms = verb.conjugations[cardMeta.tense] || {};
+        if (forms.je && forms.je !== '-') {
+          exampleFrText = /^[aeéèêiîoôuûyh]/i.test(forms.je) ? `J'${forms.je}.` : `Je ${forms.je}.`;
+        } else if (forms.il && forms.il !== '-') {
+          exampleFrText = `Il ${forms.il}.`;
+        }
+      }
       elements.flashcardExampleFr.textContent = exampleFrText;
       wordTooltipMgr.makeTextClickable(elements.flashcardExampleFr, exampleFrText);
-      elements.flashcardExampleEn.textContent = example ? example.en : '';
+      elements.flashcardExampleEn.textContent = exampleEnText;
 
       elements.flashcardAudioFront.onclick = (e) => {
         e.stopPropagation();

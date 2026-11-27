@@ -721,8 +721,34 @@ main {
 }
 
 .flashcard-conj-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.35rem;
   font-size: 0.84rem;
+  font-family: inherit;
   color: var(--text-primary);
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 7px;
+  padding: 0.3rem 0.5rem;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.15s ease, background-color 0.15s ease, transform 0.1s ease;
+  min-width: 0;
+}
+
+.flashcard-conj-item:hover,
+.flashcard-conj-item.is-speaking {
+  border-color: var(--accent-blue);
+  background: var(--accent-blue-subtle);
+}
+
+.flashcard-conj-item:active {
+  transform: scale(0.98);
+}
+
+.flashcard-conj-item .conj-text {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -731,7 +757,28 @@ main {
 .flashcard-conj-item strong {
   color: var(--accent-blue);
   font-weight: 700;
-  margin-right: 0.25rem;
+}
+
+.conj-speaker {
+  font-size: 0.72rem;
+  opacity: 0.55;
+  flex-shrink: 0;
+  transition: opacity 0.15s ease;
+}
+
+.flashcard-conj-item:hover .conj-speaker,
+.flashcard-conj-item.is-speaking .conj-speaker,
+.dict-conj-pill:hover .conj-speaker {
+  opacity: 1;
+}
+
+.conjugation-row-clickable {
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.conjugation-row-clickable:hover {
+  background-color: var(--accent-blue-subtle);
 }
 
 /* Prevent hidden 3D face from intercepting audio button taps on iOS Safari */
@@ -2387,12 +2434,23 @@ main {
 }
 
 .dict-conj-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
   background: var(--bg-card);
   border: 1px solid var(--border-color);
-  padding: 0.25rem 0.55rem;
+  padding: 0.3rem 0.6rem;
   border-radius: 8px;
   font-size: 0.84rem;
+  font-family: inherit;
   color: var(--text-primary);
+  cursor: pointer;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.dict-conj-pill:hover {
+  border-color: var(--accent-blue);
+  background: var(--accent-blue-subtle);
 }
 
 .dict-card-actions {

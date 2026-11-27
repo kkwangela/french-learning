@@ -547,6 +547,15 @@ document.addEventListener('DOMContentLoaded', () => {
     return null;
   }
 
+  function formatSpokenConjugation(pronounKey, rawForm) {
+    const form = (rawForm || '').replace(/\(e\)|\(s\)|\(es\)/g, '').trim();
+    if (!form || form === '-') return '';
+    if (pronounKey === 'je' && /^[aeéèêiîoôuûyh]/i.test(form)) {
+      return `j'${form}`;
+    }
+    return `${pronounKey} ${form}`;
+  }
+
   function renderFlashcardConjGrid(formsObj) {
     if (!elements.flashcardConjugationGrid) return;
     if (!formsObj) {
@@ -569,13 +578,27 @@ document.addEventListener('DOMContentLoaded', () => {
       .map(p => {
         const form = formsObj[p.key];
         const displayPronoun = (p.key === 'je' && /^[aeéèêiîoôuûyh]/i.test(form)) ? "j'" : `${p.label} `;
-        return `<div class="flashcard-conj-item"><strong>${displayPronoun}</strong>${form}</div>`;
+        const spokenText = formatSpokenConjugation(p.key, form).replace(/"/g, '&quot;');
+        return `<button type="button" class="flashcard-conj-item" data-speak="${spokenText}" title="Listen: ${spokenText}"><span class="conj-text"><strong>${displayPronoun}</strong>${form}</span><span class="conj-speaker" aria-hidden="true">🔊</span></button>`;
       })
       .join('');
 
     if (cells) {
       elements.flashcardConjugationGrid.innerHTML = cells;
       elements.flashcardConjugationGrid.style.display = 'grid';
+
+      elements.flashcardConjugationGrid.querySelectorAll('.flashcard-conj-item').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          btn.classList.add('is-speaking');
+          audioManager.speak(
+            btn.dataset.speak,
+            null,
+            null,
+            () => btn.classList.remove('is-speaking')
+          );
+        });
+      });
     } else {
       elements.flashcardConjugationGrid.style.display = 'none';
     }
@@ -735,8 +758,12 @@ document.addEventListener('DOMContentLoaded', () => {
   // Flip flashcard on click (never auto-speak on flip; only speak when clicking 🔊)
   if (elements.flashcardContainer) {
     elements.flashcardContainer.addEventListener('click', (e) => {
-      // Do not flip card if user clicked a clickable word or audio button
-      if (e.target && e.target.closest && (e.target.closest('.clickable-word') || e.target.closest('.flashcard-audio-btn'))) return;
+      // Do not flip card if user clicked a clickable word, conjugation pill, or audio button
+      if (e.target && e.target.closest && (
+        e.target.closest('.clickable-word') ||
+        e.target.closest('.flashcard-conj-item') ||
+        e.target.closest('.flashcard-audio-btn')
+      )) return;
       state.isCardFlipped = !state.isCardFlipped;
       elements.flashcardContainer.classList.toggle('is-flipped', state.isCardFlipped);
       audioManager.playFlip();
@@ -1648,19 +1675,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.FRENCH_DATA.pronouns.forEach(pronoun => {
       const form = conj[pronoun.key] || '-';
+      const spoken = formatSpokenConjugation(pronoun.key, form);
       const tr = document.createElement('tr');
+      if (spoken) tr.className = 'conjugation-row-clickable';
       tr.innerHTML = `
         <td class="pronoun-cell">${pronoun.label}</td>
         <td class="form-cell">
           <span>${form}</span>
-          ${form !== '-' ? `<button title="Listen" aria-label="Listen ${pronoun.key} ${form}">🔊</button>` : ''}
+          ${spoken ? `<button type="button" title="Listen" aria-label="Listen ${spoken}">🔊</button>` : ''}
         </td>
       `;
 
-      const listenBtn = tr.querySelector('button');
-      if (listenBtn) {
-        listenBtn.addEventListener('click', () => {
-          audioManager.speak(`${pronoun.key === 'je' && form.startsWith('a') || form.startsWith('é') ? "j'" : pronoun.key} ${form}`);
+      if (spoken) {
+        tr.addEventListener('click', () => {
+          audioManager.speak(spoken);
         });
       }
 
@@ -1670,15 +1698,16 @@ document.addEventListener('DOMContentLoaded', () => {
     if (elements.verbPronounceAllBtn) {
       elements.verbPronounceAllBtn.onclick = () => {
         const formsToSpeak = window.FRENCH_DATA.pronouns
-          .map(p => `${p.key} ${conj[p.key] || ''}`)
-          .filter(s => !s.includes('-'));
+          .map(p => formatSpokenConjugation(p.key, conj[p.key]))
+          .filter(Boolean);
         
         let i = 0;
         function next() {
           if (i < formsToSpeak.length) {
-            audioManager.speak(formsToSpeak[i]);
-            i++;
-            setTimeout(next, 1200);
+            const phrase = formsToSpeak[i++];
+            audioManager.speak(phrase, null, null, () => {
+              setTimeout(next, 250);
+            });
           }
         }
         next();

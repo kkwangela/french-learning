@@ -538,7 +538,12 @@ class FrenchDictionaryManager {
       let conjHtml = '';
       if (entry.presentConj) {
         const rows = Object.entries(entry.presentConj)
-          .map(([p, f]) => `<span class="dict-conj-pill"><strong>${this._esc(p)}</strong> ${this._esc(f)}</span>`)
+          .filter(([, f]) => f && f !== '-')
+          .map(([p, f]) => {
+            const spoken = (p === 'je' && /^[aeéèêiîoôuûyh]/i.test(f)) ? `j'${f}` : `${p} ${f}`;
+            const displayPronoun = (p === 'je' && /^[aeéèêiîoôuûyh]/i.test(f)) ? "j'" : `${p} `;
+            return `<button type="button" class="dict-conj-pill" data-speak="${this._esc(spoken)}" title="Listen: ${this._esc(spoken)}"><strong>${this._esc(displayPronoun)}</strong>${this._esc(f)} <span class="conj-speaker" aria-hidden="true">🔊</span></button>`;
+          })
           .join('');
         conjHtml = `
           <div class="dict-conj-box">
@@ -586,6 +591,12 @@ class FrenchDictionaryManager {
     }).join('');
 
     // Wire up audio & save buttons
+    this.els.resultsArea.querySelectorAll('.dict-conj-pill').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (this.audio && btn.dataset.speak) this.audio.speak(btn.dataset.speak);
+      });
+    });
+
     this.els.resultsArea.querySelectorAll('.dict-listen-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         const entry = results[parseInt(btn.dataset.idx, 10)];
